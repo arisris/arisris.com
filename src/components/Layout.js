@@ -3,7 +3,14 @@ import Link from "next/link"
 import Head from "next/head"
 import clsx from "clsx"
 import PropTypes from "prop-types"
-import { MenuIcon, XIcon, HomeIcon } from "@heroicons/react/solid"
+import {
+  MenuIcon,
+  XIcon,
+  HomeIcon,
+  FacebookIcon,
+  LinkedInIcon,
+  GithubIcon,
+} from "@heroicons/react/solid"
 
 function Layout({ children, withHero }) {
   const [toggled, toggle] = useState(false)
@@ -18,7 +25,7 @@ function Layout({ children, withHero }) {
           <div className="flex justify-between items-center bg-purple-800">
             <Link href="/">
               <a className="flex flex-row p-2 font-bold text-white hover:bg-purple-900">
-                <HomeIcon className="w-6 h-6 mr-1" /> <span>/index</span>
+                <HomeIcon className="w-6 h-6 mr-1" /> <span>/arisris</span>
               </a>
             </Link>
             <div
@@ -64,8 +71,20 @@ function Layout({ children, withHero }) {
       <main className="flex-auto">
         <div className="sm:max-w-screen-lg p-2 m-auto">{children}</div>
       </main>
-      <footer className="text-center p-2 mt-4">
+      <footer className="border-t text-center p-2 mt-4">
         <div className="italic text-md">
+          <div className="flex justify-center">
+            <a className="flex items-center p-2" href="https://github.com/arisris">
+              <img className="w-6 h-6" src="/svg/github-original.svg" />&nbsp;Github
+            </a>
+            <a className="flex items-center p-2" href="https://facebook.com/arisfungratis">
+              <img className="w-6 h-6" src="/svg/facebook-original.svg" />&nbsp;Facebook
+            </a>
+            <a className="flex items-center p-2" href="https://linkedin.com/in/sksnetid">
+              <img className="w-6 h-6" src="/svg/linkedin-original.svg" />&nbsp;LinkedIn
+            </a>
+          </div>
+          <br />
           <div className="ml-1">
             Build With{" "}
             <a href="https://nextjs.org" target="__blank" className="text-purple-900">

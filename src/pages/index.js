@@ -8,7 +8,7 @@ export default function PageHome() {
       <Head>
         <title>Aris Dev</title>
       </Head>
-      <div className="relative block text-center my-16">
+      <div className="block text-center my-16">
         <h1 className="text-4xl font-black mb-10 text-purple-700">Hello :)</h1>
         <p className="mb-10">
           I'm <span className="underline">Aris</span>, an experienced software engineer from

@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
 export default function PageHome({ posts }) {
   return (
-    <Layout withHero={{ title: "Latest Posts" }}>
+    <Layout withHero={{ title: "Latest Posts", subtitle: "Note: For now all post is just an for example" }}>
       <Head>
         <title>Blog Posts</title>
       </Head>
