@@ -26,7 +26,14 @@ export default function PageProjects({ repos }) {
 
 export async function getStaticProps() {
 	const data = await fetch("https://api.github.com/users/arisris/repos?sort=created")
-	const repos = await data.json()
+	let repos = await data.json()
+	repos = repos.map((i) => {
+		return {
+			name: i.name,
+			html_url: i.html_url,
+			description: i.description,
+		}
+	})
 	return {
 		props: {
 			repos,
