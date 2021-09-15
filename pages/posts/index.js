@@ -18,7 +18,7 @@ export default function PageHome({ posts }) {
   );
 }
 export async function getStaticProps() {
-  const { getAllPost } = await import("lib/posts");
+  const { getAllPost } = await import("@/libs/posts");
   let posts = await getAllPost();
   posts = posts.map((post) => (delete post.content, post));
   return {

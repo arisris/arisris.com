@@ -1,15 +1,12 @@
 import { useState } from "react"
 import Link from "next/link"
 import Head from "next/head"
+import Image from "next/image"
 import clsx from "clsx"
 import PropTypes from "prop-types"
 import {
   MenuIcon,
-  XIcon,
-  HomeIcon,
-  FacebookIcon,
-  LinkedInIcon,
-  GithubIcon,
+  XIcon
 } from "@heroicons/react/solid"
 
 function Layout({ children, withHero }) {
@@ -21,11 +18,10 @@ function Layout({ children, withHero }) {
         <title>No Title</title>
       </Head>
       <header className="block bg-purple-800 text-white shadow-sm">
-        <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto">
+        <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
           <div className="flex justify-between items-center bg-purple-800">
             <Link href="/">
-              <a className="flex flex-row p-2 font-bold text-white hover:bg-purple-900">
-                <HomeIcon className="w-6 h-6 mr-1" /> <span>/arisris</span>
+              <a className="flex flex-row p-2 font-bold text-white hover:bg-purple-900">arisris
               </a>
             </Link>
             <div
@@ -41,19 +37,19 @@ function Layout({ children, withHero }) {
                 "sm:flex": toggled,
                 hidden: !toggled,
               },
-              "sm:flex flex-col sm:flex-row border-t border-purple-900"
+              "sm:flex flex-col sm:flex-row border-t border-purple-900 sm:border-0"
             )}>
             <Link href="/posts">
-              <a className="block p-2 hover:bg-purple-900">Blog Posts</a>
+              <a className="block p-2 mr-2 hover:bg-purple-900">Blog Posts</a>
             </Link>
             <Link href="/projects">
-              <a className="block p-2 hover:bg-purple-900">My Projects</a>
+              <a className="block p-2 mr-2 hover:bg-purple-900">My Projects</a>
             </Link>
             <Link href="/about-me">
-              <a className="block p-2 hover:bg-purple-900">About Me</a>
+              <a className="block p-2 mr-2 hover:bg-purple-900">About Me</a>
             </Link>
             <Link href="/contact">
-              <a className="block p-2 hover:bg-purple-900">Contact</a>
+              <a className="block p-2 mr-2 hover:bg-purple-900">Contact</a>
             </Link>
           </div>
         </nav>
@@ -74,17 +70,16 @@ function Layout({ children, withHero }) {
       <footer className="border-t text-center p-2 mt-4">
         <div className="italic text-md">
           <div className="flex justify-center">
-            <a className="flex items-center p-2" href="https://github.com/arisris">
-              <img className="w-6 h-6" src="/svg/github-original.svg" />&nbsp;Github
+            <a title="Github" className="flex items-center p-2" href="https://github.com/arisris">
+              <Image alt="Github" src="https://icongr.am/devicon/github-original.svg" width="24" height="24" />
             </a>
-            <a className="flex items-center p-2" href="https://facebook.com/arisfungratis">
-              <img className="w-6 h-6" src="/svg/facebook-original.svg" />&nbsp;Facebook
+            <a title="Facebook" className="flex items-center p-2" href="https://facebook.com/arisfungratis">
+              <Image alt="Facebook" src="https://icongr.am/devicon/facebook-original.svg" width="24" height="24" />
             </a>
-            <a className="flex items-center p-2" href="https://linkedin.com/in/sksnetid">
-              <img className="w-6 h-6" src="/svg/linkedin-original.svg" />&nbsp;LinkedIn
+            <a title="LinkedIn" className="flex items-center p-2" href="https://linkedin.com/in/sksnetid">
+              <Image alt="LinkedIn" src="https://icongr.am/devicon/linkedin-original.svg" width="24" height="24" />
             </a>
           </div>
-          <br />
           <div className="ml-1">
             Build With{" "}
             <a href="https://nextjs.org" target="__blank" className="text-purple-900">

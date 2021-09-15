@@ -4,5 +4,12 @@ node_modules/
 out/
 
 #files
-package-lock.json
+.env
 .env.local
+package-lock.json
+public/sw.js
+public/workbox-*.js
+public/worker-*.js
+test.js
+test.mjs
+yarn-error.log

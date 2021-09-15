@@ -19,14 +19,14 @@ export default function Posts({ post }) {
   )
 }
 export async function getStaticProps({ params: { slugs } }) {
-  const { getSinglePost } = await import("lib/posts")
+  const { getSinglePost } = await import("@/libs/posts")
   const post = await getSinglePost(...slugs)
   return {
     props: { post },
   }
 }
 export async function getStaticPaths() {
-  const { getAllPost } = await import("lib/posts")
+  const { getAllPost } = await import("@/libs/posts")
   let paths = await getAllPost()
   paths = paths.map((post) => ({
     params: {
