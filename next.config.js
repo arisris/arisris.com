@@ -1,7 +1,7 @@
 module.exports = {
   experimental: { esmExternals: true },
   reactStrictMode: true,
-  pageExtensions: ["js", "jsx", "mdx"],
+  pageExtensions: ["js", "mjs", "jsx", "mdx"],
   devIndicators: {
     buildActivity: false,
   },

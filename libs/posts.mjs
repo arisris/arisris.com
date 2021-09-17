@@ -1,7 +1,7 @@
 import util from "util";
 import path from "path";
 import jetpack from "fs-jetpack";
-import * as grayMatter from "gray-matter";
+import grayMatter from "gray-matter";
 import marked from "marked";
 
 const postDir = "posts";
