@@ -10,11 +10,13 @@ export default function PageHome() {
         <title>Aris Dev</title>
       </Head>
       <div className="flex flex-col justify-center items-center my-16">
-        <h1 className="text-4xl font-black mb-10 text-purple-700">Hello :)</h1>
+        <h1 className="pt-10">Hello :)</h1>
         <div className="mb-10">
-          <img
+          <Image
+            width="200"
+            height="200"
             alt="arisris"
-            className="ring-4 ring-purple-800 rounded-full"
+            className="ring-4 ring-purple-800 dark:ring-gray-800 rounded-full"
             src="https://avatars.githubusercontent.com/u/62107426?v=4"
           />
         </div>
@@ -22,7 +24,7 @@ export default function PageHome() {
           Hello, My name is <span className="underline">Aris Riswanto</span>
           <br /> And i'm a <br />
           <TypedText
-            className="inline-block text-purple-800"
+            className="inline-block text-purple-800 dark:text-blue-500"
             options={{
               strings: [
                 "Fullstack Web developer",
@@ -31,8 +33,7 @@ export default function PageHome() {
                 "Nodejs Developer",
                 "PHP Developer",
                 "Laravel Developer",
-                "Web Scraping Specialist",
-                "Data Mining Specialist"
+                "Web Scraper"
               ],
             }}
           />
@@ -40,7 +41,7 @@ export default function PageHome() {
         </div>
         <p>
           <Link href="/about-me">
-            <a className="font-black py-3 px-8 rounded ring ring-purple-700 hover:ring-purple-900 text-purple-700 hover:text-purple-900">
+            <a className="font-black py-3 px-8 rounded ring ring-purple-700 hover:ring-purple-900 text-purple-700 hover:text-purple-900 dark:ring-gray-700 dark:hover:ring-gray-900 dark:text-gray-700 dark:hover:text-gray-900">
               Explore Me &raquo;
             </a>
           </Link>

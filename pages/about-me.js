@@ -7,7 +7,7 @@ import { TypedText } from "@/components/TypedText"
 const Tags = ({ data }) => (
 	<div className="inline-flex flex-wrap">
 		{data.map((i, index) => (
-			<span className="px-2 py-[1px] ring-1 ring-purple-800 rounded mr-2 mb-2" key={index}>
+			<span className="px-2 py-[1px] ring-1 ring-purple-800 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2" key={index}>
 				{i}
 			</span>
 		))}
@@ -20,15 +20,17 @@ export default function PageAboutMe() {
 			<Head>
 				<title>About Me</title>
 			</Head>
-			<div className="flex flex-col justify-center items-center my-16 text-purple-900">
-				<h1 className="text-4xl font-black mb-10 text-purple-700">About Me</h1>
+			<div className="flex flex-col justify-center items-center my-16">
+				<h1 className="pt-10">About Me</h1>
 				<div className="mb-10 relative">
-					<img
+					<Image
+						width="200"
+            height="200"
 						alt="arisris"
-						className="ring-4 ring-purple-500 rounded-full"
+						className="ring-4 ring-purple-800 dark:ring-gray-800 rounded-full"
 						src="https://avatars.githubusercontent.com/u/62107426?v=4"
 					/>
-					<div className="flex justify-start absolute bottom-0 left-10 bg-gray-400 rounded-2xl opacity-50">
+					<div className="flex justify-start absolute bottom-2 left-10 bg-gray-400 rounded-2xl opacity-50">
 						<a title="Github" className="flex items-center p-2" href="https://github.com/arisris">
 							<Image
 								alt="Github"
@@ -65,7 +67,7 @@ export default function PageAboutMe() {
 					Hello, My name is <span className="underline">Aris Riswanto</span>
 					<br /> And i'm a <br />
 					<TypedText
-						className="inline-block"
+						className="inline-block dark:text-blue-500"
 						options={{
 							strings: [
 								"Fullstack Web developer",
@@ -74,8 +76,7 @@ export default function PageAboutMe() {
 								"Nodejs Developer",
 								"PHP Developer",
 								"Laravel Developer",
-								"Web Scraping Specialist",
-								"Data Mining Specialist"
+								"Web Scraper"
 							],
 						}}
 					/>
@@ -89,22 +90,23 @@ export default function PageAboutMe() {
 					experience working in other companies. But if you intend to hire me please contact me
 				</div>
 				{/* Comments */}
-				<h3 className="text-xl font-bold py-4 32xl text-purple-700">About</h3>
+				<h2>About</h2>
 				<div className="mb-10">
-					<ul>
+					<div>
 						{[
 							[<DesktopComputerIcon />, "Works fulltime as a fullstack web developer"],
 							[<HomeIcon />, "Work From Home"],
 							[<UserGroupIcon />, "Was married and having one children"],
+							[<DesktopComputerIcon />, "Coding with linux"],
 						].map((i, index) => (
-							<li key={index} className="flex items-center italic font-bold text-sm m-1 p-1">
+							<div key={index} className="flex items-center italic font-bold text-sm m-1 p-1">
 								<div className="w-6 h-6">{i[0]}</div> <span>&nbsp;{i[1]}</span>
-							</li>
+							</div>
 						))}
-					</ul>
+					</div>
 				</div>
 				<div className="mb-10">
-					<h3 className="text-xl font-bold pb-4 text-purple-700">Knowledgebase:</h3>
+					<h3>Knowledgebase:</h3>
 					<p>
 						I'm Experience with{" "}
 						<strong>
@@ -114,15 +116,15 @@ export default function PageAboutMe() {
 						technology
 					</p>
 					{/* Comments */}
-					<h3 className="text-md font-bold py-4 32xl text-purple-700">Backend experience:</h3>
+					<h3>Backend experience:</h3>
 					{<Tags data={["Node", "PHP", "SQL", "NoSQL", "?"]} />}
 					{/* Comments */}
-					<h3 className="text-md font-bold py-4 32xl text-purple-700">Backend framework:</h3>
+					<h3>Backend framework:</h3>
 					{<Tags data={["Laravel", "CI", "Totaljs", "Express", "Apify", "Crawler.js", "?"]} />}
-					<h3 className="text-md font-bold py-4 32xl text-purple-700">Frontend framework:</h3>
+					<h3>Frontend framework:</h3>
 					{<Tags data={["React", "Next", "jQuery", "Tailwind", "Bootstrap", "?"]} />}
 					{/* Comments */}
-					<h3 className="text-md font-bold py-4 32xl text-purple-700">Infrastructure such as:</h3>
+					<h3>Infrastructure such as:</h3>
 					{
 						<Tags
 							data={[

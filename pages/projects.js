@@ -12,8 +12,7 @@ export default function PageProjects({ repos }) {
 					<div key={index} className="py-4">
 						<a
 							href={repo.html_url}
-							target="__blank"
-							className="hover:text-purple-900 text-purple-700 text-2xl font-bold">
+							target="__blank">
 							<h3>{repo.name}</h3>
 						</a>
 						<span>{repo.description}</span>

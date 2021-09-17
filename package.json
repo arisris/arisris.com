@@ -27,10 +27,15 @@
   },
   "dependencies": {
     "clsx": "^1.1.1",
+    "fetch-s": "^1.3.1",
     "fs-jetpack": "^4.1.0",
     "gray-matter": "^4.0.2",
+    "lodash": "^4.17.21",
     "marked": "^2.0.3",
     "next": "^10.1.3",
+    "next-themes": "^0.0.15",
+    "nextjs-progressbar": "^0.0.11",
+    "polka": "^0.5.2",
     "preact": "^10.5.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -44,5 +49,11 @@
     "postcss": "^8.2.10",
     "tailwindcss": "^2.1.1",
     "tailwindcss-animatecss": "^1.0.7"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none"
   }
 }

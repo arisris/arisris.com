@@ -9,6 +9,7 @@ module.exports = {
     domains: [
       "i.scdn.co", // Spotify Album Art
       "icongr.am", // icongr.am
+      "avatars.githubusercontent.com", // icongr.am
       "pbs.twimg.com", // Twitter Profile Picture
     ],
   },

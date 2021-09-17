@@ -11,13 +11,14 @@ module.exports = {
           css: {
             color: theme("colors.gray.700"),
             a: {
+              'text-decoration': 'none',
               color: theme("colors.blue.500"),
               "&:hover": {
                 color: theme("colors.blue.700"),
               },
               code: { color: theme("colors.blue.400") },
             },
-            "h2,h3,h4": {
+            "h1,h2,h3,h4,h5,h6": {
               "scroll-margin-top": spacing[32],
             },
             code: { color: theme("colors.pink.500") },
@@ -29,6 +30,7 @@ module.exports = {
           css: {
             color: theme("colors.gray.300"),
             a: {
+              'text-decoration': 'none',
               color: theme("colors.blue.400"),
               "&:hover": {
                 color: theme("colors.blue.600"),
@@ -39,7 +41,7 @@ module.exports = {
               borderLeftColor: theme("colors.gray.700"),
               color: theme("colors.gray.300"),
             },
-            "h2,h3,h4": {
+            "h1,h2,h3,h4,h5,h6": {
               color: theme("colors.gray.100"),
               "scroll-margin-top": spacing[32],
             },

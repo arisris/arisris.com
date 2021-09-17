@@ -8,13 +8,13 @@ export default function Posts({ post }) {
         <title>{post.title}</title>
       </Head>
       <div className="text-center">
-        <div className="text-sm text-gray-600">
+        <div className="text-sm">
           <span className="p-1">Author: {post.author},</span>
           <span className="p-1">Date: {new Date(post.date).toDateString()},</span>
           <span className="p-1">Category: {post.category}</span>
         </div>
       </div>
-      <div className="mt-8 leading-8" dangerouslySetInnerHTML={{ __html: post.content }} />
+      <div className="mt-8" dangerouslySetInnerHTML={{ __html: post.content }} />
     </Layout>
   )
 }
