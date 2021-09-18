@@ -17,7 +17,7 @@ export default function PageHome() {
             height="200"
             alt="arisris"
             className="ring-4 ring-purple-800 dark:ring-gray-800 rounded-full"
-            src="https://avatars.githubusercontent.com/u/62107426?v=4"
+            src="/icons/arisris.jpeg"
           />
         </div>
         <div className="mb-10 text-center text-xl font-bold">

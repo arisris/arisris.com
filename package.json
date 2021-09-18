@@ -23,7 +23,7 @@
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
-    "upload": "git add . && git commit -m 'Update' && git push origin master"
+    "upload": "git add . && git commit -m 'Update' && git push"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -41,11 +41,11 @@
     "preact": "^10.5.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
     "swr": "^0.5.5",
     "typed.js": "^2.0.12"
   },
   "devDependencies": {
-    "@heroicons/react": "^1.0.1",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.10",

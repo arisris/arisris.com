@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
 import Layout from "@/components/Layout"
-import { DesktopComputerIcon, HomeIcon, UserGroupIcon } from "@heroicons/react/solid"
+import { FaDesktop, FaHome, FaUsers, FaLinux } from "react-icons/fa"
 import { TypedText } from "@/components/TypedText"
 
 const Tags = ({ data }) => (
@@ -28,7 +28,7 @@ export default function PageAboutMe() {
             height="200"
 						alt="arisris"
 						className="ring-4 ring-purple-800 dark:ring-gray-800 rounded-full"
-						src="https://avatars.githubusercontent.com/u/62107426?v=4"
+						src="/icons/arisris.jpeg"
 					/>
 					<div className="flex justify-start absolute bottom-2 left-10 bg-gray-400 rounded-2xl opacity-50">
 						<a title="Github" className="flex items-center p-2" href="https://github.com/arisris">
@@ -94,10 +94,10 @@ export default function PageAboutMe() {
 				<div className="mb-10">
 					<div>
 						{[
-							[<DesktopComputerIcon />, "Works fulltime as a fullstack web developer"],
-							[<HomeIcon />, "Work From Home"],
-							[<UserGroupIcon />, "Was married and having one children"],
-							[<DesktopComputerIcon />, "Coding with linux"],
+							[<FaDesktop />, "Works fulltime as a fullstack web developer"],
+							[<FaHome />, "Work From Home"],
+							[<FaUsers />, "Was married and having one children"],
+							[<FaLinux />, "Coding with linux"],
 						].map((i, index) => (
 							<div key={index} className="flex items-center italic font-bold text-sm m-1 p-1">
 								<div className="w-6 h-6">{i[0]}</div> <span>&nbsp;{i[1]}</span>

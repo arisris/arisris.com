@@ -57,8 +57,10 @@ for (let name in initialData) {
   console.log('Create collection ' + name);
   if (res.status === 201) {
     for (let doc of initialData[name]) {
+      doc = { ...doc, created_at: Date.now() };
       await astra.collection().post(name, doc);
     }
   }
   console.log('Collection ' + name + ' Created..');
 }
+
