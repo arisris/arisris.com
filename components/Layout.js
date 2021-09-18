@@ -1,11 +1,40 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { FaMoon, FaSun, FaBars, FaTimes, FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import {
+  FaMoon,
+  FaSun,
+  FaBars,
+  FaTimes,
+  FaFacebook,
+  FaGithub,
+  FaLinkedin
+} from 'react-icons/fa';
 import { useTheme } from 'next-themes';
+
+function NavLink({ href, className, children, ...attributes }) {
+  const { asPath } = useRouter();
+  return (
+    <Link href={href}>
+      <a
+        className={clsx(
+          'block px-3 py-2 mx-1 hover:bg-purple-900 dark:hover:bg-gray-900 rounded-md',
+          {
+            'bg-purple-900 dark:bg-gray-900': asPath == href
+          },
+          className
+        )}
+        {...attributes}
+      >
+        {children}
+      </a>
+    </Link>
+  );
+}
 
 function Layout({ children, withHero }) {
   const [toggled, toggle] = useState(false);
@@ -26,18 +55,21 @@ function Layout({ children, withHero }) {
       <header className="block bg-purple-800 dark:bg-gray-800 text-white shadow-sm">
         <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
           <div className="flex justify-between items-center">
-            <Link href="/">
-              <a className="flex flex-row p-2 font-bold text-white hover:bg-purple-900 dark:hover:bg-gray-900">
-                arisris
-              </a>
-            </Link>
+            <NavLink href="/" className="font-bold text-xl sm:text-sm">arisris</NavLink>
             <div className="inline-flex">
               <div
-                className="block p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none mx-2"
-                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                className="block p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none mx-2 rounded-full"
+                onClick={() =>
+                  setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                }
                 role="button"
               >
-                {mounted && (resolvedTheme === 'dark' ? <FaSun className="w-6 h-6" /> : <FaMoon className="w-6 h-6" />)}
+                {mounted &&
+                  (resolvedTheme === 'dark' ? (
+                    <FaSun className="w-6 h-6" />
+                  ) : (
+                    <FaMoon className="w-6 h-6" />
+                  ))}
               </div>
               <div
                 className="block sm:hidden p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none"
@@ -61,26 +93,10 @@ function Layout({ children, withHero }) {
               'sm:flex flex-col sm:flex-row mt-2 sm:mt-0'
             )}
           >
-            <Link href="/posts">
-              <a className="block p-2 mr-2 hover:bg-purple-900 dark:hover:bg-gray-900">
-                Blog Posts
-              </a>
-            </Link>
-            <Link href="/projects">
-              <a className="block p-2 mr-2 hover:bg-purple-900 dark:hover:bg-gray-900">
-                My Projects
-              </a>
-            </Link>
-            <Link href="/about-me">
-              <a className="block p-2 mr-2 hover:bg-purple-900 dark:hover:bg-gray-900">
-                About Me
-              </a>
-            </Link>
-            <Link href="/contact">
-              <a className="block p-2 mr-2 hover:bg-purple-900 dark:hover:bg-gray-900">
-                Contact
-              </a>
-            </Link>
+            <NavLink href={`/posts`}>Posts</NavLink>
+            <NavLink href={`/projects`}>Projects</NavLink>
+            <NavLink href={`/about-me`}>AboutMe</NavLink>
+            <NavLink href={`/guestbook`}>Guestbook</NavLink>
           </div>
         </nav>
         {withHero ? (
@@ -150,8 +166,8 @@ function Layout({ children, withHero }) {
               className="text-purple-900 dark:text-blue-300"
             >
               Tailwind
-            </a>
-            {' '} &amp;{' Hosted By '}
+            </a>{' '}
+            &amp;{' Hosted By '}
             <a
               href="https://vercel.com"
               target="__blank"

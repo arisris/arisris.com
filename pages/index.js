@@ -1,8 +1,8 @@
-import Head from "next/head"
-import Link from "next/link"
-import Image from "next/image"
-import Layout from "@/components/Layout"
-import { TypedText } from "@/components/TypedText"
+import Head from 'next/head';
+import Link from 'next/link';
+import Image from 'next/image';
+import Layout from '@/components/Layout';
+import { TypedText } from '@/components/TypedText';
 export default function PageHome() {
   return (
     <Layout>
@@ -16,7 +16,7 @@ export default function PageHome() {
             width="200"
             height="200"
             alt="arisris"
-            className="ring-4 ring-purple-800 dark:ring-gray-800 rounded-full"
+            className="rounded-full"
             src="/icons/arisris.jpeg"
           />
         </div>
@@ -27,14 +27,15 @@ export default function PageHome() {
             className="inline-block text-purple-800 dark:text-blue-500"
             options={{
               strings: [
-                "Fullstack Web developer",
-                "React Developer",
-                "Next.js Developer",
-                "Nodejs Developer",
-                "PHP Developer",
-                "Laravel Developer",
-                "Web Scraper"
-              ],
+                'Fullstack Web developer',
+                'React Developer',
+                'Next.js Developer',
+                'Jamstack Developer',
+                'Nodejs Developer',
+                'PHP Developer',
+                'Laravel Developer',
+                'Web Scraper'
+              ]
             }}
           />
           <br />I love web programing since 2009
@@ -48,5 +49,5 @@ export default function PageHome() {
         </p>
       </div>
     </Layout>
-  )
+  );
 }
