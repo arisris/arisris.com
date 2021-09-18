@@ -37,20 +37,16 @@ function GbList() {
 function GbForms() {
   const { resolvedTheme } = useTheme();
   const recaptchaRef = useRef(null);
-  const [rcid, setRcid] = useState();
+  const [recaptchaRendered, setRecaptchaRendered] = useState();
   useEffect(() => {
-    if (recaptchaRef.current && !rcid) {
-      let rid = window.grecaptcha.render(recaptchaRef.current, {
+    if (recaptchaRef.current && !recaptchaRendered) {
+      window.grecaptcha.render(recaptchaRef.current, {
         sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY,
         theme: resolvedTheme
       });
-      console.log(rid)
-      setRcid(rid);
-      return () => {
-        window.grecaptcha.reset(rid)
-      }
+      setRecaptchaRendered(true);
     }
-  }, [recaptchaRef, resolvedTheme]);
+  }, [recaptchaRef]);
   return (
     <form method="POST" action={`/api/guestbook`}>
       <h4>All field is required*</h4>
@@ -136,7 +132,11 @@ export default function GuestbookPage() {
         </a>
         {openForm && <GbForms />}
       </div>
-      <Script src="https://www.google.com/recaptcha/api.js" async defer />
+      <Script
+        src="https://www.google.com/recaptcha/api.js"
+        async
+        defer
+      />
     </Layout>
   );
 }
