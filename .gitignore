@@ -13,3 +13,4 @@ public/worker-*.js
 test.js
 test.mjs
 yarn-error.log
+total.util.js

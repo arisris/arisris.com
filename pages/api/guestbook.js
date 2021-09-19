@@ -1,45 +1,57 @@
-import polka from 'polka';
-import { collection } from '@/libs/astra';
+import { withSession } from '@/libs/session';
+import { documentDB, documentToArray } from '@/libs/astra';
 import * as v from 'vlid';
-import { objectToArray } from '@/libs/utils';
 
 async function handleGet(req, res) {
-  const { data, status } = await collection().get('guestbook', {
-    where: { status: { $eq: 'published' } },
-    'page-size': 20
-  });
-  if (status === 200) {
-    res.send({ success: true, data: objectToArray(data.data) });
+  const gb = await documentDB('guestbook');
+  const data = await gb.find(
+    {
+      status: { $eq: 'published' }
+    }
+  );
+  if (Object.keys(data).length) {
+    let out = documentToArray(data).map(i => {
+      delete i.email;
+      delete i.status;
+      delete i.private;
+      return i;
+    })
+    res.send({ success: true, data: out });
   } else {
     res.json({
       success: false,
-      msg: 'dsomething error'
+      msg: 'something error'
     });
   }
 }
 async function handlePost(req, res) {
+  const currentUser = req.session('user');
+  if (!currentUser) {
+    return res.json({ success: false, msg: 'You are not loggedIn' });
+  }
+  const gb = await documentDB('guestbook');
   const schema = v
     .object({
-      name: v
-        .string()
-        .min(3)
-        .max(100),
-      email: v.string().email(),
-      website: v.string().url(),
+      private: v.boolean().required(),
       body: v
         .string()
         .min(3)
         .max(100)
+        .required()
     })
     .cast();
   const result = v.validateSync(schema, req.body);
   if (result.isValid) {
-    const { status } = await collection().post('guestbook', {
+    const data = await gb.insert({
       ...result.value,
+      name: currentUser.fullname,
+      email: currentUser.email,
+      website: currentUser.website_url,
+      avatar: currentUser.avatar_url,
       created_at: Date.now(),
-      status: 'pending'
+      status: 'published'
     });
-    if (status === 201) {
+    if (data) {
       // created
       res.json({
         success: true,
@@ -53,8 +65,8 @@ async function handlePost(req, res) {
   }
 }
 
-const app = polka()
-  .get('/api/guestbook', handleGet)
-  .post('/api/guestbook', handlePost);
-
-export default app.handler;
+export default withSession(async function(req, res) {
+  if (req.method === 'GET') return handleGet(req, res);
+  if (req.method === 'POST') return handlePost(req, res);
+  return req.json({ success: false, msg: 'No Method allowed.' });
+});

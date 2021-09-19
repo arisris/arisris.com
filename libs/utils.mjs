@@ -1,10 +1,11 @@
-export const objectToArray = (d) => {
-  const keys = Object.keys(d);
-  if (keys.length) {
-    return keys.reduce((a, b) => {
-      a.push({ _key: b, ...d[b] });
-      return a;
-    }, []);
-  }
-  return [];
+
+export const random = function() {
+  return Math.floor(Math.random() * Date.now()).toString(36);
+};
+
+export const GUID = function(max) {
+  max = max || 40;
+  var str = '';
+  for (var i = 0; i < max / 3 + 1; i++) str += random();
+  return str.substring(0, max);
 };

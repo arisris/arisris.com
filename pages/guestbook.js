@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import Layout from '@/components/Layout';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { useTheme } from 'next-themes';
@@ -27,7 +26,7 @@ const GbPost = ({ name, website, body, created_at }) => {
 function GbList() {
   const [pageIndex, setPageIndex] = useState(0);
   const { data, error } = useSWR(`/api/guestbook?page=${pageIndex}`);
-  if (!data) return <div>Loading</div>;
+  if (!data) return <div>Loading...</div>;
   if (error) return <div>Error While Loading data</div>;
 
   return data.data.map((i) => {
@@ -36,17 +35,7 @@ function GbList() {
 }
 function GbForms() {
   const { resolvedTheme } = useTheme();
-  const recaptchaRef = useRef(null);
-  const [recaptchaRendered, setRecaptchaRendered] = useState();
-  useEffect(() => {
-    if (recaptchaRef.current && !recaptchaRendered) {
-      window.grecaptcha.render(recaptchaRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY,
-        theme: resolvedTheme
-      });
-      setRecaptchaRendered(true);
-    }
-  }, [recaptchaRef]);
+  if (true) return <div>Currently Disabled</div>;
   return (
     <form method="POST" action={`/api/guestbook`}>
       <h4>All field is required*</h4>
@@ -91,7 +80,7 @@ function GbForms() {
         </label>
       </div>
       <div className="mb-4">
-        <div className="bg-white dark:bg-black" ref={recaptchaRef}></div>
+        <div></div>
       </div>
       <div>
         <button
@@ -128,15 +117,11 @@ export default function GuestbookPage() {
           }}
         >
           <span># Leave a Comments</span>
+
           <div>{openForm ? <FaCaretUp /> : <FaCaretDown />}</div>
         </a>
         {openForm && <GbForms />}
       </div>
-      <Script
-        src="https://www.google.com/recaptcha/api.js"
-        async
-        defer
-      />
     </Layout>
   );
 }
