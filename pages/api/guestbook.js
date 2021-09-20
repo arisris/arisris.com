@@ -1,35 +1,27 @@
 import { withSession } from '@/libs/session';
-import { documentDB, documentToArray } from '@/libs/astra';
+import { documentDB } from '@/libs/astra';
+import { postCommand } from '@/libs/upstash';
+import { restAsyncHandler } from '@/libs/utils';
 import * as v from 'vlid';
 
-async function handleGet(req, res) {
-  const gb = await documentDB('guestbook');
-  const data = await gb.find(
-    {
-      status: { $eq: 'published' }
-    }
-  );
-  if (Object.keys(data).length) {
-    let out = documentToArray(data).map(i => {
-      delete i.email;
-      delete i.status;
+const transformResult = (data) =>
+  data.result
+    .map((i) => JSON.parse(i))
+    .filter((i) => !i.private)
+    .map((i) => {
       delete i.private;
       return i;
-    })
-    res.send({ success: true, data: out });
-  } else {
-    res.json({
-      success: false,
-      msg: 'something error'
     });
-  }
+
+async function handleGet(req, res) {
+  const { data } = await postCommand(['LRANGE', 'guestbook_test', 0, 100]);
+  const result = transformResult(data);
+  return res.json({ success: true, data: result });
 }
 async function handlePost(req, res) {
-  const currentUser = req.session('user');
-  if (!currentUser) {
-    return res.json({ success: false, msg: 'You are not loggedIn' });
-  }
-  const gb = await documentDB('guestbook');
+  const session = req.session.get('user');
+  if (!session) throw new Error('You are not loggedIn');
+  const currentUser = await (await documentDB('users')).get(session.userId);
   const schema = v
     .object({
       private: v.boolean().required(),
@@ -42,31 +34,28 @@ async function handlePost(req, res) {
     .cast();
   const result = v.validateSync(schema, req.body);
   if (result.isValid) {
-    const data = await gb.insert({
+    const postData = JSON.stringify({
       ...result.value,
       name: currentUser.fullname,
-      email: currentUser.email,
-      website: currentUser.website_url,
+      website: currentUser.website,
       avatar: currentUser.avatar_url,
-      created_at: Date.now(),
-      status: 'published'
+      created_at: Date.now()
     });
+    const { data } = await postCommand(['LPUSH', 'guestbook_test', postData]);
     if (data) {
-      // created
       res.json({
         success: true,
-        msg: 'Thanks for your comments wil approved soon.'
+        msg: 'Thanks for your comments.'
       });
     } else {
-      res.json({ success: false, msg: 'database error' });
+      throw new Error('Database error.. Try again');
     }
   } else {
-    res.json({ success: false, msg: 'validation error' });
+    throw new Error('Validation error');
   }
 }
-
 export default withSession(async function(req, res) {
-  if (req.method === 'GET') return handleGet(req, res);
-  if (req.method === 'POST') return handlePost(req, res);
+  if (req.method === 'GET') return restAsyncHandler(handleGet)(req, res);
+  if (req.method === 'POST') return restAsyncHandler(handlePost)(req, res);
   return req.json({ success: false, msg: 'No Method allowed.' });
 });

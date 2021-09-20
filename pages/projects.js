@@ -11,9 +11,11 @@ export default function PageProjects({ repos }) {
 				{repos.map((repo, index) => (
 					<div key={index} className="py-4">
 						<a
+							className="text-purple-800 dark:text-blue-400"
 							href={repo.html_url}
-							target="__blank">
-							<h3>{repo.name}</h3>
+							target="__blank"
+							>
+							<h3 className="text-xl font-bold m-4">{repo.name}</h3>
 						</a>
 						<span>{repo.description}</span>
 					</div>

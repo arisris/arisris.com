@@ -9,16 +9,16 @@ const GbPost = ({ name, website, body, created_at }) => {
   if (!created_at) created_at = Date.now(); // fallback
   const dt = new Date(created_at).toLocaleString();
   return (
-    <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 shadow-sm rounded-md">
-      <div className="flex flex-col sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b dark:border-gray-900">
+    <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 shadow-sm rounded-md shadow-md">
+      <div className="flex flex-col sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
         <div>
-          <a href={website} target="__blank" className="text-xl">
+          <a href={website} target="__blank" className="text-md text-purple-800 dark:text-blue-400">
             {name}
           </a>
         </div>
-        <div>{dt}</div>
+        <div className="text-xs">{dt}</div>
       </div>
-      <div className="mt-4">{body}</div>
+      <div className="mt-4 text-gray-600 dark:text-gray-100 text-sm">{body}</div>
     </div>
   );
 };
@@ -30,7 +30,7 @@ function GbList() {
   if (error) return <div>Error While Loading data</div>;
 
   return data.data.map((i) => {
-    return <GbPost key={i._key} {...i} />;
+    return <GbPost key={i.created_at} {...i} />;
   });
 }
 function GbForms() {
@@ -110,7 +110,7 @@ export default function GuestbookPage() {
         <GbList />
         <a
           href="#"
-          className="flex justify-between items-center text-lg focus:ring-2 focus:rounded focus:px-2"
+          className="flex justify-between items-center text-lg focus:ring-2 focus:rounded px-2 text-purple-800 dark:text-blue-400"
           onClick={(e) => {
             e.preventDefault();
             setOpenForm(!openForm);

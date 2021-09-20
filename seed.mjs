@@ -23,6 +23,7 @@ const initialData = {
       isAdmin: true
     }
   ],
+  accounts: [],
   posts: [
     {
       title: 'Hello World',

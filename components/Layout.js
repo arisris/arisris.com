@@ -52,7 +52,7 @@ function Layout({ children, withHero }) {
         />
         <title>No Title</title>
       </Head>
-      <header className="block bg-purple-800 dark:bg-gray-800 text-white shadow-sm">
+      <header className="bg-gradient-to-b from-purple-900 to-purple-500 dark:from-gray-800 dark:to-black text-white">
         <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
           <div className="flex justify-between items-center">
             <NavLink href="/" className="font-bold text-xl sm:text-sm">arisris</NavLink>
@@ -111,7 +111,7 @@ function Layout({ children, withHero }) {
         )}
       </header>
       <main className="flex-auto">
-        <div className="prose dark:prose-dark sm:max-w-screen-lg p-2 m-auto">
+        <div className="sm:max-w-screen-lg p-2 m-auto">
           {children}
         </div>
       </main>
@@ -120,21 +120,21 @@ function Layout({ children, withHero }) {
           <div className="flex justify-center">
             <a
               title="Github"
-              className="flex items-center p-2 text-purple-900 dark:text-blue-300"
+              className="flex items-center p-2 text-purple-900 dark:text-white"
               href="https://github.com/arisris"
             >
               <FaGithub className="w-6 h-6" />
             </a>
             <a
               title="Facebook"
-              className="flex items-center p-2 text-purple-900 dark:text-blue-300"
+              className="flex items-center p-2 text-purple-900 dark:text-white"
               href="https://facebook.com/arisfungratis"
             >
               <FaFacebook className="w-6 h-6" />
             </a>
             <a
               title="LinkedIn"
-              className="flex items-center p-2 text-purple-900 dark:text-blue-300"
+              className="flex items-center p-2 text-purple-900 dark:text-white"
               href="https://linkedin.com/in/sksnetid"
             >
               <FaLinkedin className="w-6 h-6" />
@@ -145,7 +145,7 @@ function Layout({ children, withHero }) {
             <a
               href="https://github.com/arisris/wapblog"
               target="__blank"
-              className="text-purple-900 dark:text-blue-300"
+              className="text-purple-900 dark:text-blue-400"
             >
               WapBlog
             </a>
@@ -155,7 +155,7 @@ function Layout({ children, withHero }) {
             <a
               href="https://nextjs.org"
               target="__blank"
-              className="text-purple-900 dark:text-blue-300"
+              className="text-purple-900 dark:text-blue-400"
             >
               Next
             </a>{' '}
@@ -163,7 +163,7 @@ function Layout({ children, withHero }) {
             <a
               href="https://tailwindcss.com"
               target="__blank"
-              className="text-purple-900 dark:text-blue-300"
+              className="text-purple-900 dark:text-blue-400"
             >
               Tailwind
             </a>{' '}
@@ -171,14 +171,14 @@ function Layout({ children, withHero }) {
             <a
               href="https://vercel.com"
               target="__blank"
-              className="text-purple-900 dark:text-blue-300"
+              className="text-purple-900 dark:text-blue-400"
             >
               Vercel
             </a>
           </div>
           <span>&copy; {new Date().getFullYear()}</span>
           <Link href="https://github.com/arisris">
-            <a className="ml-1 text-purple-900 dark:text-blue-300">
+            <a className="ml-1 text-purple-900 dark:text-blue-400">
               Aris Riswanto
             </a>
           </Link>

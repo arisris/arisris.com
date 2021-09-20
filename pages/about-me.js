@@ -32,7 +32,7 @@ export default function PageAboutMe() {
 				<title>About Me</title>
 			</Head>
 			<div className="flex flex-col justify-center items-center my-16">
-				<h1 className="pt-10">About Me</h1>
+				<h1 className="text-4xl font-bold mb-10">About Me</h1>
 				<div className="mb-10 relative">
 					<Image
 						width="200"
@@ -95,7 +95,7 @@ export default function PageAboutMe() {
 					please contact me
 				</div>
 				{/* Comments */}
-				<h2>About</h2>
+				<h2 className="text-3xl mb-10">About</h2>
 				<div className="mb-10">
 					<div>
 						{[
@@ -114,7 +114,7 @@ export default function PageAboutMe() {
 					</div>
 				</div>
 				<div className="mb-10">
-					<h3>Knowledgebase:</h3>
+					<h3 className="text-2xl my-4">Knowledgebase:</h3>
 					<p>
 						I'm Experience with{' '}
 						<strong>
@@ -124,10 +124,10 @@ export default function PageAboutMe() {
 						technology
 					</p>
 					{/* Comments */}
-					<h3>Backend experience:</h3>
+					<h3 className="text-xl my-4">Backend experience:</h3>
 					{<Tags data={['Node', 'PHP', 'SQL', 'NoSQL', '?']} />}
 					{/* Comments */}
-					<h3>Backend framework:</h3>
+					<h3 className="text-xl my-4">Backend framework:</h3>
 					{
 						<Tags
 							data={[
@@ -141,14 +141,14 @@ export default function PageAboutMe() {
 							]}
 						/>
 					}
-					<h3>Frontend framework:</h3>
+					<h3 className="text-xl my-4">Frontend framework:</h3>
 					{
 						<Tags
 							data={['React', 'Next', 'jQuery', 'Tailwind', 'Bootstrap', '?']}
 						/>
 					}
 					{/* Comments */}
-					<h3>Infrastructure such as:</h3>
+					<h3 className="text-xl my-4">Infrastructure such as:</h3>
 					{
 						<Tags
 							data={[
