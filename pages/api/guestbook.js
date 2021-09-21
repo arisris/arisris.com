@@ -3,6 +3,8 @@ import { postCommand } from '@/libs/upstash';
 import { restAsyncHandler } from '@/libs/utils';
 import * as v from 'vlid';
 
+const STORED_LIST = `guestbook_${process.env.NODE_ENV}`;
+
 const transformResult = (data) =>
   data.result
     .map((i) => JSON.parse(i))
@@ -13,10 +15,11 @@ const transformResult = (data) =>
     });
 
 async function handleGet(req, res) {
-  const { data } = await postCommand(['LRANGE', 'guestbook_test', 0, 100]);
+  const { data } = await postCommand(['LRANGE', STORED_LIST, 0, 100]);
   const result = transformResult(data);
   // ensure no more than 100 comments
-  if (result.length > 100) await postCommand(['LTRIM', 'guestbook_test', 0, 100])
+  if (result.length > 100)
+    await postCommand(['LTRIM', 'guestbook_test', 0, 100]);
   return res.json({ success: true, data: result });
 }
 async function handlePost(req, res) {
@@ -41,7 +44,7 @@ async function handlePost(req, res) {
       avatar: currentUser.avatar_url,
       created_at: Date.now()
     });
-    const { data } = await postCommand(['LPUSH', 'guestbook_test', postData]);
+    const { data } = await postCommand(['LPUSH', STORED_LIST, postData]);
     if (data) {
       res.json({
         success: true,
