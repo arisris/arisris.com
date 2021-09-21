@@ -35,6 +35,21 @@ function NavLink({ href, className, children, ...attributes }) {
     </Link>
   );
 }
+function FooterLink({ href, className, children, ...attributes }) {
+  return (
+    <Link href={href}>
+      <a
+        className={clsx(
+          'text-purple-600 hover:text-purple-700 dark:text-blue-500 dark:hover:text-blue-600 py-1 text-md',
+          className
+        )}
+        {...attributes}
+      >
+        {children}
+      </a>
+    </Link>
+  );
+}
 
 function Layout({ children, withHero }) {
   const [toggled, toggle] = useState(false);
@@ -55,7 +70,9 @@ function Layout({ children, withHero }) {
       <header className="bg-gradient-to-b from-purple-900 to-purple-500 dark:from-gray-800 dark:to-black text-white">
         <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
           <div className="flex justify-between items-center">
-            <NavLink href="/" className="font-bold text-xl sm:text-sm">arisris</NavLink>
+            <NavLink href="/" className="font-bold text-xl sm:text-sm">
+              arisris
+            </NavLink>
             <div className="inline-flex">
               <div
                 className="block p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none mx-2 rounded-full"
@@ -95,7 +112,7 @@ function Layout({ children, withHero }) {
           >
             <NavLink href={`/posts`}>Posts</NavLink>
             <NavLink href={`/projects`}>Projects</NavLink>
-            <NavLink href={`/about-me`}>AboutMe</NavLink>
+            <NavLink href={`/about-me`}>About Me</NavLink>
             <NavLink href={`/guestbook`}>Guestbook</NavLink>
           </div>
         </nav>
@@ -111,79 +128,53 @@ function Layout({ children, withHero }) {
         )}
       </header>
       <main className="flex-auto">
-        <div className="sm:max-w-screen-lg p-2 m-auto">
-          {children}
-        </div>
+        <div className="sm:max-w-screen-lg p-2 m-auto">{children}</div>
       </main>
-      <footer className="text-center p-2 mt-4">
-        <div className="italic text-md">
-          <div className="flex justify-center">
-            <a
-              title="Github"
-              className="flex items-center p-2 text-purple-900 dark:text-white"
-              href="https://github.com/arisris"
-            >
-              <FaGithub className="w-6 h-6" />
-            </a>
-            <a
-              title="Facebook"
-              className="flex items-center p-2 text-purple-900 dark:text-white"
-              href="https://facebook.com/arisfungratis"
-            >
-              <FaFacebook className="w-6 h-6" />
-            </a>
-            <a
-              title="LinkedIn"
-              className="flex items-center p-2 text-purple-900 dark:text-white"
-              href="https://linkedin.com/in/sksnetid"
-            >
-              <FaLinkedin className="w-6 h-6" />
-            </a>
-          </div>
-          <div className="ml-1">
-            Starter project based on{' '}
-            <a
-              href="https://github.com/arisris/wapblog"
-              target="__blank"
-              className="text-purple-900 dark:text-blue-400"
-            >
-              WapBlog
-            </a>
-          </div>
-          <div className="ml-1">
-            Build With{' '}
-            <a
-              href="https://nextjs.org"
-              target="__blank"
-              className="text-purple-900 dark:text-blue-400"
-            >
-              Next
-            </a>{' '}
-            &amp;{' '}
-            <a
-              href="https://tailwindcss.com"
-              target="__blank"
-              className="text-purple-900 dark:text-blue-400"
-            >
-              Tailwind
-            </a>{' '}
-            &amp;{' Hosted By '}
-            <a
-              href="https://vercel.com"
-              target="__blank"
-              className="text-purple-900 dark:text-blue-400"
-            >
-              Vercel
-            </a>
-          </div>
-          <span>&copy; {new Date().getFullYear()}</span>
-          <Link href="https://github.com/arisris">
-            <a className="ml-1 text-purple-900 dark:text-blue-400">
-              Aris Riswanto
-            </a>
-          </Link>
+      <footer className="w-full sm:max-w-screen-lg p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
+        <div className="flex flex-col mt-auto">
+          <FooterLink href="/">Home</FooterLink>
+          <FooterLink href="/about-me">About Me</FooterLink>
+          <FooterLink href="/guestbook">Guestbook</FooterLink>
+        </div>
+        <div className="mt-auto">
+          <FooterLink
+            target="__blank"
+            href="https://github.com/arisris"
+            className="flex items-center gap-2"
+          >
+            <FaGithub className="w-4 h-4" /> <span>Github</span>
+          </FooterLink>
+          <FooterLink
+            target="__blank"
+            href="https://linkedin.com/in/sksnetid"
+            className="flex items-center gap-2"
+          >
+            <FaLinkedin className="w-4 h-4" /> <span>LinkedIn</span>
+          </FooterLink>
+          <FooterLink
+            target="__blank"
+            href="https://fb.me/arisfungratis"
+            className="flex items-center gap-2"
+          >
+            <FaFacebook className="w-4 h-4" /> <span>Facebook</span>
+          </FooterLink>
+        </div>
+        <div className="flex flex-col mt-auto">
+          <FooterLink target="__blank" href="https://vercel.com">
+            Vercel
+          </FooterLink>
+          <FooterLink target="__blank" href="https://nextjs.org">
+            NextJs
+          </FooterLink>
+          <FooterLink target="__blank" href="https://tailwindcss.com">
+            Tailwindcss
+          </FooterLink>
         </div>
       </footer>
+      <div className="mt-6 text-center">
+        <span>&copy;{new Date().getFullYear()}</span>
+        <FooterLink href="/"> Aris Riswanto</FooterLink>
+      </div>
     </section>
   );
 }

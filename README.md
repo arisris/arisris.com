@@ -2,31 +2,30 @@
 
 https://arisris.vercel.app/
 
-I create this project from scratch using starter project https://github.com/arisris/wapblog .
-
+A Next.js based blog and portfolio website
 Created by "Jamstack Spirit"
 Design to be "Low fat + Fast + SEO Friendly"
 
 ## Stack used
 
 - Hosting support
-  - vercel
+  - vercel.com
   - ?
 - Framework
-  - next.js
-  - use react on dev
-  - use preact on production
+  - Next.js (react@dev preact@production)
   - Tailwind+jit
-  - swr
+  - storeon (state management)
   - more look at package.json
 - Database
-  - astra datastax
+  - upstash
+  - planetscale
 
 ### Features
+
 - Portfolio
-- Authentication (wip)
-- Simple blog (wip)
-- Guestbook (wip)
+- Authentication (github)
+- MySQL based blog (wip)
+- Guestbook (upstash.com)
 - ?
 
 If you want to use this project please follow instruction bellow
@@ -35,32 +34,33 @@ If you want to use this project please follow instruction bellow
 
 First you should create .env.local file at project root
 
-Create database on astra.datastax.com
 Add follwing env variable
-``
-ASTRA_CLIENT_ID=""
-ASTRA_CLIENT_SECRET=""
-ASTRA_CLIENT_TOKEN=""
-ASTRA_DB_HOST=""
-ASTRA_DB_KEYSPACE=""
-``
 
-``
+```env
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+APP_SECRET_KEY=""
+UPSTASH_REST_TOKEN=""
+UPSTASH_REST_URL=""
+MYSQL_URL=""
+```
+
+```sh
 $ git clone https://github.com/arisris/arisris.vercel.app
-$ yarn install
-$ node seed.mjs
-``
+$ yarn install $ node seed.mjs
+```
 
 Develop
-``
+
+```sh
 $ yarn dev
-``
+```
 
 Build
-``
-yarn build
-``
+
+```sh
+$ yarn build
+```
 
 --- Documentation? No i'm not ready for this project ---
 --- Project is early in development ---
-

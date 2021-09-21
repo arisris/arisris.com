@@ -4,9 +4,10 @@
   "description": "My expreiment using next.js",
   "main": "index.js",
   "keywords": [
-    "Github pages",
-    "Next.js",
-    "Up"
+    "Vercel",
+    "Jamstack",
+    "Serverless",
+    "Next.js"
   ],
   "author": "Aris Riswanto",
   "license": "ISC",
@@ -26,25 +27,22 @@
     "upload": "git add . && git commit -m 'Update' && git push"
   },
   "dependencies": {
-    "@astrajs/collections": "^0.1.0",
-    "bcryptjs": "^2.4.3",
+    "axios": "^0.21.4",
     "clsx": "^1.1.1",
     "fs-jetpack": "^4.1.0",
     "good-storage": "^1.1.1",
     "gray-matter": "^4.0.2",
-    "jwt-simple": "^0.5.6",
     "marked": "^2.0.3",
     "next": "^11.1.2",
     "next-iron-session": "^4.2.0",
     "next-themes": "^0.0.15",
     "nextjs-progressbar": "^0.0.11",
-    "polka": "^0.5.2",
     "preact": "^10.5.14",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
-    "swr": "^0.5.5",
+    "storeon": "^3.1.4",
     "typed.js": "^2.0.12",
     "vlid": "^1.0.4"
   },
