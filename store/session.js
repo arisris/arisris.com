@@ -1,19 +1,25 @@
 import Router from 'next/router';
 import axios from 'axios';
 
+export const events = {
+  LOGIN: 'session/login',
+  LOGOUT: 'session/logout',
+  STATE: 'session/state'
+};
+
 export default function session(store) {
   store.on('@init', () => {
     // preload session data on initialize
-    store.dispatch('session/login');
+    store.dispatch(events.LOGIN);
   });
   store.on(
-    'session/state',
+    events.STATE,
     ({ session = { isLoggedIn: false, currentUser: null } }, merged) => ({
       session: { ...session, ...merged }
     })
   );
 
-  store.on('session/login', async ({ session }, val) => {
+  store.on(events.LOGIN, async ({ session }, val) => {
     const params = {};
     const redirectTo = val?.redirectTo;
     const redirectIfAuth = val?.redirectIfAuth;
@@ -23,7 +29,7 @@ export default function session(store) {
     try {
       const { data: currentUser } = await axios.get(`/api/session`, { params });
       if (currentUser?.success) {
-        store.dispatch('session/state', {
+        store.dispatch(events.STATE, {
           isLoggedIn: true,
           currentUser: currentUser.user
         });
@@ -37,13 +43,13 @@ export default function session(store) {
       }
     } catch (e) {}
   });
-  store.on('session/logout', async (_, val) => {
+  store.on(events.LOGOUT, async (_, val) => {
     const redirectTo = val?.redirectTo;
     try {
       const { data } = await axios.delete(`/api/session`);
       if (data?.success) {
         console.log(data);
-        store.dispatch('session/state', { isLoggedIn: false });
+        store.dispatch(events.STATE, { isLoggedIn: false });
       }
     } catch (e) {
     } finally {

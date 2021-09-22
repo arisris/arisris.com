@@ -13,7 +13,6 @@ export default function PageHome({ posts }) {
           <PostCard key={index} post={post} />
         ))}
       </div>
-      
     </Layout>
   );
 }

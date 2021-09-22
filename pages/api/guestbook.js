@@ -1,9 +1,7 @@
 import { withSession } from '@/libs/session';
-import { postCommand } from '@/libs/upstash';
 import { restAsyncHandler } from '@/libs/utils';
+import { guestbookBase as DB } from '@/libs/deta';
 import * as v from 'vlid';
-
-const STORED_LIST = `guestbook_${process.env.NODE_ENV}`;
 
 const transformResult = (data) =>
   data.result
@@ -15,12 +13,19 @@ const transformResult = (data) =>
     });
 
 async function handleGet(req, res) {
-  const { data } = await postCommand(['LRANGE', STORED_LIST, 0, 100]);
-  const result = transformResult(data);
-  // ensure no more than 100 comments
-  if (result.length > 100)
-    await postCommand(['LTRIM', 'guestbook_test', 0, 100]);
-  return res.json({ success: true, data: result });
+  const currentUser = req.session.get('user');
+  const query = {};
+  if (currentUser?.login !== 'arisris') {
+    query.private = false;
+  }
+
+  const { items: data, last } = await DB.fetch(query, { limit: 100 });
+  // remove last comment to ensure db not grow size
+  if (last) await DB.delete(last);
+  if (data.email && currentUser.login !== 'arisris') {
+    delete data.email;
+  }
+  return res.json({ success: true, data });
 }
 async function handlePost(req, res) {
   const currentUser = req.session.get('user');
@@ -37,32 +42,49 @@ async function handlePost(req, res) {
     .cast();
   const result = v.validateSync(schema, req.body);
   if (result.isValid) {
-    const postData = JSON.stringify({
+    await DB.put({
       ...result.value,
+      email: currentUser.email,
       name: currentUser.name,
+      login: currentUser.login,
       website: currentUser.website,
       avatar: currentUser.avatar_url,
       created_at: Date.now()
     });
-    const { data } = await postCommand(['LPUSH', STORED_LIST, postData]);
-    if (data) {
-      res.json({
-        success: true,
-        msg: 'Thanks for your comments.'
-      });
-    } else {
-      throw new Error('Database error.. Try again');
-    }
+    res.json({
+      success: true,
+      msg: 'Thanks for your comments.'
+    });
   } else {
     throw new Error('Validation error');
   }
 }
 async function handleDelete(req, res) {
   const currentUser = req.session.get('user');
-  if (!currentUser) throw new Error('You are not loggedIn');
+  try {
+    if (!currentUser || !req.body?.key) throw Error;
+    const comment = await DB.get(req.body?.key);
+    if (
+      comment.login === currentUser.login ||
+      currentUser.login === 'arisris'
+    ) {
+      await DB.delete(req.body?.key);
+      return res.json({ success: true, msg: 'Message deleted...' });
+    }
+    throw Error;
+  } catch (e) {
+    throw new Error('No File are deleted');
+  }
 }
 export default withSession(async function(req, res) {
-  if (req.method === 'GET') return restAsyncHandler(handleGet)(req, res);
-  if (req.method === 'POST') return restAsyncHandler(handlePost)(req, res);
-  return req.json({ success: false, msg: 'No Method allowed.' });
+  switch (req.method) {
+    case 'GET':
+      return restAsyncHandler(handleGet)(req, res);
+    case 'POST':
+      return restAsyncHandler(handlePost)(req, res);
+    case 'DELETE':
+      return restAsyncHandler(handleDelete)(req, res);
+    default:
+      return res.json({ success: false, msg: 'No Method allowed.' });
+  }
 });

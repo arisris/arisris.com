@@ -5,22 +5,33 @@ import Layout from '@/components/Layout';
 import { FaCaretDown, FaCaretUp, FaRedo, FaSignOutAlt } from 'react-icons/fa';
 import { useStoreon } from 'storeon/react';
 
-const GbPost = ({ name, website, body, created_at }) => {
+const GbPost = ({
+  name,
+  website,
+  body,
+  created_at,
+  avatar,
+  private: isPrivate
+}) => {
   if (!created_at) created_at = Date.now(); // fallback
   const dt = new Date(created_at).toLocaleString();
   return (
     <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 shadow-sm rounded-md shadow-md">
-      <div className="flex flex-col sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
-        <div>
+      <div className="flex flex-col gap-2 sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
+        <div className="inline-flex gap-2 items-center">
+          <img className="w-6 h-6 rounded-full" src={avatar} />
           <a
             href={website}
             target="__blank"
-            className="text-md text-purple-800 dark:text-blue-400"
+            className="text-sm text-purple-800 dark:text-blue-400"
           >
             {name}
           </a>
         </div>
-        <div className="text-xs">{dt}</div>
+        <div className="inline-flex gap-2 items-center text-[10px]">
+          <time>{dt}</time>
+          {isPrivate && <span className="text-red-500">(private)</span>}
+        </div>
       </div>
       <div className="mt-4 text-gray-600 dark:text-gray-100 text-sm">
         {body}
@@ -39,7 +50,7 @@ function GbList() {
       dispatch('guestbook/fetch');
     }
   }, []);
-  if (loading) return <div>Loading</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   return data.map((i) => {
     return <GbPost key={i.created_at} {...i} />;
@@ -59,7 +70,12 @@ function GbForms() {
     return (
       <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded">
         You must{' '}
-        <a href="/api/session?login_type=github" className="font-black text-purple-700 dark:text-blue-400">login</a>{' '}
+        <a
+          href="/api/session?login_type=github"
+          className="font-black text-purple-700 dark:text-blue-400"
+        >
+          login
+        </a>{' '}
         to leave a comments
       </div>
     );
@@ -82,9 +98,9 @@ function GbForms() {
       </div>
       <form className="mt-4" method="POST" onSubmit={handleSubmit}>
         <div className="mb-2">
-          <label>Your Message* (max: 100 char)</label>
+          <label>Your Message* (3 >= 100)</label>
           <textarea
-            className="w-full h-32 px-2 rounded bg-gray-200 dark:bg-gray-700 focus:ring focus:outline-none mt-3"
+            className="w-full h-32 p-2 rounded bg-gray-200 dark:bg-gray-700 focus:ring focus:outline-none mt-3"
             name="body"
             placeholder="Leave your message here."
             onChange={(e) => setMessageBody(e.target.value)}
