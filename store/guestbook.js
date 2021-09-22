@@ -3,7 +3,7 @@ import axios from 'axios';
 export const events = {
   REFRESH: 'guestbook/refresh',
   STATE: 'guestbook/state',
-  FETCH: 'guestbook/refresh',
+  FETCH: 'guestbook/fetch',
   INSERT: 'guestbook/insert',
   DELETE: 'guestbook/delete'
 };
@@ -26,7 +26,7 @@ export default function guestbook(store) {
   store.on(events.REFRESH, () => {
     store.dispatch(events.FETCH);
   });
-  store.on('guestbook/fetch', async ({ guestbook }) => {
+  store.on(events.FETCH, async ({ guestbook }) => {
     store.dispatch(events.STATE, {
       loading: true,
       error: false

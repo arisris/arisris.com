@@ -83,7 +83,7 @@ function GbForms() {
   return (
     <>
       <div className="mt-4 p-2 ring-1 ring-green-600 rounded">
-        Logged as <b className="text-green-500">{session.currentUser.login}</b>{' '}
+        Logged as <b className="text-green-500">{session?.currentUser?.login}</b>{' '}
         <a
           href="#"
           title="SignOut?"
