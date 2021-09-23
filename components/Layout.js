@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import {
   FaMoon,
   FaSun,
@@ -120,7 +119,7 @@ function Layout({ children, withHero }) {
           <div className="flex items-center justify-center px-2 py-4 sm:py-5">
             <div className="flex flex-col items-center">
               <h1 className="text-4xl">{withHero.title}</h1>
-              <p className="text-md">{withHero.subtitle}</p>
+              <div className="text-md">{withHero.subtitle}</div>
             </div>
           </div>
         ) : (
@@ -178,12 +177,4 @@ function Layout({ children, withHero }) {
     </section>
   );
 }
-
-Layout.propTypes = {
-  withHero: PropTypes.shape({
-    title: PropTypes.string,
-    subtitle: PropTypes.string
-  })
-};
-
 export default Layout;

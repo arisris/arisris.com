@@ -1,9 +1,10 @@
 ---
-title: My Second Posts
-date: 2020-08-07
+title: 'My Second Posts'
+author: 'Admin'
+createdAt: '2021-03-04'
+summary: 'Just Simple Markdown Posts'
+image: ''
 ---
-
-# Factum ferro hoc praecordiaque scribit patriam
 
 ## Late pennis datis
 

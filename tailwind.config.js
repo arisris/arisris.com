@@ -11,15 +11,15 @@ module.exports = {
           css: {
             color: theme("colors.gray.700"),
             a: {
-              'text-decoration': 'none !important',
-              color: `${theme("colors.blue.500")} !important`,
+              'text-decoration': 'none',
+              color: `${theme("colors.purple.500")}`,
               "&:hover": {
-                color: theme("colors.blue.700"),
+                color: theme("colors.purple.700"),
               },
-              code: { color: theme("colors.blue.400") },
+              code: { color: theme("colors.purple.400") },
             },
             "h1,h2,h3,h4,h5,h6": {
-              "scroll-margin-top": spacing[32],
+              "scroll-margin-top": spacing[24],
             },
             code: { color: theme("colors.pink.500") },
             "blockquote p:first-of-type::before": false,
@@ -31,7 +31,7 @@ module.exports = {
             color: theme("colors.gray.300"),
             a: {
               'text-decoration': 'none',
-              color: `${theme("colors.blue.400")} !important`,
+              color: `${theme("colors.blue.400")}`,
               "&:hover": {
                 color: theme("colors.blue.600"),
               },
@@ -43,7 +43,7 @@ module.exports = {
             },
             "h1,h2,h3,h4,h5,h6": {
               color: theme("colors.gray.100"),
-              "scroll-margin-top": spacing[32],
+              "scroll-margin-top": spacing[24],
             },
             hr: { borderColor: theme("colors.gray.700") },
             ol: {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
@@ -11,6 +12,7 @@ const GbPost = ({
   body,
   created_at,
   avatar,
+  login,
   private: isPrivate
 }) => {
   if (!created_at) created_at = Date.now(); // fallback
@@ -19,13 +21,19 @@ const GbPost = ({
     <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 shadow-sm rounded-md shadow-md">
       <div className="flex flex-col gap-2 sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
         <div className="inline-flex gap-2 items-center">
-          <img className="w-6 h-6 rounded-full" src={avatar} />
+          <Image
+            className="w-6 h-6 rounded-full"
+            width="24"
+            height="24"
+            src={avatar}
+          />
           <a
             href={website}
             target="__blank"
-            className="text-sm text-purple-800 dark:text-blue-400"
+            className="text-md text-purple-800 dark:text-blue-400"
           >
-            {name}
+            <p>{name}</p>
+            <span className="text-[10px] text-gray-500">@{login}</span>
           </a>
         </div>
         <div className="inline-flex gap-2 items-center text-[10px]">
@@ -83,7 +91,8 @@ function GbForms() {
   return (
     <>
       <div className="mt-4 p-2 ring-1 ring-green-600 rounded">
-        Logged as <b className="text-green-500">{session?.currentUser?.login}</b>{' '}
+        Logged as{' '}
+        <b className="text-green-500">{session?.currentUser?.login}</b>{' '}
         <a
           href="#"
           title="SignOut?"

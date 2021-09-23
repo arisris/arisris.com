@@ -1,25 +1,26 @@
 ---
-title: Hello World
-date: 2021-03-04
+title: 'Hello World'
+author: 'Aris Riswanto'
+createdAt: '2021-03-04 09:00:01 PM'
+summary: 'Just Simple Hello World'
+image: ''
 ---
-
-# Equi et erat pastoria est laevane Ilion
 
 ## Est nacta at unda inanem terraque
 
-Lorem markdownum multaque tibi; *in ferre* addidit. Cava aulaea coepta mirabere,
+Lorem markdownum multaque tibi; _in ferre_ addidit. Cava aulaea coepta mirabere,
 committat peperisse acris solus exosae grandine multa [est
-loqui](http://nullaque.net/levatusut.php), at ima omnia at videres. *Lato
-subiecta orant*! Ciconum utilis vir; numina dis superas.
+loqui](http://nullaque.net/levatusut.php), at ima omnia at videres. _Lato
+subiecta orant_! Ciconum utilis vir; numina dis superas.
 
 ## Poscere ipse
 
 Ipsaque letum in temptat videre est, in Bacchi bitumen teneri, imagine laesum.
 Mihi tandem et Venus borean e tellus cara, invenies.
 
-Vati *matre omnes*, origo fuisti perfusam ipsum has equos delubra levi stetit.
+Vati _matre omnes_, origo fuisti perfusam ipsum has equos delubra levi stetit.
 In cerae de et inque, tibi illum caelo sociis de quia iuves: iter. Vesta sume
-vidit nondum mallet esse, datis *fortibus habuissem* oculis pennis iam. Saepe ne
+vidit nondum mallet esse, datis _fortibus habuissem_ oculis pennis iam. Saepe ne
 mutare haerebat in est miles macies iugulo **super ferentem dictis**! Lata voce
 tremuere nimbis bellum **aequo arboribus erectus** adest ferroque non silvasque
 Rhenum Dardanidas Glauci crurum!
@@ -32,7 +33,7 @@ Adspice sint carissime, virginibus, qua sum Pelethronium dictis omnem.
 ## Agendum videri
 
 Caede utque. Validisne murmure degravat amasse gregesque frigoris potuit ut
-imitante fragor est et pollice in *virgo*. Unius pulvere; ora, una et gerit
+imitante fragor est et pollice in _virgo_. Unius pulvere; ora, una et gerit
 stolidae regalia et contorta petiit tolerare. Sonat possit Midan hanc silices
 urit aetas maturus illa: pia sed lacusque vacantem. Terris pererrat pharetram
 sanguine habenas.
