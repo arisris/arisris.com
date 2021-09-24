@@ -51,7 +51,9 @@ export default function Posts({ post }) {
         <link
           rel="stylesheet"
           href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${
-            resolvedTheme === 'dark' ? 'base16/solarized-dark' : 'base16/solarized-light'
+            resolvedTheme === 'dark'
+              ? 'base16/solarized-dark'
+              : 'base16/solarized-light'
           }.min.css`}
         />
       </Head>
@@ -60,7 +62,10 @@ export default function Posts({ post }) {
         className="prose dark:prose-dark p-2 max-w-[640px] m-auto"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
-      <Script async src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/highlight.min.js" />
+      <Script
+        async
+        src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/highlight.min.js"
+      />
     </Layout>
   );
 }

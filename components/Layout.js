@@ -74,7 +74,7 @@ function Layout({ children, withHero }) {
           <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
             <div className="flex justify-between items-center">
               <NavLink href="/" className="font-bold text-xl sm:text-sm">
-                Home
+                Arisris.com
               </NavLink>
               <div className="inline-flex">
                 <div
@@ -147,7 +147,7 @@ function Layout({ children, withHero }) {
             </FooterLink>
             <FooterLink
               target="__blank"
-              href="https://linkedin.com/in/sksnetid"
+              href="https://linkedin.com/in/arisris"
               className="flex items-center gap-2"
             >
               <FaLinkedin className="w-4 h-4" /> <span>LinkedIn</span>

@@ -2,7 +2,6 @@ import path from 'path';
 import jetpack from 'fs-jetpack';
 import matter from 'gray-matter';
 import marked from 'marked';
-import htmldom from 'htmldom';
 
 // set current working directory
 const { readAsync, findAsync } = jetpack.cwd(path.join(process.cwd(), 'data'));
@@ -21,7 +20,7 @@ export async function findAll(pathname) {
 export async function getOne(filename) {
   if (filename.startsWith('/')) filename = `.${filename}`;
   let { content, data } = matter(await readAsync(filename));
-  content = transformHtml(marked(content));
+  content = marked(content);
   return defaultMeta(data, {
     filename,
     createdAt: parseDate(data.createdAt),
@@ -29,10 +28,6 @@ export async function getOne(filename) {
   });
 }
 
-function transformHtml(html) {
-  const $ = htmldom(html);
-  return $.uglify();
-}
 function parseDate(dt) {
   try {
     dt = new Date(dt);

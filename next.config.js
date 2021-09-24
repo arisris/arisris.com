@@ -1,16 +1,13 @@
 module.exports = {
   experimental: { esmExternals: true },
   reactStrictMode: true,
-  pageExtensions: ['js', 'mjs', 'jsx', 'mdx'],
+  pageExtensions: ['js', 'mjs', 'jsx'],
   devIndicators: {
     buildActivity: false
   },
   images: {
     domains: [
-      'i.scdn.co', // Spotify Album Art
-      'icongr.am', // icongr.am
-      'avatars.githubusercontent.com', // icongr.am
-      'pbs.twimg.com' // Twitter Profile Picture
+      'avatars.githubusercontent.com' // github avatar
     ]
   },
   webpack: (config, { dev, isServer }) => {
