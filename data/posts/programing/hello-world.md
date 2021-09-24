@@ -6,51 +6,65 @@ summary: 'Just Simple Hello World'
 image: ''
 ---
 
-## Est nacta at unda inanem terraque
+> This is sample post writen in markdown syntax
 
-Lorem markdownum multaque tibi; _in ferre_ addidit. Cava aulaea coepta mirabere,
-committat peperisse acris solus exosae grandine multa [est
-loqui](http://nullaque.net/levatusut.php), at ima omnia at videres. _Lato
-subiecta orant_! Ciconum utilis vir; numina dis superas.
+> Highlight.js use for syntax higlighter
 
-## Poscere ipse
+### Example javascript
 
-Ipsaque letum in temptat videre est, in Bacchi bitumen teneri, imagine laesum.
-Mihi tandem et Venus borean e tellus cara, invenies.
+```js
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el);
+  });
+});
+```
 
-Vati _matre omnes_, origo fuisti perfusam ipsum has equos delubra levi stetit.
-In cerae de et inque, tibi illum caelo sociis de quia iuves: iter. Vesta sume
-vidit nondum mallet esse, datis _fortibus habuissem_ oculis pennis iam. Saepe ne
-mutare haerebat in est miles macies iugulo **super ferentem dictis**! Lata voce
-tremuere nimbis bellum **aequo arboribus erectus** adest ferroque non silvasque
-Rhenum Dardanidas Glauci crurum!
+### Example jsx
 
-## Digerit pectore respondit
+```js
+import Link from "next/link";
+import Head from "next/head";
+export default function Error404() {
+  return (
+    <div className="absolute flex flex-col justify-center items-center w-full h-full">
+      <Head>
+        <title>404 Page Not Found</title>
+      </Head>
+      <div className="p-4 rounded shadow-md hover:shadow-xl">
+        <h1 className="flex items-center text-6xl font-bold text-purple-900 dark:text-white">
+          404 <span className="ml-2 text-sm rounded-xl">Page Not Found</span>
+        </h1>
+      </div>
+      <div className="text-center mt-4">
+        <Link href="/">
+          <a className="text-purple-900 dark:text-white text-sm ring px-3 py-1 ring-purple-900 dark:ring-gray-800">
+            Back To Home
+          </a>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
-Inopi flagratque [lanas](http://sive-caris.io/in.html) ferre memorem annos.
-Adspice sint carissime, virginibus, qua sum Pelethronium dictis omnem.
+```
 
-## Agendum videri
+### Example php
 
-Caede utque. Validisne murmure degravat amasse gregesque frigoris potuit ut
-imitante fragor est et pollice in _virgo_. Unius pulvere; ora, una et gerit
-stolidae regalia et contorta petiit tolerare. Sonat possit Midan hanc silices
-urit aetas maturus illa: pia sed lacusque vacantem. Terris pererrat pharetram
-sanguine habenas.
+```php
+$msg = "Hello World";
+$showHello = fn() => $msg;
 
-## Adest quoque fallacibus cantusque lenire terram portans
-
-Hoc labefactaque queror, correptaque magno principium resoluta arva habebatur
-cornua. Aequalibus et illa fit est num parabat sperni terramque altera Tegeaea
-albescere? Modo pererrat neque rorantesque traxere cava ducat fecit, vos amento
-[tangentiaque tela](http://plusfecit.io/), aere tenet Elateia, tunc. Est mea suo
-videri abesse dictas, una faces aequorei abdidit scopulis temeraria. Et canes
-ignisque et quidem Phoebe foret,; senex nam ventura, stat per super liquido
-stare et et?
-
-Verti vocem orbe femina vincloque novam. Qua quae memorat falsa morti: solebat
-Latinas; **a lateri**, ope iacit: terra.
-
-Cycni hastam, exorata saetis. Igne commisit. Non morsus rapidae et tamen non tot
-nec mitibus magno Eurytus. Deae hostem inmanis verbis. Ardebat hostis, fortisque
-reparabat ferro, rogatque Saturnius medio petentes.
+class App extends Blah {
+  protected $hi;
+  private $hu;
+  private static BROW = "Hey Brow";
+  public function __construct($hi, $hu) {
+    $this->hi = $hi;
+    $this->hu = $hu;
+  }
+  public function showBrow() {
+    return self::BROW;
+  }
+}
+```

@@ -4,6 +4,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          {/* Help me to analytics my site. use self hosted umami so just me can control this */}
           {process.env.NODE_ENV === 'production' && (
             <script
               async

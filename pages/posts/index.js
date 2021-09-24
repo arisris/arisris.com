@@ -2,8 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
-import PostCard from '@/components/PostCard';
-import { findAll } from '@/libs/data';
 import path from 'path';
 
 export default function PageHome({ posts }) {
@@ -35,7 +33,9 @@ export default function PageHome({ posts }) {
               </div>
             </div>
             {post.image && <Image src={post.image} width="180" height="240" />}
-            <div className="mt-2 text-xs text-gray-800 dark:text-gray-300">{post.summary}</div>
+            <div className="mt-2 text-xs text-gray-800 dark:text-gray-300">
+              {post.summary}
+            </div>
           </div>
         ))}
       </div>
@@ -43,6 +43,7 @@ export default function PageHome({ posts }) {
   );
 }
 export async function getStaticProps() {
+  const { findAll } = await import('@/libs/data');
   const postLists = await findAll('posts', '*.md');
   const posts = [];
   for (let post of postLists) {

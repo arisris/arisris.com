@@ -16,7 +16,7 @@ const Tags = ({ data }) => (
 	<div className="inline-flex flex-wrap">
 		{data.map((i, index) => (
 			<span
-				className="px-2 py-[1px] ring-1 ring-purple-800 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
+				className="text-sm px-2 py-[1px] ring-1 ring-purple-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
 				key={index}
 			>
 				{i}
@@ -67,7 +67,7 @@ export default function PageAboutMe() {
 				</div>
 				<div className="mb-10 text-center text-xl font-bold">
 					Hello, My name is <span className="underline">Aris Riswanto</span>
-					<br /> And i'm a <br />
+					<br /> And i'm work as a <br />
 					<TypedText
 						className="inline-block dark:text-blue-500"
 						options={{

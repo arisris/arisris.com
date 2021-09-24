@@ -17,15 +17,15 @@ Design to be "Low fat + Fast + SEO Friendly"
   - storeon (state management)
   - more look at package.json
 - Database
-  - upstash
-  - planetscale
+  - detabase
+  - _planetscale_
 
 ### Features
 
 - Portfolio
 - Authentication (github)
-- MySQL based blog (wip)
-- Guestbook (upstash.com)
+- Static blog
+- Guestbook (deta base)
 - ?
 
 If you want to use this project please follow instruction bellow
@@ -42,12 +42,12 @@ GITHUB_CLIENT_SECRET=""
 APP_SECRET_KEY=""
 UPSTASH_REST_TOKEN=""
 UPSTASH_REST_URL=""
-MYSQL_URL=""
+DETA_PROJECT_KEY=""
 ```
 
 ```sh
-$ git clone https://github.com/arisris/arisris.vercel.app
-$ yarn install $ node seed.mjs
+$ git clone https://github.com/arisris/arisris.vercel.app.git
+$ yarn install
 ```
 
 Develop
@@ -62,5 +62,7 @@ Build
 $ yarn build
 ```
 
---- Documentation? No i'm not ready for this project ---
---- Project is early in development ---
+Feel free to contact me if you have a problem.
+
+> Documentation? No i'm not ready for this project
+> Project is early in development

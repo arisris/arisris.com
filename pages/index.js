@@ -10,7 +10,7 @@ export default function PageHome() {
         <title>Aris Dev</title>
       </Head>
       <div className="flex flex-col justify-center items-center my-16">
-        <h1 className="text-4xl font-bold mb-10">Hello :)</h1>
+        {/*<h1 className="text-4xl font-bold mb-10">Hello :)</h1>
         <div className="mb-10">
           <Image
             width="200"
@@ -19,10 +19,10 @@ export default function PageHome() {
             className="rounded-full"
             src="/icons/arisris.jpeg"
           />
-        </div>
+        </div>*/}
         <div className="mb-10 text-center text-xl font-bold">
           Hello, My name is <span className="underline">Aris Riswanto</span>
-          <br /> And i'm a <br />
+          <br /> And i'm work as a <br />
           <TypedText
             className="inline-block text-purple-800 dark:text-blue-500"
             options={{

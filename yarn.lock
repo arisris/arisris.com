@@ -1250,6 +1250,11 @@ html-tags@^3.1.0:
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.1.0.tgz#7b5e6f7e665e9fb41f30007ed9e0d41e97fb2140"
   integrity sha512-1qYz89hW3lFDEazhjW0yVAV87lw8lVkrJocr72XmBkMKsoSVJCQx3W8BXsC7hO2qAt8BoVjYjtAcZ9perqGnNg==
 
+htmldom@^4.0.11:
+  version "4.0.11"
+  resolved "https://registry.yarnpkg.com/htmldom/-/htmldom-4.0.11.tgz#85c7268add7d9c985c94e0d71ca3c3f7422bc0e8"
+  integrity sha512-W8Dayv3yLxxduG5IFZGvYosw4Okm1/0ZpobbJBejaBMAuSuI6chHmEw2aFopF7m2IxPhMO7UX1lDxclyFUi3Pw==
+
 http-errors@1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.7.3.tgz#6c619e4f9c60308c38519498c14fbb10aacebb06"

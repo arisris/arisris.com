@@ -1,8 +1,34 @@
+import { useRef, useEffect, useState } from 'react';
 import Layout from 'components/Layout';
+import Script from 'next/script';
 import Head from 'next/head';
+import { useTheme } from 'next-themes';
 import path from 'path';
 
+function highlightAll(el) {
+  const resolve = () => 'hljs' in window;
+  if (resolve()) {
+    window.hljs.highlightElement(el);
+  } else {
+    const t = setInterval(function() {
+      if (resolve()) {
+        window.hljs.highlightElement(el);
+        clearInterval(t);
+      }
+    });
+  }
+}
+
 export default function Posts({ post }) {
+  const { resolvedTheme } = useTheme();
+  const [resolvedHljs, setResolvedHljs] = useState(false);
+  const contentRef = useRef(null);
+  useEffect(() => {
+    if (contentRef.current) {
+      const domContainer = contentRef.current;
+      domContainer.querySelectorAll('pre code').forEach(highlightAll);
+    }
+  }, [contentRef]);
   return (
     <Layout
       withHero={{
@@ -22,17 +48,25 @@ export default function Posts({ post }) {
     >
       <Head>
         <title>{post.title}</title>
+        <link
+          rel="stylesheet"
+          href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${
+            resolvedTheme === 'dark' ? 'base16/solarized-dark' : 'base16/solarized-light'
+          }.min.css`}
+        />
       </Head>
       <div
+        ref={contentRef}
         className="prose dark:prose-dark p-2 max-w-[640px] m-auto"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+      <Script async src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/highlight.min.js" />
     </Layout>
   );
 }
 export async function getStaticProps({ params: { slugs } }) {
-  const { parseFile } = await import('@/libs/data');
-  const post = await parseFile(`posts/${slugs[0]}/${slugs[1]}.md`);
+  const { getOne } = await import('@/libs/data');
+  const post = await getOne(`posts/${slugs[0]}/${slugs[1]}.md`);
   return {
     props: { post }
   };

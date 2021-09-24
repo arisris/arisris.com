@@ -7,7 +7,7 @@ export default function PageProjects({ repos }) {
 			withHero={{
 				title: 'My Projects',
 				subtitle: (
-					<div className="prose dark:prose-dark">
+					<div>
 						My repositories at{' '}
 						<a target="__blank" href="https://github.com/arisris">https://github.com/arisris</a>
 					</div>
