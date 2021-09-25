@@ -51,11 +51,11 @@ export default function Posts({ post }) {
       }}
     >
       <Head>
-        <link
+        {/*<link
           rel="preconnect"
           href="https://cdn.jsdelivr.net/"
           crossOrigin=""
-        />
+        />*/}
         <link
           rel="stylesheet"
           href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${

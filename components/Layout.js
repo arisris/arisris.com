@@ -41,7 +41,7 @@ function FooterLink({ href, className, children, ...attributes }) {
     <Link href={href}>
       <a
         className={clsx(
-          'text-purple-600 hover:text-purple-700 dark:text-blue-500 dark:hover:text-blue-600 py-1 text-md',
+          'text-purple-600 hover:text-purple-700 dark:text-blue-500 dark:hover:text-blue-600 p-2 text-md',
           className
         )}
         {...attributes}
@@ -113,6 +113,7 @@ function Layout({ children, withHero, ...customMeta }) {
                     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
                   }
                   role="button"
+                  aria-label="Toggle Dark Mode"
                 >
                   {mounted &&
                     (resolvedTheme === 'dark' ? (
@@ -125,6 +126,7 @@ function Layout({ children, withHero, ...customMeta }) {
                   className="block sm:hidden p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none"
                   onClick={() => toggle(!toggled)}
                   role="button"
+                  aria-label="Toggle Menu"
                 >
                   {toggled ? (
                     <FaTimes className="w-6 h-6" />
@@ -202,7 +204,7 @@ function Layout({ children, withHero, ...customMeta }) {
             </FooterLink>
           </div>
         </footer>
-        <div className="w-full sm:max-w-screen-lg m-auto p-4 text-sm">
+        <div className="w-full sm:max-w-screen-lg m-auto px-5 py-4 text-sm">
           <span>&copy; {new Date().getFullYear()}</span>
           <FooterLink href="/"> Aris Riswanto</FooterLink>
         </div>
