@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
@@ -7,14 +6,12 @@ import path from 'path';
 export default function PageHome({ posts }) {
   return (
     <Layout
+      title="My Latest Posts"
       withHero={{
         title: 'Latest Posts',
         subtitle: 'Note: For now all post is just an for example'
       }}
     >
-      <Head>
-        <title>Blog Posts</title>
-      </Head>
       <div className="px-2 grid grid-cols-1 md:grid-cols-2 gap-4">
         {posts.map((post, index) => (
           <div

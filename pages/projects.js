@@ -1,9 +1,9 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 export default function PageProjects({ repos }) {
 	return (
 		<Layout
+			title="My Projects"
 			withHero={{
 				title: 'My Projects',
 				subtitle: (
@@ -14,9 +14,6 @@ export default function PageProjects({ repos }) {
 				)
 			}}
 		>
-			<Head>
-				<title>My Project</title>
-			</Head>
 			<div className="px-2 grid grid-cols-1 md:grid-cols-2 gap-4">
 				{repos.map((repo, index) => (
 					<div

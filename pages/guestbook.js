@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { FaCaretDown, FaCaretUp, FaRedo, FaSignOutAlt } from 'react-icons/fa';
@@ -146,14 +145,12 @@ export default function GuestbookPage() {
 
   return (
     <Layout
+      title="My Guestbook"
       withHero={{
         title: 'My Guestbook',
         subtitle: 'Its Currently in development'
       }}
     >
-      <Head>
-        <title>Guestbook Page</title>
-      </Head>
       <div className="flex flex-col md:flex-row px-3 py-2 gap-16">
         <div className="w-12/12 md:w-7/12">
           <div className="flex justify-between items-center mb-4">

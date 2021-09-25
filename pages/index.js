@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
@@ -6,9 +5,6 @@ import { TypedText } from '@/components/TypedText';
 export default function PageHome() {
   return (
     <Layout>
-      <Head>
-        <title>Aris Dev</title>
-      </Head>
       <div className="flex flex-col justify-center items-center my-16">
         {/*<h1 className="text-4xl font-bold mb-10">Hello :)</h1>
         <div className="mb-10">

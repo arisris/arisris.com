@@ -51,25 +51,55 @@ function FooterLink({ href, className, children, ...attributes }) {
     </Link>
   );
 }
-
-function Layout({ children, withHero }) {
+const defaultMeta = {
+  title: 'Arisris Dev | Arisris.com',
+  description:
+    "Hello. My name is Aris Riswanto. I'am Jamstack web developer from indonesia. I love web programing since 2009. If you want to hire me as your web developer lt contact me. :D",
+  keywords:
+    'Jamstack, React, Next.js, Node.js, PHP, Vercel, Netlify Web Developer, Indonesia',
+  image: 'https://arisris.com/documents/banner.png',
+  type: 'website'
+};
+function Layout({ children, withHero, ...customMeta }) {
+  const router = useRouter();
   const [toggled, toggle] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-
+  const meta = { ...defaultMeta, ...customMeta };
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        />
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+        <meta content={meta.keywords} name="keywords" />
+        <meta
+          property="og:url"
+          content={`https://arisris.com${router.asPath}`}
+        />
+        <link rel="canonical" href={`https://arisris.com${router.asPath}`} />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Arisris.com" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@arisris" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        {meta.date && (
+          <meta property="article:published_time" content={meta.date} />
+        )}
+      </Head>
       <NextNProgress height={2} color="#209cee" />
       <section className="font-mono absolute flex flex-col w-full h-full">
-        <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-          />
-          <title>No Title</title>
-        </Head>
         <header className="bg-gradient-to-b from-purple-800 to-purple-700 dark:from-gray-800 dark:to-black text-white">
           <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
             <div className="flex justify-between items-center">

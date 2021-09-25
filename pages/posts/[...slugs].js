@@ -31,6 +31,10 @@ export default function Posts({ post }) {
   }, [contentRef]);
   return (
     <Layout
+      title={post.title}
+      description={post.summary}
+      date={post.createdAt}
+      author={post.author}
       withHero={{
         title: post.title,
         subtitle: (
@@ -47,7 +51,11 @@ export default function Posts({ post }) {
       }}
     >
       <Head>
-        <title>{post.title}</title>
+        <link
+          rel="preconnect"
+          href="https://cdn.jsdelivr.net/"
+          crossOrigin=""
+        />
         <link
           rel="stylesheet"
           href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${

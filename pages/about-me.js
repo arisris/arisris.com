@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import {
@@ -27,10 +26,7 @@ const Tags = ({ data }) => (
 
 export default function PageAboutMe() {
 	return (
-		<Layout>
-			<Head>
-				<title>About Me</title>
-			</Head>
+		<Layout title="About Me">
 			<div className="flex flex-col justify-center items-center my-16">
 				<h1 className="text-4xl font-bold mb-10">About Me</h1>
 				<div className="mb-10 relative">
@@ -39,7 +35,7 @@ export default function PageAboutMe() {
 						height="200"
 						alt="arisris"
 						className="rounded-full"
-						src="/icons/arisris.jpeg"
+						src="/icons/android-icon-144x144.png"
 					/>
 					<div className="flex justify-start absolute bottom-2 left-10">
 						<a

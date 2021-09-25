@@ -71,3 +71,4 @@ Feel free to chat with me via [My Whatsapp](https://wa.me/6282240183482) if you 
 - [Deta](https://deta.sh/)
 - [Tailwindcss](https://tailwindcss.com)
 - [Next.js](https://nextjs.org/)
+- [Favicon Generator](https://www.favicon-generator.org/)
