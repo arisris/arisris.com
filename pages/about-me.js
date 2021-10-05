@@ -55,7 +55,7 @@ export default function PageAboutMe() {
 						<a
 							title="LinkedIn"
 							className="flex items-center p-2"
-							href="https://linkedin.com/in/sksnetid"
+							href="https://linkedin.com/in/arisris"
 						>
 							<FaLinkedin className="text-white w-6 h-6" />
 						</a>
@@ -81,7 +81,7 @@ export default function PageAboutMe() {
 					/>
 					<br />I love web programing since 2009
 				</div>
-				<div className="mb-10 text-center">
+				<div className="mb-10 text-center leading-relaxed">
 					I am a father of one kids, I started learning programming languages
 					since <span className="underline">2009</span>. Actually I don't have
 					an IT education background but I was very enthusiastic about learning

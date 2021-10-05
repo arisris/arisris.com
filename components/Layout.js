@@ -17,15 +17,22 @@ import {
   FaLinkedin
 } from 'react-icons/fa';
 
-function NavLink({ href, className, children, ...attributes }) {
+function NavLink({
+  href,
+  className,
+  children,
+  withoutActiveLink,
+  ...attributes
+}) {
   const { asPath } = useRouter();
   return (
     <Link href={href}>
       <a
         className={clsx(
-          'block px-3 py-2 mx-1 hover:bg-purple-900 dark:hover:bg-gray-900 rounded-md',
+          'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-black rounded-md',
           {
-            'bg-purple-900 dark:bg-gray-900': asPath == href
+            'bg-gray-50 dark:bg-black':
+              !withoutActiveLink && asPath == href
           },
           className
         )}
@@ -99,16 +106,20 @@ function Layout({ children, withHero, ...customMeta }) {
         )}
       </Head>
       <NextNProgress height={2} color="#209cee" />
-      <section className="font-mono absolute flex flex-col w-full h-full">
-        <header className="bg-gradient-to-b from-purple-800 to-purple-700 dark:from-gray-800 dark:to-black text-white">
-          <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6">
+      <section className="font-mono font-medium absolute flex flex-col w-full h-full">
+        <header className="dark:bg-gradient-to-b dark:from-gray-800 dark:to-black dark:text-white text-purple-700">
+          <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6 border-b border-gray-100 dark:border-none">
             <div className="flex justify-between items-center">
-              <NavLink href="/" className="font-bold text-xl sm:text-sm">
+              <NavLink
+                href="/"
+                className="font-bold text-xl sm:text-sm"
+                withoutActiveLink
+              >
                 Arisris.com
               </NavLink>
               <div className="inline-flex">
                 <div
-                  className="block p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none mx-2 rounded-full"
+                  className="block p-2 font-bold hover:bg-gray-100 dark:hover:bg-gray-900 select-none mx-2 rounded-full"
                   onClick={() =>
                     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
                   }
@@ -123,7 +134,7 @@ function Layout({ children, withHero, ...customMeta }) {
                     ))}
                 </div>
                 <div
-                  className="block sm:hidden p-2 font-bold hover:bg-purple-900 dark:hover:bg-gray-900 select-none"
+                  className="block sm:hidden p-2 font-bold hover:bg-gray-50 dark:hover:bg-gray-900 select-none rounded-full"
                   onClick={() => toggle(!toggled)}
                   role="button"
                   aria-label="Toggle Menu"
@@ -139,8 +150,8 @@ function Layout({ children, withHero, ...customMeta }) {
             <div
               className={clsx(
                 {
-                  'sm:flex': toggled,
-                  hidden: !toggled
+                  'animate__animated animate__fadeIn sm:flex': toggled,
+                  'hidden': !toggled
                 },
                 'sm:flex flex-col sm:flex-row mt-2 sm:mt-0'
               )}
@@ -152,16 +163,16 @@ function Layout({ children, withHero, ...customMeta }) {
             </div>
           </nav>
           {withHero ? (
-            <div className="flex flex-col items-center justify-center px-2 py-4 sm:py-5">
-              <h1 className="text-4xl">{withHero.title}</h1>
-              <div className="text-center text-md">{withHero.subtitle}</div>
+            <div className="prose dark:prose-dark text-center m-auto py-8">
+              <h1>{withHero.title}</h1>
+              <div className="text-center text-sm">{withHero.subtitle}</div>
             </div>
           ) : (
             ''
           )}
         </header>
         <main className="flex-auto">
-          <div className="sm:max-w-screen-lg p-2 m-auto">{children}</div>
+          <div className="sm:max-w-screen-lg p-4 m-auto">{children}</div>
         </main>
         <footer className="w-full sm:max-w-screen-lg p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
           <div className="flex flex-col mt-auto">

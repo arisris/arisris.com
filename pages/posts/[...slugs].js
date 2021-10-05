@@ -39,13 +39,13 @@ export default function Posts({ post }) {
         title: post.title,
         subtitle: (
           <>
-            <div className="text-xs mt-2 text-gray-100">
+            <div className="text-xs mt-2">
               <span className="p-1">Author: {post.author},</span>
               <span className="p-1">
                 Date: {new Date(post.createdAt).toLocaleString()}
               </span>
             </div>
-            <div className="mt-2 text-center text-sm">{post.summary}</div>
+            <div className="mt-2 text-center">{post.summary}</div>
           </>
         )
       }}
