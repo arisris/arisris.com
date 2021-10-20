@@ -1,6 +1,4 @@
 import '@/styles/global.css';
-import { useRef, useEffect } from 'react';
-import Image from 'next/image';
 import { ThemeProvider } from 'next-themes';
 import { StoreContext } from 'storeon/react';
 import store from '@/store/index';

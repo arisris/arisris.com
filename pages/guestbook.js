@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import Layout from '@/components/Layout';
-import { FaCaretDown, FaCaretUp, FaRedo, FaSignOutAlt } from 'react-icons/fa';
+import { FaRedo, FaSignOutAlt } from 'react-icons/fa';
 import { useStoreon } from 'storeon/react';
 
 const GbPost = ({
@@ -17,7 +16,7 @@ const GbPost = ({
   if (!created_at) created_at = Date.now(); // fallback
   const dt = new Date(created_at).toLocaleString();
   return (
-    <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 shadow-sm rounded-md shadow-md">
+    <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 rounded-md shadow-md">
       <div className="flex flex-col gap-2 sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
         <div className="inline-flex gap-2 items-center">
           <Image
@@ -106,7 +105,7 @@ function GbForms() {
       </div>
       <form className="mt-4" method="POST" onSubmit={handleSubmit}>
         <div className="mb-2">
-          <label>Your Message* (3 >= 100)</label>
+          <label>{`Your Message* (3 >= 100)`}</label>
           <textarea
             className="w-full h-32 p-2 rounded bg-gray-200 dark:bg-gray-700 focus:ring focus:outline-none mt-3"
             name="body"
