@@ -20,7 +20,7 @@ export default function PageHome() {
           Hello, My name is <span className="underline">Aris Riswanto</span>
           <br /> And i'm work as a <br />
           <TypedText
-            className="inline-block text-purple-800 dark:text-blue-500"
+            className="inline-block text-blue-700"
             options={{
               strings: [
                 'Fullstack Web developer',
@@ -38,7 +38,7 @@ export default function PageHome() {
         </div>
         <p>
           <Link href="/about-me">
-            <a className="font-black py-3 px-8 rounded ring ring-purple-700 hover:ring-purple-900 text-purple-700 hover:text-purple-900 dark:ring-gray-700 dark:hover:ring-gray-900 dark:text-gray-200 dark:hover:text-gray-300">
+            <a className="font-black py-3 px-8 rounded ring ring-gray-700 hover:ring-gray-900 dark:text-gray-200 text-gray-700">
               Explore Me &raquo;
             </a>
           </Link>

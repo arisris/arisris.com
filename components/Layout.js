@@ -29,9 +29,9 @@ function NavLink({
     <Link href={href}>
       <a
         className={clsx(
-          'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-black rounded-md',
+          'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md',
           {
-            'bg-gray-50 dark:bg-black':
+            'bg-gray-50 dark:bg-gray-900':
               !withoutActiveLink && asPath == href
           },
           className
@@ -48,7 +48,7 @@ function FooterLink({ href, className, children, ...attributes }) {
     <Link href={href}>
       <a
         className={clsx(
-          'text-purple-600 hover:text-purple-700 dark:text-blue-500 dark:hover:text-blue-600 p-2 text-md',
+          'text-gray-900 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-100 p-2 text-md',
           className
         )}
         {...attributes}
@@ -107,7 +107,7 @@ function Layout({ children, withHero, ...customMeta }) {
       </Head>
       <NextNProgress height={2} color="#209cee" />
       <section className="font-mono font-medium absolute flex flex-col w-full h-full">
-        <header className="dark:bg-gradient-to-b dark:from-gray-800 dark:to-black dark:text-white text-purple-700">
+        <header className="dark:bg-gradient-to-b dark:from-gray-800 dark:to-black dark:text-white text-gray-900">
           <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6 border-b border-gray-100 dark:border-none">
             <div className="flex justify-between items-center">
               <NavLink
@@ -186,21 +186,21 @@ function Layout({ children, withHero, ...customMeta }) {
               href="https://github.com/arisris"
               className="flex items-center gap-2"
             >
-              <FaGithub className="w-4 h-4" /> <span>Github</span>
+              <span>Github</span>
             </FooterLink>
             <FooterLink
               target="__blank"
               href="https://linkedin.com/in/arisris"
               className="flex items-center gap-2"
             >
-              <FaLinkedin className="w-4 h-4" /> <span>LinkedIn</span>
+              <span>LinkedIn</span>
             </FooterLink>
             <FooterLink
               target="__blank"
               href="https://fb.me/arisfungratis"
               className="flex items-center gap-2"
             >
-              <FaFacebook className="w-4 h-4" /> <span>Facebook</span>
+              <span>Facebook</span>
             </FooterLink>
           </div>
           <div className="flex flex-col mt-auto">
