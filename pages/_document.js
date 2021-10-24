@@ -82,7 +82,7 @@ export default class MyDocument extends Document {
           />
           <meta name="theme-color" content="#ffffff" />
           <meta name="google-site-verification" content="HqRlPHb6rKQHLdM0ifiL0wHexR1qaUVFr_5f0dr0bKI" />
-          {/*WhY?: Alternative to google analytics help me to improve my site. Use self hosted umami writen in next.js hosted at vercel with planetscale serverless MySQL database. Its safe just me can control this */}
+          {/* WhY?: Alternative to google analytics help me to improve my site. Use self hosted umami writen in next.js hosted at vercel with planetscale serverless MySQL database. Its safe just me can control this */}
           {process.env.NODE_ENV === 'production' && (
             <script
               async

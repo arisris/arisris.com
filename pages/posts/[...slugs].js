@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import Layout from 'components/Layout';
 import Script from 'next/script';
 import Head from 'next/head';
@@ -21,7 +21,6 @@ function highlightAll(el) {
 
 export default function Posts({ post }) {
   const { resolvedTheme } = useTheme();
-  const [resolvedHljs, setResolvedHljs] = useState(false);
   const contentRef = useRef(null);
   useEffect(() => {
     if (contentRef.current) {
@@ -51,11 +50,6 @@ export default function Posts({ post }) {
       }}
     >
       <Head>
-        {/*<link
-          rel="preconnect"
-          href="https://cdn.jsdelivr.net/"
-          crossOrigin=""
-        />*/}
         <link
           rel="stylesheet"
           href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${
