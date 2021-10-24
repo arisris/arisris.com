@@ -29,9 +29,9 @@ function NavLink({
     <Link href={href}>
       <a
         className={clsx(
-          'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-black rounded-md',
+          'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md',
           {
-            'bg-gray-50 dark:bg-black':
+            'bg-gray-50 dark:bg-gray-900':
               !withoutActiveLink && asPath == href
           },
           className
@@ -107,7 +107,7 @@ function Layout({ children, withHero, ...customMeta }) {
       </Head>
       <NextNProgress height={2} color="#209cee" />
       <section className="font-mono font-medium absolute flex flex-col w-full h-full">
-        <header className="dark:bg-gradient-to-b dark:from-gray-800 dark:to-black dark:text-white text-purple-700">
+        <header className="dark:bg-gradient-to-b dark:from-gray-900 dark:to-black dark:text-white text-purple-700">
           <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-lg m-auto px-2 py-6 border-b border-gray-100 dark:border-none">
             <div className="flex justify-between items-center">
               <NavLink
