@@ -1,15 +1,15 @@
 import '@/styles/global.css';
 import { ThemeProvider } from 'next-themes';
-import { StoreContext } from 'storeon/react';
-import store from '@/store/index';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from "@/redux/store";
 
 function App({ Component, pageProps }) {
   return (
-    <StoreContext.Provider value={store}>
-      <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class">
+      <ReduxProvider store={store}>
         <Component {...pageProps} />
-      </ThemeProvider>
-    </StoreContext.Provider>
+      </ReduxProvider>
+    </ThemeProvider>
   );
 }
 export default App;
