@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
-import { FaRedo, FaSignOutAlt } from 'react-icons/fa';
-import { useStoreon } from 'storeon/react';
+import { FaRedo, FaSignOutAlt, FaTrash } from 'react-icons/fa';
+import { GITHUB_LOGIN_URL, useCheckSessionQuery, useDeleteGuestbookMutation, useDeleteSessionMutation, useGetGuestbookQuery, usePostGuestbookMutation, useReloadGuestbookMutation } from '@/redux/store';
 
 const GbPost = ({
   name,
@@ -11,13 +11,20 @@ const GbPost = ({
   created_at,
   avatar,
   login,
-  private: isPrivate
+  gid,
+  private: isPrivate,
+  ...props
 }) => {
   if (!created_at) created_at = Date.now(); // fallback
   const dt = new Date(created_at).toLocaleString();
+  const { data: session } = useCheckSessionQuery();
+  const [ deleteGuestbook ] = useDeleteGuestbookMutation();
+
+  const isAdmin = session?.user?.login === "arisris";
+
   return (
     <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-black dark:border dark:border-gray-900 rounded-md shadow-md">
-      <div className="flex flex-col gap-2 sm:flex-row justify-start sm:justify-between py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
+      <div className="grid grid-cols-2 gap-2 py-2 mb-2 border-b border-gray-200 dark:border-gray-900">
         <div className="inline-flex gap-2 items-center">
           <Image
             className="w-6 h-6 rounded-full"
@@ -34,12 +41,21 @@ const GbPost = ({
             <span className="text-[10px] text-gray-500">@{login}</span>
           </a>
         </div>
-        <div className="inline-flex gap-2 items-center text-[10px]">
-          <time>{dt}</time>
-          {isPrivate && <span className="text-red-500">(private)</span>}
+        <div className="flex flex-col gap-1 items-end justify-start text-[10px]">
+          <div>{dt}</div>
+          {isPrivate && <div className="text-red-500">(private)</div>}
+          {/* Allow Author or admin to delete their comments */}
+          { session
+            && (session?.user?.login === login || isAdmin)
+            && (
+              <button title="Delete Comment?" onClick={() => deleteGuestbook(gid)}>
+                <FaTrash className="w-3 h-3" />
+              </button>
+            )
+          }
         </div>
       </div>
-      <div className="mt-4 text-gray-600 dark:text-gray-100 text-sm">
+      <div className="my-4 text-gray-600 dark:text-gray-100 text-sm">
         {body}
       </div>
     </div>
@@ -47,40 +63,40 @@ const GbPost = ({
 };
 
 function GbList() {
-  const {
-    guestbook: { data, loading, error },
-    dispatch
-  } = useStoreon('guestbook');
-  useEffect(() => {
-    if (!data) {
-      dispatch('guestbook/fetch');
-    }
-  }, []);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-  return data.map((i) => {
-    return <GbPost key={i.created_at} {...i} />;
+  const { isLoading, isError, isFetching, data } = useGetGuestbookQuery();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>{"Error While Loading Data"}</div>;
+  if (isFetching) return <div>Fetching Guestbook List</div>;
+  return data.data.map((i) => {
+    return <GbPost key={i.key} gid={i.key} {...i} />;
   });
 }
+
 function GbForms() {
   const [messageBody, setMessageBody] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
-  const { session, guestbook, dispatch } = useStoreon('session', 'guestbook');
+  const { data: session, isLoading: loadingSession } = useCheckSessionQuery();
+  const [ deleteSession ] = useDeleteSessionMutation();
+  const [ postGuestbook, { isLoading: isUpdating } ] = usePostGuestbookMutation();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch('guestbook/insert', { body: messageBody, private: isPrivate });
-    setIsPrivate(false);
-    setMessageBody('');
+    postGuestbook({ body: messageBody, private: isPrivate }).unwrap()
+      .then(() => {
+        setIsPrivate(false);
+        setMessageBody('');
+      });
   };
-  if (!session?.isLoggedIn) {
+  if (loadingSession) return <div>Loading Session</div>;
+  if (!session?.success) {
     return (
       <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded">
         You must{' '}
         <a
-          href="/api/session?login_type=github"
+          href={GITHUB_LOGIN_URL}
           className="font-black text-purple-700 dark:text-blue-400"
         >
-          login
+          login With Github
         </a>{' '}
         to leave a comments
       </div>
@@ -90,14 +106,14 @@ function GbForms() {
     <>
       <div className="mt-4 p-2 ring-1 ring-green-600 rounded">
         Logged as{' '}
-        <b className="text-green-500">{session?.currentUser?.login}</b>{' '}
+        <b className="text-green-500">{session?.user?.login}</b>{' '}
         <a
           href="#"
           title="SignOut?"
           className="inline-flex font-black text-purple-700 dark:text-blue-400"
           onClick={(e) => {
             e.preventDefault();
-            dispatch('session/logout');
+            deleteSession();
           }}
         >
           <FaSignOutAlt className="w-3 h-3" />
@@ -129,8 +145,9 @@ function GbForms() {
           <button
             type="submit"
             className="w-full px-2 py-1 rounded text-white bg-purple-800 hover:bg-purple-900 dark:bg-gray-800 dark:hover:bg-gray-900 focus:ring"
+            disabled={isUpdating}
           >
-            Submit
+            {isUpdating ? "Updating..." : "Submit"}
           </button>
         </div>
       </form>
@@ -139,9 +156,7 @@ function GbForms() {
 }
 
 export default function GuestbookPage() {
-  const { session, guestbook, dispatch } = useStoreon('guestbook', 'session');
-  const [openForm, setOpenForm] = useState(false);
-
+  const [ reloadGuestbook ] = useReloadGuestbookMutation();
   return (
     <Layout
       title="My Guestbook"
@@ -150,22 +165,20 @@ export default function GuestbookPage() {
         subtitle: 'Its Currently in development'
       }}
     >
-      <div className="flex flex-col md:flex-row px-3 py-2 gap-16">
-        <div className="w-12/12 md:w-7/12">
+      <div className="flex flex-col lg:flex-row px-3 py-2 gap-16">
+        <div className="w-12/12 lg:w-7/12">
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-bold">Latest Guest Comments</h2>
             <button
               className="p-2 bg-purple-700 dark:bg-gray-800 text-white rounded-full"
-              onClick={(e) => {
-                dispatch('guestbook/fetch');
-              }}
+              onClick={(e) => reloadGuestbook()}
             >
               <FaRedo className="w-4 h-4" />
             </button>
           </div>
           <GbList />
         </div>
-        <div className="w-12/12 md:w-5/12">
+        <div className="w-12/12 lg:w-5/12">
           <GbForms />
         </div>
       </div>

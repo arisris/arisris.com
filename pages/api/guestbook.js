@@ -3,15 +3,6 @@ import { restAsyncHandler } from '@/libs/utils';
 import { guestbookBase as DB } from '@/libs/deta';
 import * as v from 'vlid';
 
-const transformResult = (data) =>
-  data.result
-    .map((i) => JSON.parse(i))
-    .filter((i) => !i.private)
-    .map((i) => {
-      delete i.private;
-      return i;
-    });
-
 async function handleGet(req, res) {
   const currentUser = req.session.get('user');
   const query = {};
@@ -25,7 +16,8 @@ async function handleGet(req, res) {
   if (data.email && currentUser.login !== 'arisris') {
     delete data.email;
   }
-  return res.json({ success: true, data });
+  let sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  return res.json({ success: true, data: sortedData });
 }
 async function handlePost(req, res) {
   const currentUser = req.session.get('user');
@@ -73,7 +65,7 @@ async function handleDelete(req, res) {
     }
     throw Error;
   } catch (e) {
-    throw new Error('No File are deleted');
+    throw new Error('No message are deleted');
   }
 }
 export default withSession(async function(req, res) {
