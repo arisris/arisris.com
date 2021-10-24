@@ -32,7 +32,6 @@
     "clsx": "^1.1.1",
     "deta": "^1.0.1",
     "fs-jetpack": "^4.1.0",
-    "good-storage": "^1.1.1",
     "gray-matter": "^4.0.2",
     "htmldom": "^4.0.11",
     "marked": "^2.0.3",

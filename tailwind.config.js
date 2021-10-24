@@ -17,11 +17,11 @@ module.exports = {
             color: theme('colors.gray.700'),
             a: {
               'text-decoration': 'none',
-              color: `${theme('colors.purple.500')}`,
+              color: `${theme('colors.blue.400')}`,
               '&:hover': {
-                color: theme('colors.purple.700')
+                color: theme('colors.blue.600')
               },
-              code: { color: theme('colors.gray.600') }
+              code: { color: theme('colors.blue.500') }
             },
             'h1,h2,h3,h4,h5,h6': {
               'scroll-margin-top': spacing[24]

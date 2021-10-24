@@ -4,8 +4,8 @@ export function StickyWaLink() {
     <a
       title="Chat with me"
       target="__blank"
-      href="https://wa.me/6282240183482"
-      className="fixed bottom-1 right-1 z-50 p-2"
+      href="https://s.id/I5vIJ"
+      className="fixed bottom-1 right-1 z-50 m-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-full hover:scale-105 hover:shadow-md"
       style={{
         color: '#0C9715'
       }}
