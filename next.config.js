@@ -1,5 +1,4 @@
 module.exports = {
-  experimental: { esmExternals: true },
   reactStrictMode: true,
   pageExtensions: ['js', 'mjs', 'jsx'],
   devIndicators: {
@@ -18,7 +17,6 @@ module.exports = {
         'react-dom': 'preact/compat'
       });
     }
-
     return config;
   }
 };

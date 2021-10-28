@@ -65,6 +65,7 @@ const defaultMeta = {
   keywords:
     'Jamstack, React, Next.js, Node.js, PHP, Vercel, Netlify Web Developer, Indonesia',
   image: 'https://arisris.com/documents/banner.png',
+  date: null,
   type: 'website'
 };
 function Layout({ children, withHero, ...customMeta }) {

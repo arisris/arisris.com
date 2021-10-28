@@ -15,7 +15,7 @@ const Tags = ({ data }) => (
 	<div className="inline-flex flex-wrap">
 		{data.map((i, index) => (
 			<span
-				className="text-sm px-2 py-[1px] ring-1 ring-purple-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
+				className="text-sm px-2 py-[1px] ring-1 ring-blue-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
 				key={index}
 			>
 				{i}
@@ -86,9 +86,7 @@ export default function PageAboutMe() {
 					since <span className="underline">2009</span>. Actually I don't have
 					an IT education background but I was very enthusiastic about learning
 					programming languages from that time until now. I was born 30 years
-					ago in Majalengka, And now I live with my family in Ciamis. I have no
-					experience working in other companies. But if you intend to hire me
-					please contact me
+					ago in Majalengka, And now I live with my family in Ciamis.
 				</div>
 				{/* Comments */}
 				<h2 className="text-3xl mb-10">About</h2>
@@ -140,16 +138,17 @@ export default function PageAboutMe() {
 					<h3 className="text-xl my-4">Frontend framework:</h3>
 					{
 						<Tags
-							data={['React', 'Next', 'jQuery', 'Tailwind', 'Bootstrap', '?']}
+							data={['React', 'Next', "Redux", 'jQuery', 'Tailwind', 'Bootstrap', '?']}
 						/>
 					}
 					{/* Comments */}
-					<h3 className="text-xl my-4">Infrastructure such as:</h3>
+					<h3 className="text-xl my-4">Cloud Infrastructure such as:</h3>
 					{
 						<Tags
 							data={[
 								'AWS',
 								'Google Cloud',
+								'IBM Cloud',
 								'Vercel',
 								'Netlify',
 								'Cloudflare',
