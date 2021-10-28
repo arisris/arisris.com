@@ -14,7 +14,7 @@ Design to be "Low fat + Fast + SEO Friendly"
 - Framework
   - Next.js (react@dev preact@production)
   - Tailwind+jit
-  - storeon (state management)
+  - RTK
   - more look at package.json
 - Database
   - Deta database for guestbook comments system [Get free here](https://deta.sh/)
