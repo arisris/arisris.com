@@ -15,7 +15,7 @@ const Tags = ({ data }) => (
 	<div className="inline-flex flex-wrap">
 		{data.map((i, index) => (
 			<span
-				className="text-sm px-2 py-[1px] ring-1 ring-blue-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
+				className="text-sm px-2 py-[1px] ring-1 ring-gray-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
 				key={index}
 			>
 				{i}

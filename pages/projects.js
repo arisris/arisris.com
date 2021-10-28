@@ -21,14 +21,14 @@ export default function PageProjects({ repos }) {
 						className="p-4 border border-gray-200 dark:border-gray-900 rounded"
 					>
 						<a
-							className="text-blue-700 dark:text-blue-400"
+							className=""
 							href={repo.html_url}
 							target="__blank"
 						>
 							<h3 className="text-md">{repo.name}</h3>
 							<div className="text-[10px] text-gray-500">{repo.html_url}</div>
 						</a>
-						<div className="text-sm">{repo.description}</div>
+						<div className="text-xs">{repo.description}</div>
 					</div>
 				))}
 			</div>

@@ -20,7 +20,7 @@ export default function PageHome({ posts }) {
           >
             <div className="flex justify-between items-center">
               <Link href={`/posts/${post.filename}`}>
-                <a className="w-8/12 text-blue-700 dark:text-blue-400">
+                <a className="w-8/12">
                   <h3 className="text-xl truncate">{post.title}</h3>
                 </a>
               </Link>

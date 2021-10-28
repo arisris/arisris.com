@@ -38,7 +38,7 @@ export default function PageHome() {
         </div>
         <p>
           <Link href="/about-me">
-            <a className="font-black py-3 px-8 rounded ring ring-gray-700 hover:ring-gray-900 dark:text-gray-200 text-gray-700">
+            <a className="font-black py-3 px-8 rounded ring ring-gray-800 hover:ring-gray-900 dark:text-gray-200 text-gray-700">
               Explore Me &raquo;
             </a>
           </Link>

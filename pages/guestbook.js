@@ -35,7 +35,7 @@ const GbPost = ({
           <a
             href={website}
             target="__blank"
-            className="text-md text-blue-700 dark:text-blue-400"
+            className="text-md"
           >
             <p>{name}</p>
             <span className="text-[10px] text-gray-500">@{login}</span>
@@ -90,11 +90,11 @@ function GbForms() {
   if (loadingSession) return <div>Loading Session</div>;
   if (!session?.success) {
     return (
-      <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded">
+      <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded text-xs">
         You must{' '}
         <a
           href={GITHUB_LOGIN_URL}
-          className="font-black text-blue-700 dark:text-blue-400"
+          className="font-black text-gray-600 dark:text-gray-200"
         >
           login With Github
         </a>{' '}
@@ -104,13 +104,13 @@ function GbForms() {
   }
   return (
     <>
-      <div className="mt-4 p-2 ring-1 ring-green-600 rounded">
+      <div className="mt-4 p-2 ring-1 ring-green-700 rounded text-xs">
         Logged as{' '}
-        <b className="text-green-500">{session?.user?.login}</b>{' '}
+        <b className="text-green-600">{session?.user?.login}</b>{' '}
         <a
           href="#"
           title="SignOut?"
-          className="inline-flex font-black text-blue-700 dark:text-blue-400"
+          className="inline-flex font-black"
           onClick={(e) => {
             e.preventDefault();
             deleteSession();
@@ -144,7 +144,7 @@ function GbForms() {
         <div>
           <button
             type="submit"
-            className="w-full px-2 py-1 rounded text-white bg-blue-700 hover:bg-blue-800 dark:bg-gray-800 dark:hover:bg-gray-900 focus:ring"
+            className="w-full px-2 py-1 rounded text-gray-100 bg-gray-800 hover:bg-gray-900 focus:ring"
             disabled={isUpdating}
           >
             {isUpdating ? "Updating..." : "Submit"}
@@ -170,7 +170,7 @@ export default function GuestbookPage() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-bold">Latest Guest Comments</h2>
             <button
-              className="p-2 bg-blue-700 dark:bg-gray-800 text-white rounded-full"
+              className="p-2 bg-gray-800 text-white rounded-full"
               onClick={(e) => reloadGuestbook()}
             >
               <FaRedo className="w-4 h-4" />
