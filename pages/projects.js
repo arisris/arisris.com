@@ -21,7 +21,7 @@ export default function PageProjects({ repos }) {
 						className="p-4 border border-gray-200 dark:border-gray-900 rounded"
 					>
 						<a
-							className="text-purple-800 dark:text-blue-400"
+							className="text-blue-700 dark:text-blue-400"
 							href={repo.html_url}
 							target="__blank"
 						>
