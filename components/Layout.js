@@ -48,7 +48,7 @@ function FooterLink({ href, className, children, ...attributes }) {
     <Link href={href}>
       <a
         className={clsx(
-          'text-gray-900 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-100 p-2 text-md',
+          'text-gray-800 hover:text-gray-700 dark:text-gray-50 dark:hover:text-gray-100 p-2 text-md',
           className
         )}
         {...attributes}
@@ -59,11 +59,11 @@ function FooterLink({ href, className, children, ...attributes }) {
   );
 }
 const defaultMeta = {
-  title: 'Arisris Dev | Arisris.com',
+  title: 'Jamstack Web Developer | Arisris.com',
   description:
-    "Hello. My name is Aris Riswanto. I'am Jamstack web developer from indonesia. I love web programing since 2009. If you want to hire me as your web developer lt contact me. :D",
+    "Hello. My name is Aris Riswanto. I'am Experience Jamstack web developer from indonesia. I love web programing since 2009. If you want to hire me as your web developer. feel free to contact me.",
   keywords:
-    'Jamstack, React, Next.js, Node.js, PHP, Vercel, Netlify Web Developer, Indonesia',
+    'Jamstack, React, Next.js, Node.js, Tailwind.css, Redux, PHP, Vercel, Netlify, Web Developer Indonesia',
   image: 'https://arisris.com/documents/banner.png',
   date: null,
   type: 'website'
@@ -116,7 +116,7 @@ function Layout({ children, withHero, ...customMeta }) {
                 className="font-bold text-xl sm:text-sm"
                 withoutActiveLink
               >
-                Arisris.com
+                Aris's Home
               </NavLink>
               <div className="inline-flex">
                 <div
@@ -151,7 +151,7 @@ function Layout({ children, withHero, ...customMeta }) {
             <div
               className={clsx(
                 {
-                  'animate__animated animate__fadeIn sm:flex': toggled,
+                  'sm:flex': toggled,
                   'hidden': !toggled
                 },
                 'sm:flex flex-col sm:flex-row mt-2 sm:mt-0'
@@ -218,7 +218,7 @@ function Layout({ children, withHero, ...customMeta }) {
         </footer>
         <div className="w-full sm:max-w-screen-lg m-auto px-5 py-4 text-sm">
           <span>&copy; {new Date().getFullYear()}</span>
-          <FooterLink href="/"> Aris Riswanto</FooterLink>
+          <FooterLink href="https://github.com/arisris/arisris.vercel.app">Aris Riswanto</FooterLink>
         </div>
       </section>
       <StickyWaLink />

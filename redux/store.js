@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, setupListeners } from "@reduxjs/toolkit/query/react";
 
 const guestbookApiPath = "guestbook";
 const sessionApiPath = "session";
