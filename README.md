@@ -60,7 +60,7 @@ $ git clone https://github.com/arisris/arisris.vercel.app
 $ yarn install
 ```
 
-Feel free to chat with me via [My Whatsapp](https://wa.me/6282240183482) if you have a question or problem about this.
+Feel free to chat with me via [My Whatsapp](https://s.id/I5vIJ) if you have a question or problem about this.
 
 > Documentation? No i'm not ready for this project
 > Project is early in development

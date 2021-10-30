@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
+import SpinLoading from '@/components/SpinLoading';
 import { FaRedo, FaSignOutAlt, FaTrash } from 'react-icons/fa';
 import {
   GITHUB_LOGIN_URL,
@@ -12,10 +13,6 @@ import {
   useLazyGetGuestbookQuery
 } from '@/redux/store';
 import clsx from 'clsx';
-
-const SpinLoading = ({text}) => (
-  <div className="flex justify-center items-center gap-2"><FaRedo className="w-4 h-4 animate-spin" /> <span>{text}</span></div>
-);
 
 const GbPost = ({
   name,
