@@ -3,19 +3,23 @@ import { restAsyncHandler } from '@/libs/utils';
 import { guestbookBase as DB } from '@/libs/deta';
 import * as v from 'vlid';
 
+// Your github username
+const ADMIN_USER = "arisris";
+
 async function handleGet(req, res) {
   const currentUser = req.session.get('user');
   const query = {};
-  if (currentUser?.login !== 'arisris') {
+  if (currentUser?.login !== ADMIN_USER) {
     query.private = false;
   }
 
   const { items: data, last } = await DB.fetch(query, { limit: 100 });
   // remove last comment to ensure db not grow size
   if (last) await DB.delete(last);
-  if (data.email && currentUser.login !== 'arisris') {
+  if (data.email && currentUser.login !== ADMIN_USER) {
     delete data.email;
   }
+  // display new comment frist by created_at
   let sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   return res.json({ success: true, data: sortedData });
 }
@@ -32,11 +36,10 @@ async function handlePost(req, res) {
         .required()
     })
     .cast();
-  const result = v.validateSync(schema, req.body);
-  if (result.isValid) {
+  const { isValid, value } = v.validateSync(schema, req.body);
+  if (isValid) {
     await DB.put({
-      ...result.value,
-      email: currentUser.email,
+      ...value,
       name: currentUser.name,
       login: currentUser.login,
       website: currentUser.website,
@@ -58,7 +61,7 @@ async function handleDelete(req, res) {
     const comment = await DB.get(req.body?.key);
     if (
       comment.login === currentUser.login ||
-      currentUser.login === 'arisris'
+      currentUser.login === ADMIN_USER
     ) {
       await DB.delete(req.body?.key);
       return res.json({ success: true, msg: 'Message deleted...' });
