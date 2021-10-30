@@ -26,10 +26,6 @@ const appApi = createApi({
         ? [ ...result.data.map(({ key: id }) => ({ type: guestbookApiPath, id })), { type: guestbookApiPath, id: "LIST" } ]
         : [ { type: guestbookApiPath, id: "LIST" } ]
     }),
-    reloadGuestbook: build.mutation({
-      query: (page = 0) => `${guestbookApiPath}?page=${page}`,
-      invalidatesTags: [ { type: guestbookApiPath, id: "LIST" } ]
-    }),
     postGuestbook: build.mutation({
       query: (body) => ({
         url: guestbookApiPath,
@@ -55,9 +51,9 @@ export const {
   useCheckSessionQuery,
   useDeleteSessionMutation,
   useGetGuestbookQuery,
+  useLazyGetGuestbookQuery,
   usePostGuestbookMutation,
-  useDeleteGuestbookMutation,
-  useReloadGuestbookMutation
+  useDeleteGuestbookMutation
 } = appApi;
 
 const store = configureStore({

@@ -2,7 +2,20 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import { FaRedo, FaSignOutAlt, FaTrash } from 'react-icons/fa';
-import { GITHUB_LOGIN_URL, useCheckSessionQuery, useDeleteGuestbookMutation, useDeleteSessionMutation, useGetGuestbookQuery, usePostGuestbookMutation, useReloadGuestbookMutation } from '@/redux/store';
+import {
+  GITHUB_LOGIN_URL,
+  useDeleteGuestbookMutation,
+  useDeleteSessionMutation,
+  usePostGuestbookMutation,
+  useCheckSessionQuery,
+  useGetGuestbookQuery,
+  useLazyGetGuestbookQuery
+} from '@/redux/store';
+import clsx from 'clsx';
+
+const SpinLoading = ({text}) => (
+  <div className="flex justify-center items-center gap-2"><FaRedo className="w-4 h-4 animate-spin" /> <span>{text}</span></div>
+);
 
 const GbPost = ({
   name,
@@ -18,7 +31,7 @@ const GbPost = ({
   if (!created_at) created_at = Date.now(); // fallback
   const dt = new Date(created_at).toLocaleString();
   const { data: session } = useCheckSessionQuery();
-  const [ deleteGuestbook ] = useDeleteGuestbookMutation();
+  const [ deleteGuestbook, { isLoading: deletingGuestbook } ] = useDeleteGuestbookMutation();
 
   const isAdmin = session?.user?.login === "arisris";
 
@@ -55,7 +68,9 @@ const GbPost = ({
           }
         </div>
       </div>
-      <div className="my-4 text-gray-600 dark:text-gray-100 text-sm">
+      <div className={clsx("my-4 text-gray-600 dark:text-gray-100 text-sm whitespace-pre-wrap", {
+        "line-through text-red-500 dark:text-red-500": deletingGuestbook
+      })}>
         {body}
       </div>
     </div>
@@ -64,12 +79,13 @@ const GbPost = ({
 
 function GbList() {
   const { isLoading, isError, isFetching, data } = useGetGuestbookQuery();
-  if (isLoading) return <div>Loading...</div>;
+  
+  if (isLoading) return <SpinLoading text="Loading..." />;
   if (isError) return <div>{"Error While Loading Data"}</div>;
-  if (isFetching) return <div>Fetching Guestbook List</div>;
-  return data.data.map((i) => {
+  if (isFetching) return <SpinLoading text="Fetching data..." />;
+  return data?.data?.length > 0 ? data?.data?.map((i) => {
     return <GbPost key={i.key} gid={i.key} {...i} />;
-  });
+  }) : <div>No comments yet.</div>;
 }
 
 function GbForms() {
@@ -87,16 +103,17 @@ function GbForms() {
         setMessageBody('');
       });
   };
-  if (loadingSession) return <div>Loading Session</div>;
+  if (loadingSession) return <SpinLoading text="Loading session" />;
   if (!session?.success) {
     return (
       <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded text-xs">
         You must{' '}
         <a
           href={GITHUB_LOGIN_URL}
+          target="_blank"
           className="font-black text-gray-600 dark:text-gray-200"
         >
-          login With Github
+          Login With Github
         </a>{' '}
         to leave a comments
       </div>
@@ -147,7 +164,7 @@ function GbForms() {
             className="w-full px-2 py-1 rounded text-gray-100 bg-gray-800 hover:bg-gray-900 focus:ring"
             disabled={isUpdating}
           >
-            {isUpdating ? "Updating..." : "Submit"}
+            {isUpdating ? "Submiting..." : "Submit"}
           </button>
         </div>
       </form>
@@ -156,13 +173,13 @@ function GbForms() {
 }
 
 export default function GuestbookPage() {
-  const [ reloadGuestbook ] = useReloadGuestbookMutation();
+  const [ reloadGuestbook, { isFetching: reloadingGuestbook } ] = useLazyGetGuestbookQuery();
   return (
     <Layout
-      title="My Guestbook"
+      title="Guestbook"
       withHero={{
-        title: 'My Guestbook',
-        subtitle: 'Its Currently in development'
+        title: 'Guestbook',
+        subtitle: 'Leave your comments about my self or this site.'
       }}
     >
       <div className="flex flex-col lg:flex-row px-3 py-2 gap-16">
@@ -171,9 +188,9 @@ export default function GuestbookPage() {
             <h2 className="font-bold">Latest Guest Comments</h2>
             <button
               className="p-2 bg-gray-800 text-white rounded-full"
-              onClick={(e) => reloadGuestbook()}
+              onClick={(_) => reloadGuestbook()}
             >
-              <FaRedo className="w-4 h-4" />
+              <FaRedo className={clsx("w-4 h-4", { 'animate-spin': reloadingGuestbook})} />
             </button>
           </div>
           <GbList />
