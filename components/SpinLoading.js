@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import { FaRedo } from "react-icons/fa";
 
 export default function SpinLoading({text, className}) {
   return (
