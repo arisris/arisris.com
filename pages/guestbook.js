@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import SpinLoading from '@/components/SpinLoading';
@@ -185,7 +185,7 @@ export default function GuestbookPage() {
             <h2 className="font-bold">Latest Guest Comments</h2>
             <button
               className="p-2 bg-gray-800 text-white rounded-full"
-              onClick={(_) => reloadGuestbook()}
+              onClick={() => reloadGuestbook()}
             >
               <FaRedo className={clsx("w-4 h-4", { 'animate-spin': reloadingGuestbook})} />
             </button>
