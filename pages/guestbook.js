@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
+import SpinLoading from '@/components/SpinLoading';
 import { FaRedo, FaSignOutAlt, FaTrash } from 'react-icons/fa';
 import {
   GITHUB_LOGIN_URL,
@@ -12,10 +13,6 @@ import {
   useLazyGetGuestbookQuery
 } from '@/redux/store';
 import clsx from 'clsx';
-
-const SpinLoading = ({text}) => (
-  <div className="flex justify-center items-center gap-2"><FaRedo className="w-4 h-4 animate-spin" /> <span>{text}</span></div>
-);
 
 const GbPost = ({
   name,
@@ -188,7 +185,7 @@ export default function GuestbookPage() {
             <h2 className="font-bold">Latest Guest Comments</h2>
             <button
               className="p-2 bg-gray-800 text-white rounded-full"
-              onClick={(_) => reloadGuestbook()}
+              onClick={() => reloadGuestbook()}
             >
               <FaRedo className={clsx("w-4 h-4", { 'animate-spin': reloadingGuestbook})} />
             </button>
