@@ -35,7 +35,7 @@ export default function PageAboutMe() {
 						height="200"
 						alt="arisris"
 						className="rounded-full"
-						src="/icons/android-icon-144x144.png"
+						src="/documents/avatar.png"
 					/>
 					<div className="flex justify-start absolute bottom-2 left-10">
 						<a
