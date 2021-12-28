@@ -1,9 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   pageExtensions: ['js', 'mjs', 'jsx'],
-  devIndicators: {
-    buildActivity: false
-  },
   images: {
     domains: [
       'avatars.githubusercontent.com' // github avatar

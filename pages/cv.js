@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaLinkedin, FaPrint } from "react-icons/fa";
@@ -14,6 +15,9 @@ const IconWithLink = ({ icon, href }) => (
 export default function PageCV() {
   return (
     <section className="flex flex-col max-w-screen-lg mx-auto p-8 gap-8">
+      <Head>
+        <title>Arisris.com CV</title>
+      </Head>
       <header className="flex flex-col sm:flex-row items-center">
         <div className="w-full text-center sm:w-4/12 lg:w-2/12">
           <Image className="rounded-md" src="/documents/avatar.png" width="200px" height="200px" />
@@ -108,7 +112,7 @@ export default function PageCV() {
               <time>2021</time>
             </div>
             <p>
-              Desc: Develop System ID Card maker for registered member. web app based on laravel framework <a href="https://app.upbukarelsadsuitubun.com">https://app.upbukarelsadsuitubun.com</a>
+              Desc: Develop System ID Card maker for registered member. web app based on laravel framework <a href="https://app.upbukarelsadsuitubun.com">https://app.upbukarelsadsuitubun.com</a><br />
               Client: UPBU Karel Sad Suitubun
             </p>
           </li>
@@ -136,7 +140,7 @@ export default function PageCV() {
       </div>
       <div className="fixed bottom-6 right-6 hidden-print">
         <a href="#" title="Print this page" onClick={e => (e.preventDefault(), window.print())}>
-          <FaPrint size={48} className="p-2 text-yellow-600 transition hover:scale-95 focus:scale-95" />
+          <FaPrint size={48} className="p-2 text-green-500 transition hover:scale-95 focus:scale-95" />
         </a>
       </div>
       <style jsx>{`

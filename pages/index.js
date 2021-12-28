@@ -6,16 +6,6 @@ export default function PageHome() {
   return (
     <Layout>
       <div className="flex flex-col justify-center items-center my-16">
-        {/*<h1 className="text-4xl font-bold mb-10">Hello :)</h1>
-        <div className="mb-10">
-          <Image
-            width="200"
-            height="200"
-            alt="arisris"
-            className="rounded-full"
-            src="/icons/arisris.jpeg"
-          />
-        </div>*/}
         <div className="mb-10 text-center text-xl font-bold">
           Hello, My name is <span className="underline">Aris Riswanto</span>
           <br /> And i'm work as a <br />

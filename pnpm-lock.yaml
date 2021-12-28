@@ -23,7 +23,6 @@ specifiers:
   react-icons: ^4.2.0
   react-redux: ^7.2.5
   tailwindcss: ^2.1.1
-  tailwindcss-animatecss: ^1.0.7
   typed.js: ^2.0.12
   vlid: ^1.0.4
 
@@ -54,7 +53,6 @@ devDependencies:
   autoprefixer: 10.4.0_postcss@8.4.5
   postcss: 8.4.5
   tailwindcss: 2.2.19_16a290f6d0e3717bf6d2667234aebd30
-  tailwindcss-animatecss: 1.0.7
 
 packages:
 
@@ -2650,10 +2648,6 @@ packages:
     dependencies:
       has-flag: 4.0.0
     dev: false
-
-  /tailwindcss-animatecss/1.0.7:
-    resolution: {integrity: sha512-PSGZDYSOqRNm+C/hJTMfw1pj4nprPQfbNh/wrYDC4G0R9dqtepPncIlKAFNSl7nTUFxH9ynhvBwcIul093ceXw==}
-    dev: true
 
   /tailwindcss/2.2.19_16a290f6d0e3717bf6d2667234aebd30:
     resolution: {integrity: sha512-6Ui7JSVtXadtTUo2NtkBBacobzWiQYVjYW0ZnKaP9S1ZCKQ0w7KVNz+YSDI/j7O7KCMHbOkz94ZMQhbT9pOqjw==}

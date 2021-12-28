@@ -1,11 +1,17 @@
 import Typed from "typed.js"
 import { useRef, useEffect } from "react"
 
+/**
+ * 
+ * @param {{ options: import("typed.js").TypedOptions } & import("react").HTMLAttributes} param0 
+ * @returns 
+ */
+
 export function TypedText({ options = {}, ...props }) {
   const el = useRef(null)
   const conf = {
-    typeSpeed: 50,
-    backSpeed: 50,
+    typeSpeed: 100,
+    backSpeed: 100,
     loop: true,
     cursorChar: "|",
     ...options,

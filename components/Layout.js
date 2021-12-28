@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import NextNProgress from 'nextjs-progressbar';
 import { useRouter } from 'next/router';
 import { StickyWaLink } from './StickyWaLink';
@@ -12,10 +11,13 @@ import {
   FaSun,
   FaBars,
   FaTimes,
-  FaFacebook,
-  FaGithub,
-  FaLinkedin
 } from 'react-icons/fa';
+
+/**
+ * 
+ * @param {{ href: string, className: string, children: import('react').ReactNode, withoutActiveLink: boolean } & import('react').DetailedHTMLProps<import('react').AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>} param0 
+ * @returns 
+ */
 
 function NavLink({
   href,
@@ -43,6 +45,12 @@ function NavLink({
     </Link>
   );
 }
+
+/**
+ * 
+ * @param {{ href: string, className: string, children: import('react').ReactNode } & import('react').DetailedHTMLProps<import('react').AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>} param0 
+ * @returns 
+ */
 function FooterLink({ href, className, children, ...attributes }) {
   return (
     <Link href={href}>
@@ -58,6 +66,12 @@ function FooterLink({ href, className, children, ...attributes }) {
     </Link>
   );
 }
+
+/**
+ * @typedef {{ title?: string, description?: string, keywords?: string, image?: string, date?: string, type?: string }} DefaultLayoutMeta
+ * @type DefaultLayoutMeta
+ */
+
 const defaultMeta = {
   title: 'Jamstack Web Developer | Arisris.com',
   description:
@@ -68,6 +82,13 @@ const defaultMeta = {
   date: null,
   type: 'website'
 };
+
+/**
+ * 
+ * @param {{ children: import('react').ReactNode, withHero: { title: import('react').ReactNode | string, subtitle: import('react').ReactNode | string } } & DefaultLayoutMeta } param0 
+ * @returns 
+ */
+
 function Layout({ children, withHero, ...customMeta }) {
   const router = useRouter();
   const [toggled, toggle] = useState(false);
