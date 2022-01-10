@@ -112,13 +112,13 @@ export default function PageAboutMe() {
 					<p>
 						I'm Experience with{' '}
 						<strong>
-							"Cloud Server, Progressive Web App, Jamstack site, Rest Api, Web
+							"Cloud Server, PWA, Jamstack, Rest Api, GraphQL, Web
 							Scraper / Data Mining"
 						</strong>{' '}
 						technology
 					</p>
 					{/* Comments */}
-					<h3 className="text-xl my-4">Backend experience:</h3>
+					<h3 className="text-xl my-4">Backend:</h3>
 					{<Tags data={['Node', 'PHP', 'SQL', 'NoSQL', '?']} />}
 					{/* Comments */}
 					<h3 className="text-xl my-4">Backend framework:</h3>
@@ -129,16 +129,16 @@ export default function PageAboutMe() {
 								'CI',
 								'Totaljs',
 								'Express',
-								'Apify',
+								'GraphQL',
 								'Crawler.js',
 								'?'
 							]}
 						/>
 					}
-					<h3 className="text-xl my-4">Frontend framework:</h3>
+					<h3 className="text-xl my-4">Frontend:</h3>
 					{
 						<Tags
-							data={['React', 'Next', "Redux", 'jQuery', 'Tailwind', 'Bootstrap', '?']}
+							data={['React.js', 'Next.js', "Redux+RTK", 'jQuery', 'Tailwind', 'Bootstrap', '?']}
 						/>
 					}
 					{/* Comments */}
