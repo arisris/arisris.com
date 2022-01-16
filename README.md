@@ -1,4 +1,4 @@
-# Portfolio Site With Next.js
+# Portfolio Site With Next.js SSG
 
 Demo: [My Site](https://arisris.com/)
 
