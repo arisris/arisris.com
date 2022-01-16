@@ -39,15 +39,18 @@ export default function PageCV() {
       <div className="prose dark:prose-dark max-w-full">
         <h2 className="border-b px-2">Objective</h2>
         <p>
-          As a web developer I always try to focus on the projects I'm working on so that I can get perfect results. As an open source activist I
-          always look forward to updating the latest knowledge and technology.
+          As a web developer I always try to focus on the projects I'm working on so that I can get perfect results.<br />As an open source enthusiastic I
+          always look to the future to update latest knowledge and technology.
         </p>
         <h2 className="border-b px-2">Skills</h2>
         <ul>
           <li>Backend : Node.js, PHP</li>
-          <li>Frontend : Next.js/React/Tailwind</li>
-          <li>Web Scraping</li>
+          <li>Database : Basic SQL, NoSQL</li>
+          <li>Frontend : Next.js/React, Tailwind</li>
+          <li>Web Scraping: Apify, Crawler.js</li>
           <li>I can working with : linux, git, bash, vm</li>
+          <li>Basic knowledge about cloud infrastructure: AWS, GCP, etc</li>
+          <li>Soft skill : Can translate a Web Prototypes to real Web</li>
         </ul>
         <h2 className="border-b px-2">Experience</h2>
         <ul>
@@ -68,7 +71,7 @@ export default function PageCV() {
             </div>
             <p>
               Freelancer<br />
-              Working as a freelancer
+              Working as a freelancer, Develop and Maintain production project
             </p>
           </li>
           <li>
