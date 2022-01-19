@@ -61,7 +61,7 @@ export default function PageCV() {
             </div>
             <p>
               Remote Senior Frontend Developer<br />
-              Develop dosoon.id homepage and administrator frontend based on next.js
+              Develop <a target="_blank" href="https://dosoon.id">dosoon.id</a> homepage and administrator frontend using next.js
             </p>
           </li>
           <li>
@@ -80,9 +80,9 @@ export default function PageCV() {
               <time>2015 - 2017</time>
             </div>
             <p>
-              Small Web Hosting Company<br />
-              I experience opened a small web hosting company called SKSNet. However, this startup did not last long because
-              of the problem of its own capital.
+              Web Hosting Startup<br />
+              I experience opened a litle web hosting startup called SKSNet. However, this startup did not last long because
+              of the problem of its own capital. This startup is sell hosting and vps server, domain + ssl certificate for customer.
             </p>
           </li>
         </ul>
@@ -115,13 +115,31 @@ export default function PageCV() {
               <time>2021</time>
             </div>
             <p>
-              Desc: Develop System ID Card maker for registered member. web app based on laravel framework <a href="https://app.upbukarelsadsuitubun.com">https://app.upbukarelsadsuitubun.com</a><br />
+              Desc: Develop System ID Card maker for registered member. web app based on laravel framework <a target="_blank" href="https://app.upbukarelsadsuitubun.com">https://app.upbukarelsadsuitubun.com</a><br />
               Client: UPBU Karel Sad Suitubun
             </p>
           </li>
           <li>
             <div className="flex justify-between gap-2">
-              <strong>AppLirik</strong>
+              <strong>Video Downloader App</strong>
+              <time>2021</time>
+            </div>
+            <p>
+              A web-based app video downloader website.<br />
+              Users can search, browse many video from youtube source. listing a artist and their songs from many source of site like a joox, the website is SEO friendly using SSR based on Next.JS, its very fast using PWA and edge caching
+              mechanism.<br />
+              <b>Some stack i used.</b><br /><br />
+              Next.js<br />
+              Tailwindcss<br />
+              Node.js<br />
+              Vercel<br />
+              Production build.<br /><br />
+              Link: <a target="_blank" href="https://vidl.vercel.app/">https://vidl.vercel.app/</a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
+              <strong>Song lyrics app</strong>
               <time>2021</time>
             </div>
             <p>
@@ -136,7 +154,7 @@ export default function PageCV() {
               Vercel<br />
               Wordpress.com as api<br />
               Production build.<br /><br />
-              Link: <a href="https://applirik.vercel.app/">https://applirik.vercel.app/</a>
+              Link: <a target="_blank" href="https://applirik.vercel.app/">https://applirik.vercel.app/</a>
             </p>
           </li>
         </ul>
