@@ -2,6 +2,7 @@
 .next
 node_modules/
 out/
+.bak/
 
 #files
 .env
