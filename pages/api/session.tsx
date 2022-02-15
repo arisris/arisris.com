@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import axios from 'axios';
 import { withSession } from '@/libs/session';
 import { restAsyncHandler } from '@/libs/utils';

@@ -1,4 +1,7 @@
+// @ts-nocheck
 import { Deta } from 'deta';
+
+
 
 const spaces = ['guestbook', 'posts'].reduce(
   (a, i) => ((a[i] = `${i}_${process.env.NODE_ENV}`), a),

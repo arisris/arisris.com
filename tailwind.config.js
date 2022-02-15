@@ -1,8 +1,8 @@
 module.exports = {
   purge: [
-    './libs/**/*.js',
-    './components/**/*.js',
-    './pages/**/*.js'
+    './libs/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx}'
   ],
   mode: 'jit',
   darkMode: 'class',

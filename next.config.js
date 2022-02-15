@@ -1,6 +1,7 @@
+/** @type {import("next").NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  pageExtensions: ['js', 'mjs', 'jsx'],
+  pageExtensions: ['te', 'tsx'],
   images: {
     domains: [
       'avatars.githubusercontent.com' // github avatar

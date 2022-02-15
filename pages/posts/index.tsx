@@ -1,9 +1,11 @@
+// @ts-nocheck
+
 import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import path from 'path';
 
-export default function PageHome({ posts }) {
+export default function PageHome({ posts }: { posts: any[]}) {
   return (
     <Layout
       title="My Latest Posts"

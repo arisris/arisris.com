@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { withIronSession, ironSession } from 'next-iron-session';
 
 export const config = () => ({

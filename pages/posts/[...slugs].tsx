@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useRef, useEffect } from 'react';
 import Layout from 'components/Layout';
 import Script from 'next/script';
@@ -5,12 +7,18 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import path from 'path';
 
-function highlightAll(el) {
+declare global {
+  interface Window {
+    hljs?: any;
+  }
+}
+
+function highlightAll(el: Element) {
   const resolve = () => 'hljs' in window;
   if (resolve()) {
     window.hljs.highlightElement(el);
   } else {
-    const t = setInterval(function() {
+    const t = setInterval(function () {
       if (resolve()) {
         window.hljs.highlightElement(el);
         clearInterval(t);
@@ -19,13 +27,13 @@ function highlightAll(el) {
   }
 }
 
-export default function Posts({ post }) {
+export default function Posts({ post }: { post: any}) {
   const { resolvedTheme } = useTheme();
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (contentRef.current) {
       const domContainer = contentRef.current;
-      domContainer.querySelectorAll('pre code').forEach(highlightAll);
+      domContainer.querySelectorAll('pre code').forEach(e => highlightAll(e));
     }
   }, [contentRef]);
   return (

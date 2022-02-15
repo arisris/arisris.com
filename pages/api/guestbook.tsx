@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { withSession } from '@/libs/session';
 import { restAsyncHandler } from '@/libs/utils';
 import { guestbookBase as DB } from '@/libs/deta';

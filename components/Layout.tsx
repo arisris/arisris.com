@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -6,18 +6,7 @@ import NextNProgress from 'nextjs-progressbar';
 import { useRouter } from 'next/router';
 import { StickyWaLink } from './StickyWaLink';
 import { useTheme } from 'next-themes';
-import {
-  FaMoon,
-  FaSun,
-  FaBars,
-  FaTimes,
-} from 'react-icons/fa';
-
-/**
- * 
- * @param {{ href: string, className: string, children: import('react').ReactNode, withoutActiveLink: boolean } & import('react').DetailedHTMLProps<import('react').AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>} param0 
- * @returns 
- */
+import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa';
 
 function NavLink({
   href,
@@ -25,7 +14,12 @@ function NavLink({
   children,
   withoutActiveLink,
   ...attributes
-}) {
+}: PropsWithChildren<
+  { href: string; className?: string; withoutActiveLink?: boolean } & Record<
+    any,
+    any
+  >
+>) {
   const { asPath } = useRouter();
   return (
     <Link href={href}>
@@ -33,8 +27,7 @@ function NavLink({
         className={clsx(
           'block px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md',
           {
-            'bg-gray-50 dark:bg-gray-900':
-              !withoutActiveLink && asPath == href
+            'bg-gray-50 dark:bg-gray-900': !withoutActiveLink && asPath == href
           },
           className
         )}
@@ -46,12 +39,14 @@ function NavLink({
   );
 }
 
-/**
- * 
- * @param {{ href: string, className: string, children: import('react').ReactNode } & import('react').DetailedHTMLProps<import('react').AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>} param0 
- * @returns 
- */
-function FooterLink({ href, className, children, ...attributes }) {
+function FooterLink({
+  href,
+  className,
+  children,
+  ...attributes
+}: PropsWithChildren<
+  { href: string; className?: string } & Record<any, any>
+>) {
   return (
     <Link href={href}>
       <a
@@ -67,11 +62,6 @@ function FooterLink({ href, className, children, ...attributes }) {
   );
 }
 
-/**
- * @typedef {{ title?: string, description?: string, keywords?: string, image?: string, date?: string, type?: string }} DefaultLayoutMeta
- * @type DefaultLayoutMeta
- */
-
 const defaultMeta = {
   title: 'Jamstack Web Developer | Arisris.com',
   description:
@@ -83,13 +73,19 @@ const defaultMeta = {
   type: 'website'
 };
 
-/**
- * 
- * @param {{ children: import('react').ReactNode, withHero: { title: import('react').ReactNode | string, subtitle: import('react').ReactNode | string } } & DefaultLayoutMeta } param0 
- * @returns 
- */
-
-function Layout({ children, withHero, ...customMeta }) {
+function Layout({
+  children,
+  withHero,
+  ...customMeta
+}: PropsWithChildren<
+  {
+    withHero?: {
+      title?: ReactNode;
+      subtitle?: ReactNode;
+    };
+    className?: string;
+  } & Partial<typeof defaultMeta> & Record<any, any>
+>) {
   const router = useRouter();
   const [toggled, toggle] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -173,7 +169,7 @@ function Layout({ children, withHero, ...customMeta }) {
               className={clsx(
                 {
                   'sm:flex': toggled,
-                  'hidden': !toggled
+                  hidden: !toggled
                 },
                 'sm:flex flex-col sm:flex-row mt-2 sm:mt-0'
               )}
@@ -239,7 +235,9 @@ function Layout({ children, withHero, ...customMeta }) {
         </footer>
         <div className="w-full sm:max-w-screen-lg m-auto px-5 py-4 text-sm">
           <span>&copy; {new Date().getFullYear()}</span>
-          <FooterLink href="https://github.com/arisris/arisris.vercel.app">Aris Riswanto</FooterLink>
+          <FooterLink href="https://github.com/arisris/arisris.vercel.app">
+            Aris Riswanto
+          </FooterLink>
         </div>
       </section>
       <StickyWaLink />

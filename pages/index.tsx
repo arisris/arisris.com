@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import Layout from '@/components/Layout';
 import { TypedText } from '@/components/TypedText';
 export default function PageHome() {
