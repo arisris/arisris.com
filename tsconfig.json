@@ -36,6 +36,7 @@
     "esModuleInterop": true
   },
   "exclude": [
+    ".bak",
     "node_modules"
   ],
   "include": [
