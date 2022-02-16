@@ -1,11 +1,11 @@
 module.exports = {
   purge: [
-    './libs/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './pages/**/*.{ts,tsx}'
+    "./lib/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./pages/**/*.{ts,tsx}"
   ],
-  mode: 'jit',
-  darkMode: 'class',
+  mode: "jit",
+  darkMode: "class",
   theme: {
     extend: {
       typography: (theme) => ({
@@ -22,10 +22,10 @@ module.exports = {
             pre: {
               backgroundColor: theme("colors.gray.100"),
               color: theme("colors.gray.800"),
-              border: "2px dotted "+theme("colors.gray.300")
+              border: "2px dotted " + theme("colors.gray.300")
             },
-            'blockquote p:first-of-type::before': false,
-            'blockquote p:last-of-type::after': false
+            "blockquote p:first-of-type::before": false,
+            "blockquote p:last-of-type::after": false
           }
         },
         dark: {
@@ -44,37 +44,35 @@ module.exports = {
             pre: {
               backgroundColor: theme("colors.gray.800"),
               color: theme("colors.gray.200"),
-              border: "2px dotted "+theme("colors.gray.700")
+              border: "2px dotted " + theme("colors.gray.700")
             },
-            hr: { borderColor: theme('colors.gray.800') },
+            hr: { borderColor: theme("colors.gray.800") },
             ol: {
               li: {
-                '&:before': { color: theme('colors.gray.800') }
+                "&:before": { color: theme("colors.gray.800") }
               }
             },
             ul: {
               li: {
-                '&:before': { backgroundColor: theme('colors.gray.800') }
+                "&:before": { backgroundColor: theme("colors.gray.800") }
               }
             },
-            strong: { color: theme('colors.gray.200') },
+            strong: { color: theme("colors.gray.200") },
             thead: {
-              color: theme('colors.gray.200')
+              color: theme("colors.gray.200")
             },
             tbody: {
               tr: {
-                borderBottomColor: theme('colors.gray.800')
+                borderBottomColor: theme("colors.gray.800")
               }
-            },
+            }
           }
         }
       })
     }
   },
   variants: {
-    typography: ['dark']
+    typography: ["dark"]
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ]
+  plugins: [require("@tailwindcss/typography")]
 };
