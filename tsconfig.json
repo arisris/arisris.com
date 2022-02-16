@@ -1,26 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/libs/*": [
-        "libs/*"
-      ],
-      "@/redux/*": [
-        "redux/*"
-      ],
-      "@/styles/*": [
-        "styles/*"
-      ]
-    },
     "allowJs": true,
-    "target": "ESNext",
+    "target": "ES6",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -29,7 +15,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     "skipLibCheck": true,
     "incremental": true,
