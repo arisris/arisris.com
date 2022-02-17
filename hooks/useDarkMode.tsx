@@ -1,6 +1,5 @@
 import { useLocalStorageState } from "ahooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
-import { boolean } from "zod";
 
 const Context = createContext({
   dark: false,

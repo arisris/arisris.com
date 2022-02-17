@@ -51,7 +51,7 @@ function NavLink({
     <Link href={href}>
       <a
         className={clsx(
-          "flex items-center px-3 py-2 mx-1 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md",
+          "flex items-center px-3 py-2 mx-1 rounded-md text-lg",
           {
             "bg-gray-50 dark:bg-gray-900": !withoutActiveLink && asPath == href
           },
@@ -180,8 +180,7 @@ function Layout({
               )}
             >
               <NavLink href={`/`}>Home</NavLink>
-              <NavLink href={`/projects`}>Projects</NavLink>
-              <NavLink href={`/guestbook`}>Guestbook</NavLink>
+              <NavLink href={`/#guestbook`}>Guestbook</NavLink>
             </div>
           </nav>
           {withHero ? (
@@ -196,7 +195,7 @@ function Layout({
         <main className="flex-auto">
           <div className="sm:max-w-screen-md p-4 m-auto">{children}</div>
         </main>
-        <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
+        {/* <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
           <div className="flex flex-col mt-auto">
             <FooterLink href="/">Home</FooterLink>
             <FooterLink href="/projects">Projects</FooterLink>
@@ -236,11 +235,15 @@ function Layout({
               Tailwindcss
             </FooterLink>
           </div>
-        </footer>
-        <div className="w-full sm:max-w-screen-md m-auto px-5 py-4 text-sm">
+        </footer> */}
+        <div className="w-full sm:max-w-screen-md m-auto px-5 py-6">
           <span>&copy; {new Date().getFullYear()}</span>
           <FooterLink href="https://github.com/arisris/arisris.vercel.app">
-            Aris Riswanto
+            Aris Riswanto,
+          </FooterLink>
+          <span>Hosted at:</span>
+          <FooterLink href="https://vercel.com">
+            Vercel
           </FooterLink>
         </div>
       </section>

@@ -4,7 +4,8 @@ module.exports = {
   pageExtensions: ["ts", "tsx"],
   images: {
     domains: [
-      "avatars.githubusercontent.com" // github avatar
+      "avatars.githubusercontent.com", // github avatar
+      "icongr.am"
     ]
   },
   webpack: (config, { dev, isServer }) => {

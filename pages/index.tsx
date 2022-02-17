@@ -1,13 +1,33 @@
 import { AboutMe } from "components/AboutMe";
+import { Guestbook } from "components/Guestbook";
+import { LatestUpdatedRepos } from "components/LatestUpdatedRepos";
 import Layout from "components/Layout";
-
-export default function Page() {
+import { getAllGuestbook } from "lib/fauna";
+import { getLatestUpdatedRepo } from "lib/github";
+import { NextPageContext } from "next";
+export default function Page({
+  latestUpdatedRepos,
+  allGuestbook
+}: {
+  latestUpdatedRepos: any;
+  allGuestbook: any
+}) {
   return (
     <Layout>
       <AboutMe showDesc={true} />
-      <div className="p-2">
-        <h3 className="text-2xl border-b">Latest Publication</h3>
-      </div>
+      <LatestUpdatedRepos data={latestUpdatedRepos} />
+      <Guestbook />
     </Layout>
   );
+}
+
+export async function getStaticProps(ctx: NextPageContext) {
+  const latestUpdatedRepos = await getLatestUpdatedRepo();
+  const allGuestbook = await getAllGuestbook(10);
+  return {
+    props: {
+      latestUpdatedRepos,
+      allGuestbook
+    }
+  };
 }

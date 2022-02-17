@@ -1,0 +1,11 @@
+type Guestbook @collection(name: "guestbook") {
+  email: String!
+  message: String
+  createdBy: String
+  createdAt: Time
+  updatedAt: Time
+}
+
+type Query {
+  getAllGuestbook: [Guestbook!]
+}

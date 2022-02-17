@@ -2,31 +2,12 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 import { Transition } from "@headlessui/react";
+import user from "data/about-me.json";
 import {
   FaCaretDown,
-  FaCaretUp,
-  FaDesktop,
-  FaFacebook,
-  FaGithub,
-  FaHome,
-  FaLinkedin,
-  FaLinux,
-  FaUser
+  FaCaretUp
 } from "react-icons/fa";
-import { DelayedView } from "./Utility";
-
-const Tags = ({ data }: { data: string[] }) => (
-  <div className="inline-flex flex-wrap">
-    {data.map((i, index) => (
-      <span
-        className="text-sm px-2 py-[1px] ring-1 ring-gray-200 dark:ring-gray-800 dark:text-gray-300 rounded mr-2 mb-2"
-        key={index}
-      >
-        {i}
-      </span>
-    ))}
-  </div>
-);
+import { DelayedView, IconGram, TagsCloud } from "./Utility";
 
 const scrollToElementId = (id: string) => {
   let el = document.querySelector(id);
@@ -46,58 +27,39 @@ export function AboutMe({ showDesc = false }) {
             height="200"
             alt="arisris"
             className="rounded-md"
-            src="/documents/avatar.png"
+            src={user.avatar}
             priority
           />
         </div>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a
-            title="Github"
-            className="flex items-center p-2"
-            href="https://github.com/arisris"
-          >
-            <FaGithub size={32} />
-          </a>
-          <a
-            title="Facebook"
-            className="flex items-center p-2"
-            href="https://facebook.com/arisfungratis"
-          >
-            <FaFacebook size={32} />
-          </a>
-          <a
-            title="LinkedIn"
-            className="flex items-center p-2"
-            href="https://linkedin.com/in/arisris"
-          >
-            <FaLinkedin size={32} />
-          </a>
+          {user.network.map((i, index) => (
+            <a
+              key={index}
+              title={i.name}
+              className="flex items-center p-2"
+              href={i.url}
+              target={"_blank"}
+            >
+              <IconGram path={i.icon} size={28} />
+            </a>
+          ))}
         </div>
       </div>
       <div className="col-span-12 mt-4 sm:mt-auto sm:col-span-7 sm:col-start-6 text-justify sm:self-start gap-4">
         <DelayedView as="h1" delay="delay-100" className="text-4xl font-bold">
-          Aris Riswanto
+          {user.name}
         </DelayedView>
-        <DelayedView as="p" delay="delay-300" className="text-xl">
-          Jamstack Web Developer
+        <DelayedView as="p" delay="delay-500" className="text-xl">
+          {user.title}
         </DelayedView>
         {showDesc && (
-          <>
-            <hr />
-            <br />
-            <DelayedView
-              as="p"
-              delay="delay-500"
-              className="mb-10 leading-relaxed"
-            >
-              I am a father of one kids, I started learning programming
-              languages since <span className="underline">2009</span>. Actually
-              I don't have an IT education background but I was very
-              enthusiastic about learning programming languages from that time
-              until now. I was born 30 years ago in Majalengka, And now I live
-              with my family in Ciamis.
-            </DelayedView>
-          </>
+          <DelayedView
+            as="p"
+            delay="delay-1000"
+            className="mt-5 mb-10 leading-relaxed"
+          >
+            {user.description}
+          </DelayedView>
         )}
       </div>
       <Transition
@@ -121,82 +83,28 @@ export function AboutMe({ showDesc = false }) {
       >
         <h2 className="text-2xl mb-6 font-bold">About</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
-          {[
-            [FaDesktop, "Works fulltime as a fullstack web developer"],
-            [FaHome, "Work From Home"],
-            [FaUser, "Was married and having one children"],
-            [FaLinux, "Coding with linux"]
-          ].map(([Icon, text], index) => (
+          {user.about.map((i, index) => (
             <div
               key={index}
               className={clsx("flex items-center gap-4 py-2", {
                 "sm:justify-end": index % 2 === 1
               })}
             >
-              <Icon size={24} />
-              <span className="italic">{text}</span>
+              <IconGram path={i.icon} />
+              <span className="italic">{i.name}</span>
             </div>
           ))}
         </div>
         <div className="mb-10">
           <h3 className="text-2xl my-4">Knowledgebase:</h3>
-          <p>
-            I'm Experience with{" "}
-            <strong>
-              "Cloud Server, PWA, Jamstack, Rest Api, GraphQL, Web Scraper /
-              Data Mining"
-            </strong>{" "}
-            technology
-          </p>
+          <p>{user.knowledgebase}</p>
           {/* Comments */}
-          <h3 className="text-xl my-4">Backend:</h3>
-          {<Tags data={["Node", "PHP", "SQL", "NoSQL", "?"]} />}
-          {/* Comments */}
-          <h3 className="text-xl my-4">Backend framework:</h3>
-          {
-            <Tags
-              data={[
-                "Laravel",
-                "CI",
-                "Totaljs",
-                "Express",
-                "GraphQL",
-                "Crawler.js",
-                "?"
-              ]}
-            />
-          }
-          <h3 className="text-xl my-4">Frontend:</h3>
-          {
-            <Tags
-              data={[
-                "React.js",
-                "Next.js",
-                "Redux+RTK",
-                "jQuery",
-                "Tailwind",
-                "Bootstrap",
-                "?"
-              ]}
-            />
-          }
-          {/* Comments */}
-          <h3 className="text-xl my-4">Cloud Infrastructure such as:</h3>
-          {
-            <Tags
-              data={[
-                "AWS",
-                "Google Cloud",
-                "IBM Cloud",
-                "Vercel",
-                "Netlify",
-                "Cloudflare",
-                "Firebase",
-                "Planetscale",
-                "?"
-              ]}
-            />
-          }
+          {Object.entries(user.skills).map(([key, item], index) => (
+            <div key={index}>
+              <h3 className="text-xl my-4">{key}:</h3>
+              <TagsCloud data={item} />
+            </div>
+          ))}
         </div>
       </Transition>
 
@@ -206,7 +114,7 @@ export function AboutMe({ showDesc = false }) {
       >
         <button
           type="button"
-          className="w-full inline-flex items-center justify-center gap-4 text-xl"
+          className="w-full inline-flex items-center justify-center gap-4 text-xl animate-pulse"
           onClick={(e) => {
             setExplored(!explored);
           }}

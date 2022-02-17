@@ -2,7 +2,6 @@ lockfileVersion: 5.3
 
 specifiers:
   '@headlessui/react': ^1.4.3
-  '@prisma/client': 3.7.0
   '@tailwindcss/typography': ^0.4.1
   '@types/bcryptjs': ^2.4.2
   '@types/node': ^17.0.18
@@ -17,7 +16,6 @@ specifiers:
   next-auth: ^4.2.1
   postcss: ^8.2.10
   preact: ^10.5.14
-  prisma: 3.7.0
   react: ^17.0.2
   react-dom: ^17.0.2
   react-icons: ^4.2.0
@@ -30,7 +28,6 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.4.3_react-dom@17.0.2+react@17.0.2
-  '@prisma/client': 3.7.0_prisma@3.7.0
   ahooks: 3.1.9_react@17.0.2
   bcryptjs: 2.4.3
   clsx: 1.1.1
@@ -53,7 +50,6 @@ devDependencies:
   '@types/react': 17.0.39
   autoprefixer: 10.4.0_postcss@8.4.5
   postcss: 8.4.5
-  prisma: 3.7.0
   tailwindcss: 2.2.19_67faf65efc23bbcb8667813493b8c465
   ts-node: 10.4.0_f3bd4037939c2ed2942ba074291f8ef2
   typescript: 4.5.5
@@ -333,29 +329,6 @@ packages:
   /@panva/hkdf/1.0.1:
     resolution: {integrity: sha512-mMyQ9vjpuFqePkfe5bZVIf/H3Dmk6wA8Kjxff9RcO4kqzJo+Ek9pGKwZHpeMr7Eku0QhLXMCd7fNCSnEnRMubg==}
     dev: false
-
-  /@prisma/client/3.7.0_prisma@3.7.0:
-    resolution: {integrity: sha512-fUJMvBOX5C7JPc0e3CJD6Gbelbu4dMJB4ScYpiht8HMUnRShw20ULOipTopjNtl6ekHQJ4muI7pXlQxWS9nMbw==}
-    engines: {node: '>=12.6'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 3.7.0-31.8746e055198f517658c08a0c426c7eec87f5a85f
-      prisma: 3.7.0
-    dev: false
-
-  /@prisma/engines-version/3.7.0-31.8746e055198f517658c08a0c426c7eec87f5a85f:
-    resolution: {integrity: sha512-+qx2b+HK7BKF4VCa0LZ/t1QCXsu6SmvhUQyJkOD2aPpmOzket4fEnSKQZSB0i5tl7rwCDsvAiSeK8o7rf+yvwg==}
-    dev: false
-
-  /@prisma/engines/3.7.0-31.8746e055198f517658c08a0c426c7eec87f5a85f:
-    resolution: {integrity: sha512-W549ub5NlgexNhR8EFstA/UwAWq3Zq0w9aNkraqsozVCt2CsX+lK4TK7IW5OZVSnxHwRjrgEAt3r9yPy8nZQRg==}
-    requiresBuild: true
-    dev: true
 
   /@tailwindcss/typography/0.4.1_tailwindcss@2.2.19:
     resolution: {integrity: sha512-ovPPLUhs7zAIJfr0y1dbGlyCuPhpuv/jpBoFgqAc658DWGGrOBWBMpAWLw2KlzbNeVk4YBJMzue1ekvIbdw6XA==}
@@ -2146,15 +2119,6 @@ packages:
   /pretty-hrtime/1.0.3:
     resolution: {integrity: sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=}
     engines: {node: '>= 0.8'}
-    dev: true
-
-  /prisma/3.7.0:
-    resolution: {integrity: sha512-pzgc95msPLcCHqOli7Hnabu/GRfSGSUWl5s2P6N13T/rgMB+NNeKbxCmzQiZT2yLOeLEPivV6YrW1oeQIwJxcg==}
-    engines: {node: '>=12.6'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@prisma/engines': 3.7.0-31.8746e055198f517658c08a0c426c7eec87f5a85f
     dev: true
 
   /process/0.11.10:
