@@ -6,16 +6,15 @@ import { getAllGuestbook } from "lib/fauna";
 import { getLatestUpdatedRepo } from "lib/github";
 import { NextPageContext } from "next";
 export default function Page({
-  latestUpdatedRepos,
-  allGuestbook
+  latestUpdatedRepos
 }: {
   latestUpdatedRepos: any;
-  allGuestbook: any
+  allGuestbook: any;
 }) {
   return (
     <Layout>
       <AboutMe showDesc={true} />
-      <LatestUpdatedRepos data={latestUpdatedRepos} />
+      {latestUpdatedRepos && <LatestUpdatedRepos data={latestUpdatedRepos} />}
       <Guestbook />
     </Layout>
   );
@@ -23,11 +22,9 @@ export default function Page({
 
 export async function getStaticProps(ctx: NextPageContext) {
   const latestUpdatedRepos = await getLatestUpdatedRepo();
-  const allGuestbook = await getAllGuestbook(10);
   return {
     props: {
-      latestUpdatedRepos,
-      allGuestbook
+      latestUpdatedRepos: latestUpdatedRepos || null
     }
   };
 }

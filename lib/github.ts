@@ -1,13 +1,10 @@
-const request = (query: string, variables: Record<any, any>) =>
-  fetch("https://api.github.com/graphql", {
-    method: "POST",
-    body: JSON.stringify({ query, variables }),
-    headers: {
-      Authorization: "Bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
-    }
-  })
-    .then((res) => res.json())
-    .catch((e) => ({ error: true, message: e.message }));
+import { createGraphQLRequest } from "./utils";
+
+const request = createGraphQLRequest("https://api.github.com/graphql", {
+  Authorization: "Bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+});
+
+export const githubGraphQLRequest = request;
 
 export const getLatestUpdatedRepo = () =>
   request(
@@ -31,4 +28,4 @@ export const getLatestUpdatedRepo = () =>
     }
     `,
     {}
-  ).then((json) => json.data.viewer.repositories.nodes);
+  ).then((data) => data?.viewer?.repositories?.nodes);

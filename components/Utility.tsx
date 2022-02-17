@@ -55,7 +55,7 @@ export const IconGram = ({
       }`}
     />
   ) : (
-    <i className="hidden"></i>
+    <i className="w-6 h-6 bg-gray-400"></i>
   );
 };
 

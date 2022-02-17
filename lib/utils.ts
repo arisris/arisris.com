@@ -2,15 +2,37 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import { ZodError } from "zod";
 
-export const random = function() {
+export const random = function () {
   return Math.floor(Math.random() * Date.now()).toString(36);
 };
 
-export const GUID = function(max = 40) {
-  var str = '';
+export const GUID = function (max = 40) {
+  var str = "";
   for (var i = 0; i < max / 3 + 1; i++) str += random();
   return str.substring(0, max);
 };
+
+export const createGraphQLRequest =
+  (baseUrl: string, headers: HeadersInit = {}) =>
+  (
+    query: string,
+    variables: Record<string, any> = {},
+    optionalHeadersOptions: HeadersInit = {}
+  ) =>
+    fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        ...{ ...headers, ...optionalHeadersOptions }
+      },
+      body: JSON.stringify({ query, variables })
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.data) return { error: true, message: "No data!", json };
+        return json.data;
+      })
+      .catch((e) => ({ error: true, message: e.message }));
 
 export const restAsyncHandler =
   (handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
@@ -30,7 +52,6 @@ export const restAsyncHandler =
 
 export const withSession = (handler: NextApiHandler) =>
   restAsyncHandler(async (req, res) => {
-    const session = await getSession({ req });
-    req.session = session;
+    req.session = await getSession({ req });
     return handler(req, res);
   });

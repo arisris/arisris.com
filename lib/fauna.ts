@@ -1,13 +1,10 @@
-const request = (query: string, variables = {}) =>
-  fetch("https://graphql.us.fauna.com/graphql", {
-    method: "POST",
-    body: JSON.stringify({ query, variables }),
-    headers: {
-      Authorization: "Bearer " + process.env.FAUNA_KEY
-    }
-  })
-    .then((res) => res.json())
-    .catch((e) => ({ error: true, message: e.message }));
+import { createGraphQLRequest } from "./utils";
+
+const request = createGraphQLRequest("https://graphql.us.fauna.com/graphql", {
+  Authorization: "Bearer " + process.env.FAUNA_KEY
+});
+
+export const faunaGraphQLRequest = request;
 
 export const createGuestbook = (data: {
   email: string;
@@ -20,6 +17,7 @@ export const createGuestbook = (data: {
         createGuestbook(data: $data) {
           _id
           message
+          email
           createdBy
           createdAt
           updatedAt
@@ -27,7 +25,7 @@ export const createGuestbook = (data: {
       }
     `,
     { data: { ...data, createdAt: new Date().toTimeString() } }
-  ).then((json) => json.data.createGuestbook);
+  ).then((data) => data?.createGuestbook);
 
 export const updateGuestbook = (
   id: string,
@@ -43,6 +41,7 @@ export const updateGuestbook = (
           updateGuestbook(id: $id, data: $data) {
             _id
             message
+            email
             createdBy
             createdAt
             updatedAt
@@ -50,7 +49,7 @@ export const updateGuestbook = (
         }
       `,
     { id, data: { ...data, updatedAt: new Date().toTimeString() } }
-  ).then((json) => json.data.updateGuestbook);
+  ).then((data) => data?.updateGuestbook);
 
 export const deleteGuestbook = (id: string) =>
   request(
@@ -62,7 +61,7 @@ export const deleteGuestbook = (id: string) =>
           }
         `,
     { id }
-  ).then((json) => json.data.deleteGuestbook);
+  ).then((data) => data?.deleteGuestbook);
 
 export const getAllGuestbook = (_size = 20) =>
   request(
@@ -72,6 +71,7 @@ export const getAllGuestbook = (_size = 20) =>
           data {
             _id
             message
+            email
             createdBy
             createdAt
             updatedAt
@@ -80,4 +80,4 @@ export const getAllGuestbook = (_size = 20) =>
       }
     `,
     { _size }
-  ).then((json) => json?.data?.getAllGuestbook?.data || { error: true });
+  ).then((data) => data?.getAllGuestbook?.data);

@@ -3,7 +3,6 @@
     "baseUrl": "./",
     "allowJs": true,
     "target": "ES6",
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
@@ -19,7 +18,7 @@
     ],
     "skipLibCheck": true,
     "incremental": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "exclude": [
     ".bak",
