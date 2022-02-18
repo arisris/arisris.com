@@ -1,6 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import { ZodError } from "zod";
 
 export const gql = (strs: TemplateStringsArray, ...vars: any[]) =>
   strs.reduce((a, b, c) => a.concat(b).concat(c in vars ? vars[c] : ""), "");
@@ -41,16 +40,8 @@ export const restAsyncHandler =
   (handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
   (req: NextApiRequest, res: NextApiResponse) =>
     handler(req, res).catch((e: Error | string) => {
-      if (e instanceof ZodError) {
-        return res.status(409).json({
-          success: false,
-          type: "validationError",
-          path: e.name,
-          errors: e.errors
-        });
-      }
       if (typeof e === "string") e = new Error(e);
-      res.json({ success: false, msg: e.message });
+      res.json({ success: false, msg: e.message || "Something went wrong!" });
     });
 
 export const withSession = (handler: NextApiHandler) =>
