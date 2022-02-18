@@ -14,11 +14,12 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
+      "esnext"
     ],
     "skipLibCheck": true,
     "incremental": true,
     "esModuleInterop": true,
+    "strict": false
   },
   "exclude": [
     ".bak",

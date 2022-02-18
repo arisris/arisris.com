@@ -2,6 +2,9 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import { ZodError } from "zod";
 
+export const gql = (strs: TemplateStringsArray, ...vars: any[]) =>
+  strs.reduce((a, b, c) => a.concat(b).concat(c in vars ? vars[c] : ""), "");
+
 export const random = function () {
   return Math.floor(Math.random() * Date.now()).toString(36);
 };
