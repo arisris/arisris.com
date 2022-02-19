@@ -4,7 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FaWhatsapp } from "react-icons/fa";
-import { HiSun, HiMoon, HiX, HiMenu } from "react-icons/hi"
+import { HiSun, HiMoon, HiX, HiMenu } from "react-icons/hi";
 import { useDarkMode } from "hooks/useDarkMode";
 
 const defaultMeta = {
@@ -89,6 +89,7 @@ function FooterLink({
 function Layout({
   children,
   withHero,
+  showFooterLinks = true,
   ...customMeta
 }: PropsWithChildren<
   {
@@ -97,6 +98,7 @@ function Layout({
       subtitle?: ReactNode;
     };
     className?: string;
+    showFooterLinks?: boolean;
   } & Partial<typeof defaultMeta> &
     Record<any, any>
 >) {
@@ -150,12 +152,7 @@ function Layout({
                 role="button"
                 aria-label="Toggle Dark Mode"
               >
-                {mounted &&
-                  (dark ? (
-                    <HiSun size={32} />
-                  ) : (
-                    <HiMoon size={32} />
-                  ))}
+                {mounted && (dark ? <HiSun size={32} /> : <HiMoon size={32} />)}
               </div>
               <div
                 className="block sm:hidden p-2 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 select-none rounded-full"
@@ -163,11 +160,7 @@ function Layout({
                 role="button"
                 aria-label="Toggle Menu"
               >
-                {toggled ? (
-                  <HiX size={32} />
-                ) : (
-                  <HiMenu size={32} />
-                )}
+                {toggled ? <HiX size={32} /> : <HiMenu size={32} />}
               </div>
             </div>
             <div
@@ -180,11 +173,11 @@ function Layout({
               )}
             >
               <NavLink href={`/`}>Home</NavLink>
-              <NavLink href={`/#guestbook`}>Guestbook</NavLink>
+              <NavLink href={`/guestbook`}>Guestbook</NavLink>
             </div>
           </nav>
           {withHero ? (
-            <div className="prose dark:prose-dark text-center m-auto py-8">
+            <div className="prose-indigo text-center m-auto py-8">
               <h1>{withHero.title}</h1>
               <div className="text-center text-sm">{withHero.subtitle}</div>
             </div>
@@ -195,56 +188,56 @@ function Layout({
         <main className="flex-auto">
           <div className="sm:max-w-screen-md p-4 m-auto">{children}</div>
         </main>
-        {/* <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
-          <div className="flex flex-col mt-auto">
-            <FooterLink href="/">Home</FooterLink>
-            <FooterLink href="/projects">Projects</FooterLink>
-            <FooterLink href="/guestbook">Guestbook</FooterLink>
-          </div>
-          <div className="mt-auto">
-            <FooterLink
-              target="__blank"
-              href="https://github.com/arisris"
-              className="flex items-center gap-2"
-            >
-              <span>Github</span>
-            </FooterLink>
-            <FooterLink
-              target="__blank"
-              href="https://linkedin.com/in/arisris"
-              className="flex items-center gap-2"
-            >
-              <span>LinkedIn</span>
-            </FooterLink>
-            <FooterLink
-              target="__blank"
-              href="https://fb.me/arisfungratis"
-              className="flex items-center gap-2"
-            >
-              <span>Facebook</span>
-            </FooterLink>
-          </div>
-          <div className="flex flex-col mt-auto">
-            <FooterLink target="__blank" href="https://vercel.com">
-              Vercel
-            </FooterLink>
-            <FooterLink target="__blank" href="https://nextjs.org">
-              NextJs
-            </FooterLink>
-            <FooterLink target="__blank" href="https://tailwindcss.com">
-              Tailwindcss
-            </FooterLink>
-          </div>
-        </footer> */}
-        <div className="w-full sm:max-w-screen-md m-auto px-5 py-6">
+        {showFooterLinks && (
+          <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
+            <div className="flex flex-col mt-auto">
+              <FooterLink href="/">Home</FooterLink>
+              {/* <FooterLink href="/projects">Projects</FooterLink> */}
+              <FooterLink href="/guestbook">Guestbook</FooterLink>
+            </div>
+            <div className="mt-auto">
+              <FooterLink
+                target="__blank"
+                href="https://github.com/arisris"
+                className="flex items-center gap-2"
+              >
+                <span>Github</span>
+              </FooterLink>
+              <FooterLink
+                target="__blank"
+                href="https://linkedin.com/in/arisris"
+                className="flex items-center gap-2"
+              >
+                <span>LinkedIn</span>
+              </FooterLink>
+              <FooterLink
+                target="__blank"
+                href="https://fb.me/arisfungratis"
+                className="flex items-center gap-2"
+              >
+                <span>Facebook</span>
+              </FooterLink>
+            </div>
+            <div className="flex flex-col mt-auto">
+              <FooterLink target="__blank" href="https://vercel.com">
+                Vercel
+              </FooterLink>
+              <FooterLink target="__blank" href="https://nextjs.org">
+                NextJs
+              </FooterLink>
+              <FooterLink target="__blank" href="https://tailwindcss.com">
+                Tailwindcss
+              </FooterLink>
+            </div>
+          </footer>
+        )}
+        <div className="w-full sm:max-w-screen-md m-auto px-5 py-6 font-light">
           <span>&copy; {new Date().getFullYear()}</span>
           <FooterLink href="https://github.com/arisris/arisris.vercel.app">
             Aris Riswanto,
           </FooterLink>
           <span>Hosted at:</span>
-          <FooterLink href="https://vercel.com">
-            Vercel
-          </FooterLink>
+          <FooterLink href="https://vercel.com">Vercel</FooterLink>
         </div>
       </section>
       <StickyWaLink />

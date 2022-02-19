@@ -14,6 +14,93 @@ export const GUID = function (max = 40) {
   return str.substring(0, max);
 };
 
+export function friendlyDate(str: string) {
+  const date = new Date(Date.parse(str));
+  const months = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  const day = date.getDay() === 0 ? 1 : date.getDay();
+  return `${day} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+export function timeAgo(
+  timestamp: Date | number,
+  options: {
+    format: "medium" | "long" | "short";
+  } = { format: "medium" }
+) {
+  const ranges = [
+    { min: 1, max: 60, name: { short: "s", medium: "sec", long: "second" } },
+    { max: 3600, name: { short: "m", medium: "min", long: "minute" } },
+    { max: 86400, name: { short: "h", medium: "hr", long: "hour" } },
+    { max: 86400 * 7, name: { short: "d", medium: "day", long: "day" } },
+    { max: 86400 * 28, name: { short: "w", medium: "wk", long: "week" } },
+    {
+      min: 86400 * 31,
+      max: 86400 * 365,
+      name: { short: "m", medium: "mon", long: "month" }
+    },
+    { max: 86400 * 365 * 100, name: { short: "y", medium: "yr", long: "year" } }
+  ];
+
+  let ts_diff: number;
+  const now_ms = new Date().getTime();
+
+  if (timestamp instanceof Date) {
+    ts_diff = (now_ms - timestamp.getTime()) / 1000;
+  } else {
+    ts_diff = now_ms / 1000 - timestamp;
+  }
+
+  const index = ranges.findIndex((item) => item.max > ts_diff);
+  const range = ranges[index];
+  const prevIndex = index - 1;
+  const min = range.min || ranges[prevIndex].max;
+  const diff = Math.ceil(ts_diff / min);
+
+  if (diff < 0)
+    throw new Error(
+      "The time difference is negative. The provided timestamp is in the future."
+    );
+
+  const plural = diff > 1 && options.format !== "short" ? "s" : "";
+
+  return `${diff}${options.format === "short" ? "" : " "}${
+    range.name[options.format]
+  }${plural} ago`;
+}
+
+export const noop = () => {};
+
+export function site_url(path: string) {
+  if (process.browser) {
+    return path;
+  }
+  // reference for vercel.com
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}${path}`;
+  }
+  // assume localhost
+  return `http://localhost:${process.env.PORT ?? 3000}${path}`;
+}
+
+export const fakeArray = (size = 1) =>
+  Array(size)
+    .fill(null)
+    .map((_, k) => k);
+
 export const createGraphQLRequest =
   (baseUrl: string, headers: HeadersInit = {}) =>
   (

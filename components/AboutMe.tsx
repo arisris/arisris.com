@@ -56,7 +56,7 @@ export function AboutMe({ showDesc = false }) {
           <DelayedView
             as="p"
             delay="delay-1000"
-            className="mt-5 mb-10 leading-relaxed"
+            className="mt-5 mb-10 leading-relaxed font-light"
           >
             {user.description}
           </DelayedView>

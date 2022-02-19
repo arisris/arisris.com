@@ -1,4 +1,5 @@
 import { useRequest } from "ahooks";
+import Skeleton from "./Skeleton";
 
 export function LatestUpdatedRepos() {
   const { data, loading, error } = useRequest(() =>
@@ -16,9 +17,9 @@ export function LatestUpdatedRepos() {
               className="ring-2 ring-gray-400 dark:ring-gray-300 p-3 rounded-md text-xs hover:shadow-md hover:transition-transform hover:scale-[1.02] hover:duration-300"
               key={index}
             >
-              <h3 className="mb-2 h-3 w-20 rounded-md bg-gray-400 dark:bg-gray-300"></h3>
-              <p className="mb-2 h-3 w-20 rounded-md bg-gray-400 dark:bg-gray-300"></p>
-              <div className="float-right gap-2 justify-end self-end h-3 w-20 rounded-md bg-gray-400 dark:bg-gray-300"></div>
+              <Skeleton className="w-24 mb-2" />
+              <Skeleton className="w-20" />
+              <Skeleton className="w-16 float-right" />
             </div>
           ))
         ) : error ? (
@@ -34,7 +35,7 @@ export function LatestUpdatedRepos() {
             >
               <h3 className="mb-2 font-bold">{i.nameWithOwner}</h3>
               <p className="truncate mb-2">{i.description}</p>
-              <div className="flex gap-2 text-gray-500 justify-end">
+              <div className="flex gap-2 text-gray-500 justify-end font-light">
                 <span>{i.stargazerCount} stars</span>
                 <span>{i.forkCount} forks</span>
               </div>
