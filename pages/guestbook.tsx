@@ -1,30 +1,17 @@
-import { useRequest } from "ahooks";
 import Layout from "components/Layout";
-import { useEffect, useState } from "react";
 import marked from "marked";
 import Image from "next/image";
 import { friendlyDate } from "lib/utils";
 import { getDiscussion } from "lib/github";
+import { GetServerSideProps } from "next";
 
 export default function Page({
-  data: initial,
+  data,
   discussionId
 }: {
   data: Record<string, any>;
   discussionId: number;
 }) {
-  const [data, setData] = useState(initial);
-  const {
-    data: freshData,
-    loading,
-    error
-  } = useRequest(() =>
-    fetch(`/api/gh/discussion?id=${discussionId}`).then((data) => data.json())
-  );
-  useEffect(() => {
-    if (!loading && !error) setData(freshData);
-  }, [freshData]);
-
   return (
     <Layout title="Guestbook">
       <div className="grid grid-cols-2 gap-4 mx-6 prose-indigo">
@@ -72,13 +59,14 @@ export default function Page({
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetServerSideProps = async () => {
   const discussionId = 7;
   const data = await getDiscussion(discussionId);
   return {
     props: {
       discussionId,
       data
-    }
+    },
+    revalidate: 3600
   };
-}
+};

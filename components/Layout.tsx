@@ -13,7 +13,7 @@ const defaultMeta = {
     "Hello. My name is Aris Riswanto. I'am Experience Jamstack web developer from indonesia. I love web programing since 2009. If you want to hire me as your web developer. feel free to contact me.",
   keywords:
     "Jamstack, React, Next.js, Node.js, Tailwind.css, Redux, PHP, Vercel, Netlify, Web Developer Indonesia",
-  image: "https://arisris.com/documents/banner.png",
+  image: null,
   date: null,
   type: "website"
 };
@@ -109,6 +109,9 @@ function Layout({
   const meta = { ...defaultMeta, ...customMeta };
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
+  const defaultImage = `https://og-image.vercel.app/${encodeURIComponent(
+    meta.title
+  )}.png?theme=dark&md=1&fontSize=100px`;
   return (
     <>
       <Head>
@@ -129,12 +132,12 @@ function Layout({
         <meta property="og:site_name" content="Arisris.com" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
+        <meta property="og:image" content={meta.image || defaultImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@arisris" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
-        <meta name="twitter:image" content={meta.image} />
+        <meta name="twitter:image" content={meta.image || defaultImage} />
         {meta.date && (
           <meta property="article:published_time" content={meta.date} />
         )}
@@ -174,6 +177,8 @@ function Layout({
             >
               <NavLink href={`/`}>Home</NavLink>
               <NavLink href={`/guestbook`}>Guestbook</NavLink>
+              <NavLink href={`/code`}>Code Snippet</NavLink>
+              <NavLink href={`/tools`}>Tools</NavLink>
             </div>
           </nav>
           {withHero ? (

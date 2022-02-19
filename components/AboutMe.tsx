@@ -2,12 +2,9 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 import { Transition } from "@headlessui/react";
-import user from "data/about-me.json";
-import {
-  FaCaretDown,
-  FaCaretUp
-} from "react-icons/fa";
-import { DelayedView, IconGram, TagsCloud } from "./Utility";
+import user from "data/about-me";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { DelayedView, TagsCloud } from "./Utility";
 
 const scrollToElementId = (id: string) => {
   let el = document.querySelector(id);
@@ -40,7 +37,7 @@ export function AboutMe({ showDesc = false }) {
               href={i.url}
               target={"_blank"}
             >
-              <IconGram path={i.icon} size={28} />
+              <i.icon size={24} />
             </a>
           ))}
         </div>
@@ -90,7 +87,7 @@ export function AboutMe({ showDesc = false }) {
                 "sm:justify-end": index % 2 === 1
               })}
             >
-              <IconGram path={i.icon} />
+              <i.icon size={24} />
               <span className="italic">{i.name}</span>
             </div>
           ))}
@@ -119,7 +116,7 @@ export function AboutMe({ showDesc = false }) {
             setExplored(!explored);
           }}
         >
-          <span>Explore Me</span>
+          <span>{explored ? "Hide Me" : "Explore Me"}</span>
           {explored ? <FaCaretUp /> : <FaCaretDown />}
         </button>
       </div>
