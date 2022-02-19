@@ -1,18 +1,26 @@
 import { useRequest } from "ahooks";
 import Layout from "components/Layout";
-import { dataFetching } from "lib/fetcher";
 import { useEffect, useState } from "react";
 import marked from "marked";
 import Image from "next/image";
 import { friendlyDate } from "lib/utils";
+import { getDiscussion } from "lib/github";
 
-const getGuestbook = () => {
-  return dataFetching("/api/gh/guestbook").then((data) => data.json());
-};
-
-export default function Page({ data: initial }: { data: Record<string, any> }) {
+export default function Page({
+  data: initial,
+  discussionId
+}: {
+  data: Record<string, any>;
+  discussionId: number;
+}) {
   const [data, setData] = useState(initial);
-  const { data: freshData, loading, error } = useRequest(getGuestbook);
+  const {
+    data: freshData,
+    loading,
+    error
+  } = useRequest(() =>
+    fetch(`/api/gh/discussion?id=${discussionId}`).then((data) => data.json())
+  );
   useEffect(() => {
     if (!loading && !error) setData(freshData);
   }, [freshData]);
@@ -65,9 +73,11 @@ export default function Page({ data: initial }: { data: Record<string, any> }) {
 }
 
 export async function getStaticProps() {
-  const data = await getGuestbook();
+  const discussionId = 7;
+  const data = await getDiscussion(discussionId);
   return {
     props: {
+      discussionId,
       data
     }
   };

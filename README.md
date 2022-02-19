@@ -14,17 +14,14 @@ Design to be "Low fat + Fast + SEO Friendly"
 - Framework
   - Next.js (react@dev preact@production)
   - Tailwind+jit
-  - RTK
   - more look at package.json
-- Database
-  - Deta database for guestbook comments system [Get free here](https://deta.sh/)
 
 ### Features
 
 - Portfolio
-- Authentication (github + next-iron-session)
-- Static blog with code highlight
-- Guestbook (deta base)
+- Authentication (next-auth)
+#- Static blog with code highlight
+- Guestbook (Now use github discussion)
 - Dark/Light mode
 - ?
 
@@ -38,12 +35,12 @@ First you should create .env.local file at project root
 Add follwing .env variable
 
 ```env
+NEXTAUTH_URL=""
+APP_SECRET_KEY=""
+GITHUB_USERNAME=""
+GITHUB_PERSONAL_ACCESS_TOKEN=""
 GITHUB_CLIENT_ID=""
 GITHUB_CLIENT_SECRET=""
-APP_SECRET_KEY=""
-#UPSTASH_REST_TOKEN=""
-#UPSTASH_REST_URL=""
-DETA_PROJECT_KEY=""
 ```
 
 Fork this repo
@@ -68,7 +65,6 @@ Feel free to chat with me via [My Whatsapp](https://s.id/I5vIJ) if you have a qu
 ### Links
 
 - [Vercel](https://vercel.com)
-- [Deta](https://deta.sh/)
 - [Tailwindcss](https://tailwindcss.com)
 - [Next.js](https://nextjs.org/)
 - [Favicon Generator](https://www.favicon-generator.org/)
