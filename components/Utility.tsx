@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
 import { useIsomorphicLayoutEffect } from "ahooks";
 import clsx from "clsx";
-import { useDarkMode } from "hooks/useDarkMode";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { ElementType, PropsWithChildren, useEffect, useState } from "react";
 
@@ -42,7 +42,7 @@ export const IconGram = ({
   path: string;
   size?: number;
 }) => {
-  const { dark } = useDarkMode();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   return mounted ? (
@@ -51,7 +51,7 @@ export const IconGram = ({
       height={24}
       priority
       src={`https://icongr.am/${path}.svg?size=${size}&color=${
-        dark ? "ffffff" : "000000"
+        resolvedTheme === "dark" ? "ffffff" : "000000"
       }`}
     />
   ) : (

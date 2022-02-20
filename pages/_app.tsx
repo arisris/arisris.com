@@ -1,7 +1,7 @@
 import "styles/global.css";
 import { AppProps } from "next/app";
 import { configResponsive } from "ahooks";
-import { UseDarkModeProvider } from "hooks/useDarkMode";
+import { ThemeProvider } from "next-themes";
 
 configResponsive({
   sm: 640,
@@ -12,9 +12,9 @@ configResponsive({
 });
 function App({ Component, pageProps }: AppProps) {
   return (
-    <UseDarkModeProvider>
+    <ThemeProvider defaultTheme="system" attribute="class">
       <Component {...pageProps} />
-    </UseDarkModeProvider>
+    </ThemeProvider>
   );
 }
 

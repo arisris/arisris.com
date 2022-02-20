@@ -14,9 +14,9 @@ export default function Page({
 }) {
   return (
     <Layout title="Guestbook">
-      <div className="grid grid-cols-2 gap-4 mx-6 prose-indigo">
+      <div className="grid grid-cols-2 gap-4 mx-6">
         <div
-          className="col-span-2 text-sm lg:mx-6 font-light p-6 bg-blue-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md"
+          className="col-span-2 text-sm lg:mx-6 font-light p-6 bg-blue-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md prose-sm prose dark:prose-invert overflow-x-auto"
           dangerouslySetInnerHTML={{ __html: marked(data.body) }}
         />
         <ul className="col-span-2 lg:mx-6 flex flex-col gap-6 mt-8 divide-y-2 dark:divide-gray-800">
@@ -38,7 +38,7 @@ export default function Page({
                   <a
                     target={"_blank"}
                     href={node.author.url}
-                    className="font-light"
+                    className="font-bold"
                   >
                     {node.author.login}
                   </a>

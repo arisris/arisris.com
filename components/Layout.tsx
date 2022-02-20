@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiSun, HiMoon, HiX, HiMenu } from "react-icons/hi";
-import { useDarkMode } from "hooks/useDarkMode";
+import { useTheme } from "next-themes";
 
 const defaultMeta = {
   title: "Jamstack Web Developer | Arisris.com",
@@ -105,7 +105,7 @@ function Layout({
   const router = useRouter();
   const [toggled, toggle] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { toggle: toggleDarkMode, dark } = useDarkMode();
+  const theme = useTheme();
   const meta = { ...defaultMeta, ...customMeta };
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
@@ -150,12 +150,19 @@ function Layout({
                 className="block p-2 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 select-none mx-2 rounded-full"
                 onClick={(e) => {
                   e.preventDefault();
-                  toggleDarkMode();
+                  theme.setTheme(
+                    theme.resolvedTheme === "dark" ? "light" : "dark"
+                  );
                 }}
                 role="button"
                 aria-label="Toggle Dark Mode"
               >
-                {mounted && (dark ? <HiSun size={32} /> : <HiMoon size={32} />)}
+                {mounted &&
+                  (theme.resolvedTheme === "dark" ? (
+                    <HiSun size={32} />
+                  ) : (
+                    <HiMoon size={32} />
+                  ))}
               </div>
               <div
                 className="block sm:hidden p-2 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 select-none rounded-full"
@@ -177,7 +184,7 @@ function Layout({
             >
               <NavLink href={`/`}>Home</NavLink>
               <NavLink href={`/guestbook`}>Guestbook</NavLink>
-              <NavLink href={`/code`}>Code Snippet</NavLink>
+              <NavLink href={`/code`}>Code Snipet</NavLink>
               <NavLink href={`/tools`}>Tools</NavLink>
             </div>
           </nav>
@@ -197,7 +204,7 @@ function Layout({
           <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
             <div className="flex flex-col mt-auto">
               <FooterLink href="/">Home</FooterLink>
-              {/* <FooterLink href="/projects">Projects</FooterLink> */}
+              <FooterLink href="/code">Code Snipet</FooterLink>
               <FooterLink href="/guestbook">Guestbook</FooterLink>
             </div>
             <div className="mt-auto">

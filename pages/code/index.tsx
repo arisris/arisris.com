@@ -8,9 +8,9 @@ import Link from "next/link";
 export default function Page({ data }) {
   return (
     <Layout title="Code Snipet">
-      <div className="grid grid-cols-2 gap-4 mx-6 prose-indigo">
+      <div className="grid grid-cols-2 gap-4 mx-6">
         <div
-          className="col-span-2 text-sm lg:mx-6 font-light p-6 bg-blue-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md"
+          className="col-span-2 text-sm lg:mx-6 font-light p-6 bg-blue-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md prose dark:prose-invert"
           dangerouslySetInnerHTML={{
             __html: marked(
               "Public code snipet from [my gists](https://gist.github.com/arisris)"

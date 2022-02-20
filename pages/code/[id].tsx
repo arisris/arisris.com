@@ -3,11 +3,10 @@ import { getGistDetail, getGistList } from "lib/github";
 import { friendlyDate } from "lib/utils";
 import { GetStaticProps } from "next";
 import marked from "marked";
-import path from "path";
 import Script from "next/script";
 import Head from "next/head";
-import { useDarkMode } from "hooks/useDarkMode";
 import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 declare global {
   interface Window {
@@ -30,7 +29,7 @@ function highlightAll(el: Element) {
 }
 
 export default function Page({ data }) {
-  const { dark } = useDarkMode();
+  const { resolvedTheme } = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (contentRef.current) {
@@ -45,16 +44,18 @@ export default function Page({ data }) {
         <link
           rel="stylesheet"
           href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${
-            dark ? "base16/dracula" : "base16/github"
+            contentRef.current && resolvedTheme === "dark"
+              ? "base16/dracula"
+              : "base16/tomorrow"
           }.min.css`}
         />
       </Head>
       <div
         ref={contentRef}
-        className="block mx-auto prose dark:prose-dark prose-indigo"
+        className="block mx-auto prose-sm prose dark:prose-invert prose-pre:border dark:prose-pre:border-gray-700 prose-pre:bg-gray-100 prose-pre:text-gray-900 dark:prose-pre:bg-gray-800 dark:prose-pre:text-gray-100"
       >
         <h1>{data.description}</h1>
-        <div className="inline-flex gap-2 items-center font-thin text-lg">
+        <div className="inline-flex gap-x-2 items-center font-thin text-lg flex-wrap">
           <small>Created: {friendlyDate(data.createdAt)},</small>
           <small>Updated: {friendlyDate(data.updatedAt)},</small>
           <small>({data.forks.totalCount}) fork,</small>
@@ -62,8 +63,8 @@ export default function Page({ data }) {
           <small>({data.comments.totalCount}) comments,</small>
         </div>
         {data.files
-          .filter((i) => i.extension === ".md")
-          .map((i) => {
+          .filter((i: any) => i.extension === ".md")
+          .map((i: any) => {
             return (
               <div
                 key={i.name}
