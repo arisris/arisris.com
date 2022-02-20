@@ -2,7 +2,7 @@
 module.exports = {
   swcMinify: true,
   compiler: {
-    removeConsole: true
+    removeConsole: process.env.NODE_ENV === "production"
   },
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx"],
@@ -11,15 +11,5 @@ module.exports = {
       "avatars.githubusercontent.com", // github avatar
       "icongr.am"
     ]
-  },
-  // webpack: (config, { dev, isServer }) => {
-  //   if (!dev && !isServer) {
-  //     Object.assign(config.resolve.alias, {
-  //       react: "preact/compat",
-  //       "react-dom/test-utils": "preact/test-utils",
-  //       "react-dom": "preact/compat"
-  //     });
-  //   }
-  //   return config;
-  // }
+  }
 };

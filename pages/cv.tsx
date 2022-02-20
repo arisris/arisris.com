@@ -1,11 +1,17 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ReactElement } from 'react';
-import { FaFacebook, FaGithub, FaLinkedin, FaPrint } from 'react-icons/fa';
-import { IconType } from 'react-icons/lib';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { ReactElement, useEffect, useState } from "react";
+import { FaFacebook, FaGithub, FaLinkedin, FaPrint } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
-const IconWithLink = ({ icon, href }: { icon?: ReactElement<IconType>; href: string }) => (
+const IconWithLink = ({
+  icon,
+  href
+}: {
+  icon?: ReactElement<IconType>;
+  href: string;
+}) => (
   <div className="flex gap-2 items-center">
     {icon}
     <Link href={href}>
@@ -15,6 +21,9 @@ const IconWithLink = ({ icon, href }: { icon?: ReactElement<IconType>; href: str
 );
 
 export default function PageCV() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div>Loading...</div>;
   return (
     <section className="flex flex-col max-w-screen-md mx-auto p-8 gap-8">
       <Head>
@@ -52,7 +61,7 @@ export default function PageCV() {
           </div>
         </div>
       </header>
-      <div className="prose dark:prose-dark max-w-full">
+      <div className="prose dark:prose-invert max-w-full">
         <h2 className="border-b px-2">Objective</h2>
         <p>
           As a web developer I always try to focus on the projects I'm working
@@ -81,10 +90,10 @@ export default function PageCV() {
             <p>
               Remote Senior Frontend Developer
               <br />
-              Develop{' '}
+              Develop{" "}
               <a target="_blank" href="https://dosoon.id">
                 dosoon.id
-              </a>{' '}
+              </a>{" "}
               homepage and administrator frontend using next.js
             </p>
           </li>
@@ -147,7 +156,7 @@ export default function PageCV() {
             </div>
             <p>
               Desc: Develop System ID Card maker for registered member. web app
-              based on laravel framework{' '}
+              based on laravel framework{" "}
               <a target="_blank" href="https://app.upbukarelsadsuitubun.com">
                 https://app.upbukarelsadsuitubun.com
               </a>
@@ -182,7 +191,7 @@ export default function PageCV() {
               Production build.
               <br />
               <br />
-              Link:{' '}
+              Link:&nbsp;&nbsp;
               <a target="_blank" href="https://vidl.vercel.app/">
                 https://vidl.vercel.app/
               </a>
@@ -220,7 +229,7 @@ export default function PageCV() {
               Production build.
               <br />
               <br />
-              Link:{' '}
+              Link:&nbsp;&nbsp;
               <a target="_blank" href="https://applirik.vercel.app/">
                 https://applirik.vercel.app/
               </a>
