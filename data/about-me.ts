@@ -1,4 +1,4 @@
-import { FaDesktop, FaFacebook, FaGithub, FaHome, FaLinkedin, FaLinux, FaUser, FaUsers } from "react-icons/fa"
+import { FaDesktop, FaFacebook, FaGithub, FaHome, FaLinkedin, FaLinux, FaUsers } from "react-icons/fa"
 export default {
   name: "Aris Riswanto",
   title: "Jamstack Web Developer",

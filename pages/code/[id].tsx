@@ -3,63 +3,36 @@ import { getGistDetail, getGistList } from "lib/github";
 import { friendlyDate } from "lib/utils";
 import { GetStaticProps } from "next";
 import marked from "marked";
-import Script from "next/script";
-import Head from "next/head";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useTheme } from "next-themes";
-
-declare global {
-  interface Window {
-    hljs?: any;
-  }
-}
-
-function highlightAll(el: Element) {
-  const resolve = () => "hljs" in window;
-  if (resolve()) {
-    window.hljs.highlightElement(el);
-  } else {
-    const t = setInterval(function () {
-      if (resolve()) {
-        window.hljs.highlightElement(el);
-        clearInterval(t);
-      }
-    });
-  }
-}
+import { useExternal } from "ahooks";
 
 export default function Page({ data }) {
   const { resolvedTheme } = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (contentRef.current) {
-      const domContainer = contentRef.current;
-      domContainer.querySelectorAll("pre code").forEach((e) => highlightAll(e));
-    }
-  }, [contentRef]);
-  //console.log(data)
+  useExternal(
+    `https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism${
+      resolvedTheme === "dark" ? "-dark" : ""
+    }.min.css`
+  );
+  useExternal(
+    "https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js"
+  );
+  useExternal(
+    "https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"
+  );
   return (
-    <Layout title="Code Snipet">
-      <Head>
-        <link
-          rel="stylesheet"
-          href={`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/styles/${
-            contentRef.current && resolvedTheme === "dark"
-              ? "base16/dracula"
-              : "base16/tomorrow"
-          }.min.css`}
-        />
-      </Head>
+    <Layout title={data.description}>
       <div
         ref={contentRef}
-        className="block mx-auto prose-sm prose dark:prose-invert prose-pre:border dark:prose-pre:border-gray-700 prose-pre:bg-gray-100 prose-pre:text-gray-900 dark:prose-pre:bg-gray-800 dark:prose-pre:text-gray-100"
+        className="block mx-auto prose prose-pre:max-h-96 prose-code:bg-gray-100 dark:prose-invert dark:prose-pre:border-gray-800 dark:prose-pre:bg-gray-800 dark:prose-pre:text-gray-100"
       >
         <h1>{data.description}</h1>
         <div className="inline-flex gap-x-2 items-center font-thin text-lg flex-wrap">
           <small>Created: {friendlyDate(data.createdAt)},</small>
           <small>Updated: {friendlyDate(data.updatedAt)},</small>
           <small>({data.forks.totalCount}) fork,</small>
-          <small>({data.stargazerCount}) star,</small>
+          <small>({data.stargazerCount}) stars,</small>
           <small>({data.comments.totalCount}) comments,</small>
         </div>
         {data.files
@@ -73,10 +46,6 @@ export default function Page({ data }) {
             );
           })}
       </div>
-      <Script
-        async
-        src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.2.0/build/highlight.min.js"
-      />
     </Layout>
   );
 }
