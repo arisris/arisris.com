@@ -74,7 +74,7 @@ export function AboutMe({ showDesc = false }) {
           scrollToElementId("#exploredMe");
         }}
         afterLeave={() => {
-          scrollToElementId("#exploredButton");
+          scrollToElementId("#navbar");
         }}
         appear
       >

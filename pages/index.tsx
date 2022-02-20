@@ -9,7 +9,7 @@ export default function Page({ latestUpdatedRepos }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   return (
-    <Layout showFooterLinks={false}>
+    <Layout showFooterLinks={false} additionalHeader={<div>Hello World</div>}>
       <AboutMe showDesc={true} />
       <LatestUpdatedRepos data={latestUpdatedRepos} />
     </Layout>

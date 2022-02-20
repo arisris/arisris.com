@@ -2,7 +2,7 @@ import { FaDesktop, FaFacebook, FaGithub, FaHome, FaLinkedin, FaLinux, FaUsers }
 export default {
   name: "Aris Riswanto",
   title: "Jamstack Web Developer",
-  avatar: "/documents/avatar.png",
+  avatar: "https://avatars.githubusercontent.com/u/62107426?v=4",
   description:
     "I am a father of one kids, I started learning programming languages since 2009. Actually I don't have an IT education background but I was very enthusiastic about learning programming languages from that time until now. I was born 30 years ago in Majalengka, And now I live with my family in Ciamis.",
   knowledgebase:

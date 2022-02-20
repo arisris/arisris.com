@@ -144,10 +144,10 @@ function Layout({
       </Head>
       <section className="absolute flex flex-col w-full h-full">
         <header className="dark:text-white text-gray-900">
-          <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6 border-b border-gray-100 dark:border-none">
+          <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6" id="navbar">
             <div className="flex justify-between items-center">
               <div
-                className="block p-2 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 select-none mx-2 rounded-full"
+                className="block p-2 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 select-none mx-2"
                 onClick={(e) => {
                   e.preventDefault();
                   theme.setTheme(
@@ -165,7 +165,7 @@ function Layout({
                   ))}
               </div>
               <div
-                className="block sm:hidden p-2 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 select-none rounded-full"
+                className="block sm:hidden p-2 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 select-none"
                 onClick={() => toggle(!toggled)}
                 role="button"
                 aria-label="Toggle Menu"
