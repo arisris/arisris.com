@@ -38,7 +38,7 @@ export default {
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/arisirs",
+      url: "https://linkedin.com/in/arisris",
       icon: FaLinkedin
     }
   ],
