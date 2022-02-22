@@ -1,24 +1,24 @@
+import { deta } from "lib/deta";
 import { RestApiError } from "lib/errors";
-import { getDiscussion, getLatestUpdatedRepo } from "lib/github";
 import { withSession } from "lib/utils";
 import { NextApiHandler } from "next";
 
-const handler: NextApiHandler = async (req, res) => {
-  if (req.method !== "GET") throw new RestApiError("METHOD_NOT_SUPPORTED");
-  const param = req.query?.param;
-
-  if (param === "discussion") {
-    let data = await getDiscussion(
-      req.query.id ? parseInt(req.query.id as string) : 7
-    );
-    return res.json(data);
+const gh_account = deta.Base("gh_account");
+const handleGet: NextApiHandler = async (req, res) => {
+  const currentUser = req.session?.user;
+  if (currentUser && req.query.param === "currentUser") {
+    const account = await gh_account.get(currentUser?.email);
+    if (!!account) return res.json(account);
+    throw new RestApiError("UNAUTHORIZED");
   }
-  if (param === "updated-repo") {
-    let data = await getLatestUpdatedRepo();
-    return res.json(data);
-  }
-
   throw new RestApiError("NOT_FOUND");
 };
 
-export default withSession(handler);
+export default withSession(async function (req, res) {
+  switch (req.method) {
+    case "GET":
+      return handleGet(req, res);
+    default:
+      return res.json({ success: false, msg: "No Method allowed." });
+  }
+});

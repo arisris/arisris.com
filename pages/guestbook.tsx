@@ -1,72 +1,205 @@
-import Layout from "components/Layout";
-import marked from "marked";
+import { useState } from "react";
 import Image from "next/image";
-import { friendlyDate } from "lib/utils";
-import { getDiscussion } from "lib/github";
-import { GetServerSideProps } from "next";
+import Layout from "components/Layout";
+import SpinLoading from "components/SpinLoading";
+import { FaRedo, FaSignOutAlt, FaTrash } from "react-icons/fa";
+import clsx from "clsx";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useRequest } from "ahooks";
+import { timeAgo } from "lib/utils";
 
-export default function Page({
-  data,
-  discussionId
-}: {
-  data: Record<string, any>;
-  discussionId: number;
-}) {
+const requester = (init: RequestInit = { method: "GET" }) =>
+  fetch("/api/guestbook", {
+    ...init,
+    headers: {
+      "content-type": "application/json"
+    }
+  }).then((d) => d.json());
+const getGuestbook = () => requester();
+const postGuestbook = (data: Record<any, any>) =>
+  requester({ method: "POST", body: JSON.stringify(data) });
+const deleteGuestbook = (key: string) =>
+  requester({ method: "DELETE", body: JSON.stringify({ key }) });
+
+const GbPost = ({ data, refresh }) => {
+  if (!data?.created_at) data.created_at = Date.now(); // fallback
+  const timeagoDate = timeAgo(new Date(data?.created_at));
+  const { data: session, status: sessionStatus } = useSession();
+  const { runAsync: deleteGb, loading: isDeleting } = useRequest(
+    deleteGuestbook,
+    {
+      manual: true,
+      onSuccess: () => refresh()
+    }
+  );
+  const isAdmin = sessionStatus === "authenticated" && session?.user?.isAdmin;
+  return (
+    <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-gray-900 dark:border-gray-800 rounded-md border">
+      <div className="grid grid-cols-2 gap-2 py-2 mb-2 border-b border-gray-200 dark:border-gray-800">
+        <div className="inline-flex gap-2 items-center">
+          <Image
+            className="w-6 h-6 rounded-full"
+            width="24"
+            height="24"
+            src={data.image}
+          />
+          <div className="text-md flex flex-col">
+            <h4>{data?.name}</h4>
+            <span className="text-[10px] text-gray-500">{timeagoDate}</span>
+          </div>
+        </div>
+        <div className="flex flex-col gap-1 items-end justify-center text-[10px]">
+          {data?.private && <div className="text-red-500">(private)</div>}
+          {/* Allow Author or admin to delete their comments */}
+          {session && (session?.user?.email === data?.email || isAdmin) && (
+            <button title="Delete Comment?" onClick={() => deleteGb(data.key)}>
+              <FaTrash className="w-3 h-3" />
+            </button>
+          )}
+        </div>
+      </div>
+      <div
+        className={clsx(
+          "my-4 text-gray-600 dark:text-gray-100 text-sm whitespace-pre-wrap",
+          {
+            "line-through text-red-500 dark:text-red-500": isDeleting
+          }
+        )}
+      >
+        {data?.body}
+      </div>
+    </div>
+  );
+};
+
+function GbForms({ refresh }) {
+  const [messageBody, setMessageBody] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
+  const { data: session, status: sessionStatus } = useSession();
+  const { loading, error, runAsync } = useRequest(postGuestbook, {
+    manual: true,
+    onSuccess: () => refresh()
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    runAsync({
+      body: messageBody,
+      private: isPrivate
+    }).then(() => {
+      setIsPrivate(false);
+      setMessageBody("");
+    });
+  };
+  if (sessionStatus === "loading")
+    return <SpinLoading text="Loading session" />;
+  if (sessionStatus === "unauthenticated") {
+    return (
+      <div className="mt-4 p-2 ring-1 ring-red-600 text-red-500 rounded text-xs">
+        You must{" "}
+        <a
+          href="#signIn"
+          onClick={() => signIn()}
+          className="font-black text-gray-600 dark:text-gray-200"
+        >
+          SignIn
+        </a>{" "}
+        to write a guestbook
+      </div>
+    );
+  }
+  return (
+    <>
+      <div className="inline-flex items-center gap-2 w-full mt-4 p-2 ring-1 ring-green-700 rounded text-xs">
+        Logged as <b className="text-green-600">{session?.user?.name}</b>{" "}
+        <a
+          href="#signOut"
+          title="SignOut?"
+          className="inline-flex font-black"
+          onClick={(e) => {
+            e.preventDefault();
+            signOut();
+          }}
+        >
+          <FaSignOutAlt className="w-3 h-3" />
+        </a>
+      </div>
+      <form className="mt-4" method="POST" onSubmit={handleSubmit}>
+        <div className="mb-2">
+          <label>{`Your Message* (3 >= 100)`}</label>
+          <textarea
+            className="w-full h-auto p-4 rounded bg-gray-200 dark:bg-gray-900 border dark:border-gray-800 focus:ring focus:outline-none mt-3"
+            name="body"
+            placeholder="Leave your message here."
+            onChange={(e) => setMessageBody(e.target.value)}
+            value={messageBody}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              name="private"
+              onChange={(e) => setIsPrivate(e.target.checked)}
+              checked={isPrivate}
+            />
+            <span className="ml-4 select-none">Your guestbook is private?</span>
+          </label>
+        </div>
+        <div>
+          <button
+            type="submit"
+            className={clsx(
+              "w-full px-2 py-1 rounded text-gray-100 bg-gray-800 focus:ring",
+              {
+                "cursor-wait": loading
+              }
+            )}
+            disabled={loading}
+          >
+            {loading ? "Submiting..." : "Submit"}
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
+
+export default function GuestbookPage() {
+  const { data, loading, error, refresh } = useRequest(getGuestbook);
   return (
     <Layout title="Guestbook">
-      <div className="grid grid-cols-2 gap-4 mx-6">
-        <div
-          className="col-span-2 text-sm lg:mx-6 font-light p-6 bg-blue-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md prose-sm prose dark:prose-invert overflow-x-auto"
-          dangerouslySetInnerHTML={{ __html: marked(data.body) }}
-        />
-        <ul className="col-span-2 lg:mx-6 flex flex-col gap-6 mt-8 divide-y-2 dark:divide-gray-800">
-          {data.comments.edges.map(({ node }) => {
-            return (
-              <li
-                className="grid grid-cols-12 gap-x-4 sm:gap-0 sm:mx-8 py-4"
-                key={node.id}
-              >
-                <div className="col-span-2 block relative content-center">
-                  <Image
-                    src={node.author.avatarUrl}
-                    width={72}
-                    height={72}
-                    className="rounded-md"
-                  />
-                </div>
-                <div className="col-span-10 flex justify-start items-start flex-col -mt-1">
-                  <a
-                    target={"_blank"}
-                    href={node.author.url}
-                    className="font-bold"
-                  >
-                    {node.author.login}
-                  </a>
-                  <small className="text-xs font-thin">
-                    {friendlyDate(node.publishedAt)}
-                  </small>
-                  <div
-                    className="font-light mt-2 text-sm"
-                    dangerouslySetInnerHTML={{ __html: marked(node.body) }}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+      <div className="flex flex-col lg:flex-row px-3 py-2 gap-6">
+        <div className="w-12/12 lg:w-7/12">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="font-bold">Latest Guestbook</h2>
+            <button
+              className="p-2 bg-gray-800 text-white rounded-full"
+              onClick={() => refresh()}
+            >
+              <FaRedo
+                className={clsx("w-4 h-4", {
+                  "animate-spin": loading
+                })}
+              />
+            </button>
+          </div>
+          {loading ? (
+            <SpinLoading text="Loading..." />
+          ) : error ? (
+            <div>{"Error While Loading Data"}</div>
+          ) : data.data?.length > 0 ? (
+            data?.data?.map((i: any) => {
+              return <GbPost key={i.key} data={i} refresh={refresh} />;
+            })
+          ) : (
+            <div>No comments yet.</div>
+          )}
+        </div>
+        <div className="w-12/12 lg:w-5/12">
+          <GbForms refresh={refresh} />
+        </div>
       </div>
     </Layout>
   );
 }
-
-export const getStaticProps: GetServerSideProps = async () => {
-  const discussionId = 7;
-  const data = await getDiscussion(discussionId);
-  return {
-    props: {
-      discussionId,
-      data
-    },
-    revalidate: 3600
-  };
-};
