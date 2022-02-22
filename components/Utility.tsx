@@ -1,9 +1,11 @@
 import { Transition } from "@headlessui/react";
 import { useIsomorphicLayoutEffect } from "ahooks";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { ElementType, PropsWithChildren, useEffect, useState } from "react";
+import { ElementType, HTMLProps, PropsWithChildren, ReactElement, useEffect, useState } from "react";
+import { FaCircleNotch, FaRedo } from "react-icons/fa";
 
 export const DelayedView = ({
   as = "div",
@@ -71,3 +73,66 @@ export const TagsCloud = ({ data }: { data: string[] }) => (
     ))}
   </div>
 );
+
+export function SpinLoading({
+  text,
+  className
+}: PropsWithChildren<{ text: string; className?: string }>) {
+  return (
+    <div className={clsx('flex justify-center items-center gap-2', className)}>
+      <FaRedo className="w-4 h-4 animate-spin" />
+      <span>{text}</span>
+    </div>
+  );
+}
+
+type SkeletonProps = {
+  as?: string;
+  animate?: "ping" | "pulse";
+  show?: boolean;
+  className?: string;
+  children?: any;
+  loadingChildren?: JSX.Element | JSX.Element[];
+};
+
+export function Skeleton({
+  animate = "pulse",
+  show = true,
+  className,
+  loadingChildren,
+  children,
+  ...props
+}: SkeletonProps & HTMLProps<HTMLDivElement>) {
+  return show ? (
+    <div
+      className={clsx(
+        "p-2 rounded-md bg-gray-300 dark:bg-gray-700 cursor-wait",
+        {
+          "animate-ping": animate === "ping",
+          "animate-pulse": animate === "pulse"
+        },
+        className
+      )}
+      {...props}
+    >
+      {loadingChildren}
+    </div>
+  ) : (
+    children || null
+  );
+}
+
+export function RequireAuth({ children }: { children: ReactElement }) {
+  const { status } = useSession({ required: true });
+  if (status === "authenticated") return children;
+  return (
+    <div className="absolute inset-0 flex flex-col justify-center items-center">
+      <div className="prose dark:prose-invert flex flex-col items-center">
+        {status === "loading" && (
+          <FaCircleNotch size={32} className="animate-spin" />
+        )}
+        <h2>{status === "loading" ? "Loading..." : "Unauthenticated!"}</h2>
+      </div>
+    </div>
+  );
+}

@@ -1,5 +1,5 @@
 {
-  "name": "arisris.vercel.app",
+  "name": "arisris.com",
   "version": "1.0.0",
   "description": "My expreiment using next.js",
   "main": "index.js",
@@ -13,12 +13,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arisris/arisris.vercel.app.git"
+    "url": "git+https://github.com/arisris/arisris.com.git"
   },
   "bugs": {
-    "url": "https://github.com/arisris/arisris.vercel.app/issues"
+    "url": "https://github.com/arisris/arisris.com/issues"
   },
-  "homepage": "https://github.com/arisris/arisris.vercel.app#readme",
+  "homepage": "https://github.com/arisris/arisris.com#readme",
   "scripts": {
     "start": "next start",
     "dev": "next dev",

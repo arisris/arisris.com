@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import Layout from "components/Layout";
-import SpinLoading from "components/SpinLoading";
 import { FaRedo, FaSignOutAlt, FaTrash } from "react-icons/fa";
 import clsx from "clsx";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRequest } from "ahooks";
 import { timeAgo } from "lib/utils";
+import { SpinLoading } from "components/Utility";
 
 const requester = (init: RequestInit = { method: "GET" }) =>
   fetch("/api/guestbook", {
@@ -169,7 +169,7 @@ export default function GuestbookPage() {
   const { data, loading, error, refresh } = useRequest(getGuestbook);
   return (
     <Layout title="Guestbook">
-      <div className="flex flex-col lg:flex-row px-3 py-2 gap-6">
+      <div className="flex flex-col-reverse lg:flex-row px-3 py-2 gap-6">
         <div className="w-12/12 lg:w-7/12">
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-bold">Latest Guestbook</h2>

@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
+import { NextComponentType, NextPageContext } from "next";
 import { DefaultUser, Session, UserData } from "next-auth";
+import { Router } from "next/router";
 
 declare module "next-auth" {
   interface UserData extends DefaultUser {
@@ -15,7 +17,7 @@ declare module "next/app" {
     NextComponentType<NextPageContext, any, P> & {
       protected?: any;
     };
-  type AppProps = {
+  export type AppProps<P = Record<string, any>> = {
     Component: NextComponentTypeWithProps;
     router: Router;
     __N_SSG?: boolean;
@@ -28,6 +30,6 @@ declare module "next/app" {
 
 declare module "next" {
   interface NextApiRequest extends NextApiRequest {
-    session: Session | null;
+    session: Session;
   }
 }

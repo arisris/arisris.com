@@ -12,7 +12,7 @@ Design to be "Low fat + Fast + SEO Friendly"
   - vercel.com
   - ?
 - Framework
-  - Next.js (react@dev preact@production)
+  - Next.js
   - Tailwind+jit
   - more look at package.json
 
@@ -20,8 +20,8 @@ Design to be "Low fat + Fast + SEO Friendly"
 
 - Portfolio
 - Authentication (next-auth)
-#- Static blog with code highlight
-- Guestbook (Now use github discussion)
+- Static blog code (gh gists)
+- Guestbook (Deta base)
 - Dark/Light mode
 - ?
 

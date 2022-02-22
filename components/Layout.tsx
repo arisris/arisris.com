@@ -6,17 +6,7 @@ import { useRouter } from "next/router";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiSun, HiMoon, HiX, HiMenu } from "react-icons/hi";
 import { useTheme } from "next-themes";
-
-const defaultMeta = {
-  title: "Jamstack Web Developer | Arisris.com",
-  description:
-    "Hello. My name is Aris Riswanto. I'am Experience Jamstack web developer from indonesia. I love web programing since 2009. If you want to hire me as your web developer. feel free to contact me.",
-  keywords:
-    "Jamstack, React, Next.js, Node.js, Tailwind.css, Redux, PHP, Vercel, Netlify, Web Developer Indonesia",
-  image: null,
-  date: null,
-  type: "website"
-};
+import { defaultMeta } from "data/headers";
 
 function StickyWaLink() {
   return (
@@ -86,12 +76,7 @@ function FooterLink({
   );
 }
 
-function Layout({
-  children,
-  withHero,
-  showFooterLinks = true,
-  ...customMeta
-}: PropsWithChildren<
+export type LayoutProps = PropsWithChildren<
   {
     withHero?: {
       title?: ReactNode;
@@ -101,7 +86,13 @@ function Layout({
     showFooterLinks?: boolean;
   } & Partial<typeof defaultMeta> &
     Record<any, any>
->) {
+>;
+function Layout({
+  children,
+  withHero,
+  showFooterLinks = true,
+  ...customMeta
+}: LayoutProps) {
   const router = useRouter();
   const [toggled, toggle] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -144,7 +135,10 @@ function Layout({
       </Head>
       <section className="absolute flex flex-col w-full h-full">
         <header className="dark:text-white text-gray-900">
-          <nav className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6" id="navbar">
+          <nav
+            className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6"
+            id="navbar"
+          >
             <div className="flex justify-between items-center">
               <div
                 className="block p-2 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 select-none mx-2"
