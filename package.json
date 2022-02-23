@@ -32,15 +32,17 @@
     "autoprefixer": "^10.4.2",
     "clsx": "^1.1.1",
     "deta": "^1.0.2",
+    "graphql": "^16.3.0",
+    "graphql-helix": "^1.11.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.3",
     "next": "^12.1.0",
     "next-auth": "^4.2.1",
     "next-themes": "^0.0.16-beta.11",
+    "nexus": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
-    "superjson": "^1.8.1",
     "zod": "^3.11.6"
   },
   "devDependencies": {
