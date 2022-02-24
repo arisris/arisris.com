@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { RequireAuth } from "components/Utility";
+import { UseModalConextProvider } from "hooks/useModal";
 
 // import { configResponsive } from "ahooks";
 // configResponsive({
@@ -16,13 +17,15 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeProvider defaultTheme="system" attribute="class">
-        {Component.protected ? (
-          <RequireAuth>
+        <UseModalConextProvider>
+          {Component.protected ? (
+            <RequireAuth>
+              <Component {...pageProps} />
+            </RequireAuth>
+          ) : (
             <Component {...pageProps} />
-          </RequireAuth>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </UseModalConextProvider>
       </ThemeProvider>
     </SessionProvider>
   );

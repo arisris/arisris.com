@@ -34,8 +34,8 @@ function Pagination({
         {pages.map((page, i) => (
           <button
             className={clsx("p-2 rounded-md", {
-              "bg-gray-800": activePage === page,
-              "bg-gray-500": activePage !== page
+              "text-white bg-gray-800": activePage === page,
+              "bg-gray-50 dark:bg-gray-900": activePage !== page
             })}
             key={i}
             onClick={() => changePage(page)}
@@ -55,7 +55,7 @@ function Pagination({
     <div className="flex flex-row items-center flex-wrap gap-4">
       <button
         aria-label="Previous Page"
-        className="inline-flex items-center rounded-md p-2 bg-gray-800"
+        className="inline-flex items-center rounded-md p-2 text-white bg-gray-800"
         disabled={activePage === 1}
         onClick={() => changePage(activePage - 1)}
       >
@@ -65,7 +65,7 @@ function Pagination({
       {renderPageNumber()}
       <button
         aria-label="Next Page"
-        className="inline-flex items-center rounded-md p-2 bg-gray-800"
+        className="inline-flex items-center rounded-md p-2 text-white bg-gray-800"
         disabled={activePage === totalPage}
         onClick={() => changePage(activePage + 1)}
       >

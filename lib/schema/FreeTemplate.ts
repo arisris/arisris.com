@@ -1,4 +1,5 @@
 import { extendType, intArg, objectType } from "nexus";
+import { dump } from "nexus/dist/utils";
 
 const endpoints = "https://freehtml5.co/wp-json/wp/v2";
 const fetcher = (url: string) =>
@@ -44,17 +45,21 @@ export const FreeTemplateQuery = extendType({
       args: { page: intArg({ default: 1 }) },
       // @ts-ignore
       async resolve(root, args, ctx) {
-        const { data, headers } = await fetcher(`/posts?page=${args.page}`);
+        const categories_exclude = [120].join(",");
+        const { data, headers } = await fetcher(
+          `/posts?categories_exclude=${categories_exclude}&page=${args.page}`
+        );
         //dump({ data, headers });
         const allData: Record<string, any>[] = [];
         for (let i = 0; i < data?.length || 0; i++) {
           const item = data[i];
+          const [image] = item?.yoast_head_json?.og_image;
           allData.push({
             id: item?.id,
             title: item.title?.rendered,
             slug: item?.slug,
             description: item?.content?.rendered,
-            image: item?.yoast_head_json?.og_image[0]?.url,
+            image: image?.url,
             created_at: item?.date,
             updated_at: item?.modified,
             source: item?.link

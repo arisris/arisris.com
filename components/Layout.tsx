@@ -133,7 +133,7 @@ function Layout({
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <section className="absolute flex flex-col w-full h-full">
+      <section className="absolute flex flex-col w-full h-full overflow-y-auto">
         <header className="dark:text-white text-gray-900">
           <nav
             className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6"

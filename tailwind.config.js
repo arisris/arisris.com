@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./lib/**/*.{ts,tsx}",
+    "./hooks/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./pages/**/*.{ts,tsx}"
   ],
