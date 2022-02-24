@@ -11,7 +11,7 @@ import { z } from "zod";
 const ADMIN_USER = process.env.GITHUB_EMAIL;
 const DB = deta.Base("guestbook");
 
-const Guestbook = objectType({
+export const Guestbook = objectType({
   name: "Guestbook",
   definition(t) {
     t.nonNull.id("key");
@@ -27,7 +27,7 @@ const Guestbook = objectType({
     t.string("created_at");
   }
 });
-const GuestbookQuery = extendType({
+export const GuestbookQuery = extendType({
   type: "Query",
   definition(t) {
     t.field("listGuestbook", {
@@ -52,14 +52,14 @@ const GuestbookQuery = extendType({
     });
   }
 });
-const StoreGuestbookInput = inputObjectType({
+export const StoreGuestbookInput = inputObjectType({
   name: "StoreGuestbookInput",
   definition(t) {
     t.nonNull.boolean("private");
     t.nonNull.string("body");
   }
 });
-const GuestbookMutation = extendType({
+export const GuestbookMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.field("storeGuestbook", {
@@ -103,10 +103,3 @@ const GuestbookMutation = extendType({
     });
   }
 });
-
-export default [
-  Guestbook,
-  GuestbookQuery,
-  GuestbookMutation,
-  StoreGuestbookInput
-];

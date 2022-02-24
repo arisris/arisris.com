@@ -33,6 +33,22 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  FreeTemplate: { // root type
+    created_at?: string | null; // String
+    description?: string | null; // String
+    id?: number | null; // Int
+    image?: string | null; // String
+    slug?: string | null; // String
+    source?: string | null; // String
+    title?: string | null; // String
+    updated_at?: string | null; // String
+  }
+  FreeTemplateQueryResponseType: { // root type
+    data?: Array<NexusGenRootTypes['FreeTemplate'] | null> | null; // [FreeTemplate]
+    nextPage?: number | null; // Int
+    total?: number | null; // Int
+    totalPage?: number | null; // Int
+  }
   Guestbook: { // root type
     body?: string | null; // String
     created_at?: string | null; // String
@@ -43,6 +59,12 @@ export interface NexusGenObjects {
     private?: boolean | null; // Boolean
   }
   Mutation: {};
+  PaginatedResponse: { // root type
+    nextPage?: number | null; // Int
+    prevPage?: number | null; // Int
+    total?: number | null; // Int
+    totalPage?: number | null; // Int
+  }
   Query: {};
 }
 
@@ -57,6 +79,22 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  FreeTemplate: { // field return type
+    created_at: string | null; // String
+    description: string | null; // String
+    id: number | null; // Int
+    image: string | null; // String
+    slug: string | null; // String
+    source: string | null; // String
+    title: string | null; // String
+    updated_at: string | null; // String
+  }
+  FreeTemplateQueryResponseType: { // field return type
+    data: Array<NexusGenRootTypes['FreeTemplate'] | null> | null; // [FreeTemplate]
+    nextPage: number | null; // Int
+    total: number | null; // Int
+    totalPage: number | null; // Int
+  }
   Guestbook: { // field return type
     body: string | null; // String
     created_at: string | null; // String
@@ -70,12 +108,35 @@ export interface NexusGenFieldTypes {
     destroyGuestbook: boolean | null; // Boolean
     storeGuestbook: NexusGenRootTypes['Guestbook'] | null; // Guestbook
   }
+  PaginatedResponse: { // field return type
+    nextPage: number | null; // Int
+    prevPage: number | null; // Int
+    total: number | null; // Int
+    totalPage: number | null; // Int
+  }
   Query: { // field return type
+    allFreeTemplate: NexusGenRootTypes['FreeTemplateQueryResponseType'] | null; // FreeTemplateQueryResponseType
     listGuestbook: Array<NexusGenRootTypes['Guestbook'] | null> | null; // [Guestbook]
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  FreeTemplate: { // field return type name
+    created_at: 'String'
+    description: 'String'
+    id: 'Int'
+    image: 'String'
+    slug: 'String'
+    source: 'String'
+    title: 'String'
+    updated_at: 'String'
+  }
+  FreeTemplateQueryResponseType: { // field return type name
+    data: 'FreeTemplate'
+    nextPage: 'Int'
+    total: 'Int'
+    totalPage: 'Int'
+  }
   Guestbook: { // field return type name
     body: 'String'
     created_at: 'String'
@@ -89,7 +150,14 @@ export interface NexusGenFieldTypeNames {
     destroyGuestbook: 'Boolean'
     storeGuestbook: 'Guestbook'
   }
+  PaginatedResponse: { // field return type name
+    nextPage: 'Int'
+    prevPage: 'Int'
+    total: 'Int'
+    totalPage: 'Int'
+  }
   Query: { // field return type name
+    allFreeTemplate: 'FreeTemplateQueryResponseType'
     listGuestbook: 'Guestbook'
   }
 }
@@ -101,6 +169,11 @@ export interface NexusGenArgTypes {
     }
     storeGuestbook: { // args
       input: NexusGenInputs['StoreGuestbookInput']; // StoreGuestbookInput!
+    }
+  }
+  Query: {
+    allFreeTemplate: { // args
+      page: number | null; // Int
     }
   }
 }
