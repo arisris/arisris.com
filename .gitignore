@@ -3,6 +3,7 @@
 node_modules/
 out/
 .bak/
+pages/api/test/
 
 #files
 .env

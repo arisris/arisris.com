@@ -5,25 +5,49 @@ import { FaRedo, FaSignOutAlt, FaTrash } from "react-icons/fa";
 import clsx from "clsx";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRequest } from "ahooks";
-import { timeAgo } from "lib/utils";
+import { createGraphQLRequest, gql, timeAgo } from "lib/utils";
 import { SpinLoading } from "components/Utility";
 
-const requester = (init: RequestInit = { method: "GET" }) =>
-  fetch("/api/guestbook", {
-    ...init,
-    headers: {
-      "content-type": "application/json"
+const requester = createGraphQLRequest("/api/graphql");
+
+const getGuestbook = () =>
+  requester(gql`
+    query {
+      listGuestbook {
+        key
+        name
+        image
+        email
+        body
+        private
+        created_at
+      }
     }
-  }).then((d) => d.json());
-const getGuestbook = () => requester();
+  `).then((data) => data?.listGuestbook);
 const postGuestbook = (data: Record<any, any>) =>
-  requester({ method: "POST", body: JSON.stringify(data) });
+  requester(
+    gql`
+      mutation storeGuestbook($input: StoreGuestbookInput!) {
+        storeGuestbook(input: $input) {
+          key
+        }
+      }
+    `,
+    { input: data }
+  ).then((data) => data?.storeGuestbook);
 const deleteGuestbook = (key: string) =>
-  requester({ method: "DELETE", body: JSON.stringify({ key }) });
+  requester(
+    gql`
+      mutation destroyGuestbook($key: String!) {
+        destroyGuestbook(key: $key)
+      }
+    `,
+    { key }
+  ).then((data) => data?.destroyGuestbook);
 
 const GbPost = ({ data, refresh }) => {
-  if (!data?.created_at) data.created_at = Date.now(); // fallback
-  const timeagoDate = timeAgo(new Date(data?.created_at));
+  if (!data?.created_at) data.created_at = new Date(); // fallback
+  const timeagoDate = timeAgo(new Date(Number(data?.created_at)));
   const { data: session, status: sessionStatus } = useSession();
   const { runAsync: deleteGb, loading: isDeleting } = useRequest(
     deleteGuestbook,
@@ -50,7 +74,7 @@ const GbPost = ({ data, refresh }) => {
         </div>
         <div className="flex flex-col gap-1 items-end justify-center text-[10px]">
           {data?.private && <div className="text-red-500">(private)</div>}
-          {/* Allow Author or admin to delete their comments */}
+          {/* Fix Me: Allow Author or admin to delete their comments */}
           {session && (session?.user?.email === data?.email || isAdmin) && (
             <button title="Delete Comment?" onClick={() => deleteGb(data.key)}>
               <FaTrash className="w-3 h-3" />
@@ -188,8 +212,8 @@ export default function GuestbookPage() {
             <SpinLoading text="Loading..." />
           ) : error ? (
             <div>{"Error While Loading Data"}</div>
-          ) : data.data?.length > 0 ? (
-            data?.data?.map((i: any) => {
+          ) : data?.length > 0 ? (
+            data?.map((i: any) => {
               return <GbPost key={i.key} data={i} refresh={refresh} />;
             })
           ) : (

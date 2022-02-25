@@ -14,7 +14,7 @@ function StickyWaLink() {
       title="Chat with me"
       target="__blank"
       href="https://s.id/I5vIJ"
-      className="fixed bottom-1 right-1 z-50 m-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-full hover:scale-105 hover:shadow-md"
+      className="fixed bottom-1 right-1 z-10 m-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-full hover:scale-105 hover:shadow-md"
       style={{
         color: "#0C9715"
       }}
@@ -102,7 +102,9 @@ function Layout({
   useEffect(() => setMounted(true), []);
   const defaultImage = `https://og-image.vercel.app/${encodeURIComponent(
     meta.title
-  )}.png?theme=dark&md=1&fontSize=100px`;
+  )}.png?theme=dark&md=1&fontSize=100px&images=${encodeURIComponent(
+    "https://arisris.com/favicon/apple-touch-icon.png"
+  )}`;
   return (
     <>
       <Head>
@@ -133,7 +135,7 @@ function Layout({
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <section className="absolute flex flex-col w-full h-full">
+      <section className="absolute flex flex-col w-full h-full overflow-y-auto">
         <header className="dark:text-white text-gray-900">
           <nav
             className="flex flex-col sm:flex-row justify-between sm:max-w-screen-md m-auto px-2 py-6"
@@ -179,7 +181,7 @@ function Layout({
               <NavLink href={`/`}>Home</NavLink>
               <NavLink href={`/guestbook`}>Guestbook</NavLink>
               <NavLink href={`/code`}>Code Snipet</NavLink>
-              <NavLink href={`/tools`}>Tools</NavLink>
+              <NavLink href={`/tools`}>Dev Tools</NavLink>
             </div>
           </nav>
           {withHero ? (
@@ -194,57 +196,61 @@ function Layout({
         <main className="flex-auto">
           <div className="sm:max-w-screen-md p-4 m-auto">{children}</div>
         </main>
-        {showFooterLinks && (
-          <footer className="w-full sm:max-w-screen-md p-4 mr-auto sm:m-auto grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-32 md:gap-48">
-            <div className="flex flex-col mt-auto">
-              <FooterLink href="/">Home</FooterLink>
-              <FooterLink href="/code">Code Snipet</FooterLink>
-              <FooterLink href="/guestbook">Guestbook</FooterLink>
-            </div>
-            <div className="mt-auto">
-              <FooterLink
-                target="__blank"
-                href="https://github.com/arisris"
-                className="flex items-center gap-2"
-              >
-                <span>Github</span>
-              </FooterLink>
-              <FooterLink
-                target="__blank"
-                href="https://linkedin.com/in/arisris"
-                className="flex items-center gap-2"
-              >
-                <span>LinkedIn</span>
-              </FooterLink>
-              <FooterLink
-                target="__blank"
-                href="https://fb.me/arisfungratis"
-                className="flex items-center gap-2"
-              >
-                <span>Facebook</span>
-              </FooterLink>
-            </div>
-            <div className="flex flex-col mt-auto">
-              <FooterLink target="__blank" href="https://vercel.com">
-                Vercel
-              </FooterLink>
-              <FooterLink target="__blank" href="https://nextjs.org">
-                NextJs
-              </FooterLink>
-              <FooterLink target="__blank" href="https://tailwindcss.com">
-                Tailwindcss
-              </FooterLink>
-            </div>
-          </footer>
-        )}
-        <div className="w-full sm:max-w-screen-md m-auto px-5 py-6 font-light">
-          <span>&copy; {new Date().getFullYear()}</span>
-          <FooterLink href="https://github.com/arisris/arisris.vercel.app">
-            Aris Riswanto,
-          </FooterLink>
-          <span>Hosted at:</span>
-          <FooterLink href="https://vercel.com">Vercel</FooterLink>
-        </div>
+        <footer className="w-full grid grid-cols-12 sm:max-w-screen-md ml-auto mr-auto px-2 gap-2 text-sm">
+          {showFooterLinks && (
+            <>
+              <div className="col-span-6 sm:col-span-4 whitespace-nowrap flex flex-col">
+                <FooterLink href="/code">Code Snipet</FooterLink>
+                <FooterLink href="/free-html5-templates">
+                  Free HTML5 Template
+                </FooterLink>
+                <FooterLink href="/guestbook">Guestbook</FooterLink>
+              </div>
+              <div className="col-span-6 sm:col-span-4 flex flex-col">
+                <FooterLink
+                  target="__blank"
+                  href="https://github.com/arisris"
+                  className="flex items-center gap-2"
+                >
+                  <span>Github</span>
+                </FooterLink>
+                <FooterLink
+                  target="__blank"
+                  href="https://linkedin.com/in/arisris"
+                  className="flex items-center gap-2"
+                >
+                  <span>LinkedIn</span>
+                </FooterLink>
+                <FooterLink
+                  target="__blank"
+                  href="https://fb.me/arisfungratis"
+                  className="flex items-center gap-2"
+                >
+                  <span>Facebook</span>
+                </FooterLink>
+              </div>
+              <div className="col-span-6 sm:col-span-4 flex flex-col">
+                <FooterLink target="__blank" href="https://vercel.com">
+                  Vercel
+                </FooterLink>
+                <FooterLink target="__blank" href="https://nextjs.org">
+                  NextJs
+                </FooterLink>
+                <FooterLink target="__blank" href="https://tailwindcss.com">
+                  Tailwindcss
+                </FooterLink>
+              </div>
+            </>
+          )}
+          <div className="col-span-12 block font-light text-sm px-2 py-6">
+            <span>&copy; {new Date().getFullYear()}</span>
+            <FooterLink href="https://github.com/arisris/arisris.vercel.app">
+              Aris Riswanto,
+            </FooterLink>
+            <span>Hosted at:</span>
+            <FooterLink href="https://vercel.com">Vercel</FooterLink>
+          </div>
+        </footer>
       </section>
       <StickyWaLink />
     </>

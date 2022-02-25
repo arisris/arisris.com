@@ -29,7 +29,6 @@ export default NextAuth({
             };
             await gh_account.insert(_obj);
           }
-          return true;
         }
         return true;
       }

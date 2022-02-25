@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { NextComponentType, NextPageContext } from "next";
+import { NextComponentType, NextPageContext, NextApiRequest } from "next";
 import { DefaultUser, Session, UserData } from "next-auth";
 import { Router } from "next/router";
 
@@ -33,3 +33,6 @@ declare module "next" {
     session: Session;
   }
 }
+export type GraphQLContextType = {
+  req: NextApiRequest;
+};

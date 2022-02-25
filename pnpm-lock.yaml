@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@headlessui/react': ^1.4.3
+  '@tailwindcss/forms': ^0.4.0
   '@tailwindcss/typography': ^0.5.2
   '@types/lodash': ^4.14.178
   '@types/node': ^17.0.18
@@ -10,34 +11,42 @@ specifiers:
   autoprefixer: ^10.4.2
   clsx: ^1.1.1
   deta: ^1.0.2
-  dotenv: ^16.0.0
+  graphql: ^16.3.0
+  graphql-helix: ^1.11.0
   lodash: ^4.17.21
   marked: ^2.0.3
   next: ^12.1.0
   next-auth: ^4.2.1
   next-themes: ^0.0.16-beta.11
+  nexus: ^1.2.0
   react: ^17.0.2
   react-dom: ^17.0.2
   react-icons: ^4.2.0
   tailwindcss: 3.0.22
   ts-node: 10.4.0
   typescript: ^4.5.5
+  use-clipboard-copy: ^0.2.0
   zod: ^3.11.6
 
 dependencies:
   '@headlessui/react': 1.4.3_react-dom@17.0.2+react@17.0.2
+  '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.22
   ahooks: 3.1.9_react@17.0.2
   autoprefixer: 10.4.2
   clsx: 1.1.1
   deta: 1.0.2
+  graphql: 16.3.0
+  graphql-helix: 1.11.0_graphql@16.3.0
   lodash: 4.17.21
   marked: 2.1.3
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   next-auth: 4.2.1_react-dom@17.0.2+react@17.0.2
   next-themes: 0.0.16-beta.11_caa633a00319350dbda42996613fe26c
+  nexus: 1.2.0_graphql@16.3.0
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
+  use-clipboard-copy: 0.2.0_react@17.0.2
   zod: 3.11.6
 
 devDependencies:
@@ -45,7 +54,6 @@ devDependencies:
   '@types/lodash': 4.14.178
   '@types/node': 17.0.18
   '@types/react': 17.0.39
-  dotenv: 16.0.0
   tailwindcss: 3.0.22_b662eebeccec321d928b9235ce6f0fd8
   ts-node: 10.4.0_f3bd4037939c2ed2942ba074291f8ef2
   typescript: 4.5.5
@@ -229,6 +237,15 @@ packages:
 
   /@panva/hkdf/1.0.1:
     resolution: {integrity: sha512-mMyQ9vjpuFqePkfe5bZVIf/H3Dmk6wA8Kjxff9RcO4kqzJo+Ek9pGKwZHpeMr7Eku0QhLXMCd7fNCSnEnRMubg==}
+    dev: false
+
+  /@tailwindcss/forms/0.4.0_tailwindcss@3.0.22:
+    resolution: {integrity: sha512-DeaQBx6EgEeuZPQACvC+mKneJsD8am1uiJugjgQK1+/Vt+Ai0GpFBC2T2fqnUad71WgOxyrZPE6BG1VaI6YqfQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+    dependencies:
+      mini-svg-data-uri: 1.4.3
+      tailwindcss: 3.0.22_b662eebeccec321d928b9235ce6f0fd8
     dev: false
 
   /@tailwindcss/typography/0.5.2_tailwindcss@3.0.22:
@@ -460,6 +477,10 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /clipboard-copy/3.2.0:
+    resolution: {integrity: sha512-vooFaGFL6ulEP1liiaWFBmmfuPm3cY3y7T9eB83ZTnYc/oFeAKsq3NcDrOkBC8XaauEE8zHQwI7k0+JSYiVQSQ==}
+    dev: false
+
   /clsx/1.1.1:
     resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
     engines: {node: '>=6'}
@@ -555,11 +576,6 @@ packages:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
     dev: true
 
-  /dotenv/16.0.0:
-    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
-    engines: {node: '>=12'}
-    dev: true
-
   /electron-to-chromium/1.4.71:
     resolution: {integrity: sha512-Hk61vXXKRb2cd3znPE9F+2pLWdIOmP7GjiTj45y6L3W/lO+hSnUSUhq+6lEaERWBdZOHbk2s3YV5c9xVl3boVw==}
     dev: false
@@ -634,6 +650,19 @@ packages:
       is-glob: 4.0.3
     dev: true
 
+  /graphql-helix/1.11.0_graphql@16.3.0:
+    resolution: {integrity: sha512-JFBuIsfeNDTTotAkHzwTmXgSpFi2bfoX4E8ZlXfgQB2gD8XgOWSTJc1ujN59ZrGBI8M/99h3tEIaH5grR17EIA==}
+    peerDependencies:
+      graphql: ^15.3.0 || ^16.0.0
+    dependencies:
+      graphql: 16.3.0
+    dev: false
+
+  /graphql/16.3.0:
+    resolution: {integrity: sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==}
+    engines: {node: ^12.22.0 || ^14.16.0 || >=16.0.0}
+    dev: false
+
   /has-flag/3.0.0:
     resolution: {integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=}
     engines: {node: '>=4'}
@@ -696,6 +725,10 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
     dev: true
+
+  /iterall/1.3.0:
+    resolution: {integrity: sha512-QZ9qOMdF+QLHxy1QIpUHUU1D5pS2CG2P69LF6L6CPjPYA/XMOmKV3PZpawHoAjHNyB0swdVTRxdYT4tbBbxqwg==}
+    dev: false
 
   /jose/4.5.0:
     resolution: {integrity: sha512-GFcVFQwYQKbQTUOo2JlpFGXTkgBw26uzDsRMD2q1WgSKNSnpKS9Ug7bdQ8dS+p4sZHNH6iRPu6WK2jLIjspaMA==}
@@ -773,6 +806,11 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
     dev: true
+
+  /mini-svg-data-uri/1.4.3:
+    resolution: {integrity: sha512-gSfqpMRC8IxghvMcxzzmMnWpXAChSA+vy4cia33RgerMS8Fex95akUyQZPbxJJmeBGiGmK7n/1OpUX8ksRjIdA==}
+    hasBin: true
+    dev: false
 
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
@@ -866,6 +904,16 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /nexus/1.2.0_graphql@16.3.0:
+    resolution: {integrity: sha512-7+0240LrQNnKKLTgbxM6KLLdfMgm4wp1TPAULim0lGmHfX7QsJK39i2KmFdMr3WdsAKoybMmwyrJtaYOq0q62g==}
+    peerDependencies:
+      graphql: ^14.5.8 || 15.x
+    dependencies:
+      graphql: 16.3.0
+      iterall: 1.3.0
+      tslib: 2.3.1
     dev: false
 
   /node-fetch/2.6.7:
@@ -1243,11 +1291,24 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: false
+
   /typescript/4.5.5:
     resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /use-clipboard-copy/0.2.0_react@17.0.2:
+    resolution: {integrity: sha512-f0PMMwZ2/Hh9/54L12capx4s6ASdd6edNJxg2OcqWVNM8BPvtOSmNFIN1Dg/q//fPp8MpUZceHfr7cnWOS0RxA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      clipboard-copy: 3.2.0
+      react: 17.0.2
+    dev: false
 
   /use-subscription/1.5.1_react@17.0.2:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
