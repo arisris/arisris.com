@@ -5,7 +5,14 @@ import { Skeleton } from "components/Utility";
 import { NexusGenObjects } from "data/nexus/type";
 import { useModal } from "hooks/useModal";
 import { createGraphQLRequest, gql } from "lib/utils";
+import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
+import {
+  FaCircleNotch,
+  FaDownload,
+  FaExternalLinkAlt,
+  FaLink
+} from "react-icons/fa";
 type ResponseType = NexusGenObjects["FreeTemplateQueryResponseType"];
 const requester = createGraphQLRequest("/api/graphql");
 const allTemplate = (page: number) =>
@@ -40,6 +47,76 @@ const scrollToElementId = (id: string) => {
   }
 };
 
+const PreviewLink = ({ item }: { item: ResponseType["data"][0] }) => {
+  const [loading, setLoading] = useState(false);
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    fetch(`https://arisris2.azib.workers.dev/getdemo/${item.slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.url) {
+          window.open(data?.url, "_blank");
+        } else {
+          throw new Error("Upss!");
+        }
+      })
+      .catch((e) => {
+        alert("No Preview are found for this template :)");
+      })
+      .finally(() => setLoading(false));
+  };
+  return (
+    <button
+      onClick={handleClick}
+      type="button"
+      disabled={loading}
+      className="px-4 py-2 bg-green-500 text-white inline-flex justify-center items-center gap-4 rounded-md"
+    >
+      <span>Preview</span>
+      {loading ? (
+        <FaCircleNotch size={16} className="animate-spin" />
+      ) : (
+        <FaExternalLinkAlt size={16} />
+      )}
+    </button>
+  );
+};
+
+const DownloadLink = ({ item }: { item: ResponseType["data"][0] }) => {
+  const [loading, setLoading] = useState(false);
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    new Promise((resolve) => {
+      let t = setTimeout(() => {
+        clearTimeout(t);
+        return resolve(true);
+      }, 3000);
+      return t;
+    })
+      .then(() => {
+        window.open(`https://freehtml5.co/download/?item=${item.slug}`);
+      })
+      .finally(() => setLoading(false));
+  };
+  return (
+    <button
+      onClick={handleClick}
+      type="button"
+      disabled={loading}
+      className="px-4 py-2 bg-red-500 text-white inline-flex justify-center items-center gap-4 rounded-md"
+    >
+      <span>Download</span>
+      {loading ? (
+        <FaCircleNotch size={16} className="animate-spin" />
+      ) : (
+        <FaDownload size={16} />
+      )}
+    </button>
+  );
+};
+
 export default function Page() {
   const [currentPage, setCurrentPage] = useState(1);
   const dialog = useModal();
@@ -61,12 +138,21 @@ export default function Page() {
     event: MouseEvent<HTMLAnchorElement>
   ) => {
     event.preventDefault();
+    const handlePreview = () => {
+      const data = fetch(
+        `multipurpose-free-fully-responsive-website-template-with-cta`
+      );
+    };
     dialog.create(
       <div className="prose dark:prose-invert">
         <div>
           <img src={item.image} className="w-full h-full" />
         </div>
         <div dangerouslySetInnerHTML={{ __html: item.description }} />
+        <div className="grid grid-cols-2 gap-2 my-4">
+          <PreviewLink item={item} />
+          <DownloadLink item={item} />
+        </div>
       </div>,
       item.title
     );
@@ -74,7 +160,7 @@ export default function Page() {
   return (
     <Layout title="Free HTML5 Web Template">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" id="result-page">
-        <div className="col-span-2 border-b dark:border-gray-800 pb-4">
+        <div className="col-span-1 sm:col-span-2 border-b dark:border-gray-800 pb-4">
           <h1 className="text-2xl font-bold">Free HTML5 Web Templates</h1>
         </div>
         {loading ? (

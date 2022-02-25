@@ -14,7 +14,7 @@ function StickyWaLink() {
       title="Chat with me"
       target="__blank"
       href="https://s.id/I5vIJ"
-      className="fixed bottom-1 right-1 z-50 m-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-full hover:scale-105 hover:shadow-md"
+      className="fixed bottom-1 right-1 z-10 m-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-full hover:scale-105 hover:shadow-md"
       style={{
         color: "#0C9715"
       }}
