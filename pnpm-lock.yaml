@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@headlessui/react': ^1.4.3
+  '@tailwindcss/forms': ^0.4.0
   '@tailwindcss/typography': ^0.5.2
   '@types/lodash': ^4.14.178
   '@types/node': ^17.0.18
@@ -24,10 +25,12 @@ specifiers:
   tailwindcss: 3.0.22
   ts-node: 10.4.0
   typescript: ^4.5.5
+  use-clipboard-copy: ^0.2.0
   zod: ^3.11.6
 
 dependencies:
   '@headlessui/react': 1.4.3_react-dom@17.0.2+react@17.0.2
+  '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.22
   ahooks: 3.1.9_react@17.0.2
   autoprefixer: 10.4.2
   clsx: 1.1.1
@@ -43,6 +46,7 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
+  use-clipboard-copy: 0.2.0_react@17.0.2
   zod: 3.11.6
 
 devDependencies:
@@ -233,6 +237,15 @@ packages:
 
   /@panva/hkdf/1.0.1:
     resolution: {integrity: sha512-mMyQ9vjpuFqePkfe5bZVIf/H3Dmk6wA8Kjxff9RcO4kqzJo+Ek9pGKwZHpeMr7Eku0QhLXMCd7fNCSnEnRMubg==}
+    dev: false
+
+  /@tailwindcss/forms/0.4.0_tailwindcss@3.0.22:
+    resolution: {integrity: sha512-DeaQBx6EgEeuZPQACvC+mKneJsD8am1uiJugjgQK1+/Vt+Ai0GpFBC2T2fqnUad71WgOxyrZPE6BG1VaI6YqfQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+    dependencies:
+      mini-svg-data-uri: 1.4.3
+      tailwindcss: 3.0.22_b662eebeccec321d928b9235ce6f0fd8
     dev: false
 
   /@tailwindcss/typography/0.5.2_tailwindcss@3.0.22:
@@ -463,6 +476,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /clipboard-copy/3.2.0:
+    resolution: {integrity: sha512-vooFaGFL6ulEP1liiaWFBmmfuPm3cY3y7T9eB83ZTnYc/oFeAKsq3NcDrOkBC8XaauEE8zHQwI7k0+JSYiVQSQ==}
+    dev: false
 
   /clsx/1.1.1:
     resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
@@ -789,6 +806,11 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
     dev: true
+
+  /mini-svg-data-uri/1.4.3:
+    resolution: {integrity: sha512-gSfqpMRC8IxghvMcxzzmMnWpXAChSA+vy4cia33RgerMS8Fex95akUyQZPbxJJmeBGiGmK7n/1OpUX8ksRjIdA==}
+    hasBin: true
+    dev: false
 
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
@@ -1278,6 +1300,15 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /use-clipboard-copy/0.2.0_react@17.0.2:
+    resolution: {integrity: sha512-f0PMMwZ2/Hh9/54L12capx4s6ASdd6edNJxg2OcqWVNM8BPvtOSmNFIN1Dg/q//fPp8MpUZceHfr7cnWOS0RxA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      clipboard-copy: 3.2.0
+      react: 17.0.2
+    dev: false
 
   /use-subscription/1.5.1_react@17.0.2:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}

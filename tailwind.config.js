@@ -8,5 +8,8 @@ module.exports = {
   ],
   mode: "jit",
   darkMode: "class",
-  plugins: [require("@tailwindcss/typography")]
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms")({ strategy: "class" })
+  ]
 };

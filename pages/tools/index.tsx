@@ -1,11 +1,15 @@
 import Layout from "components/Layout";
+import LayoutTools from "components/LayoutTools";
 import { useModal } from "hooks/useModal";
 import Link from "next/link";
 
 export default function Page() {
   const dialog = useModal();
   return (
-    <Layout title="Code Snipet">
+    <LayoutTools
+      title="Useful Tools For Developers"
+      description="Some tools for developers"
+    >
       <div className="prose dark:prose-invert">
         <ul className="s list-decimal">
           <li>
@@ -15,6 +19,6 @@ export default function Page() {
           </li>
         </ul>
       </div>
-    </Layout>
+    </LayoutTools>
   );
 }
