@@ -19,15 +19,15 @@ const menuItem: SideMenuItemProps[] = [
   {
     title: "Hash",
     icon: FaLock,
-    // onClick: () => {
-    //   Router.push("/tools");
-    // }
+    onClick: () => {
+      Router.push("/tools/hash");
+    }
   },
   {
     title: "Base64 Encode/Decode",
     icon: FaCode,
     onClick: () => {
-      Router.push("/tools/hash/base64");
+      Router.push("/tools/base64");
     }
   },
   {
@@ -40,7 +40,10 @@ const menuItem: SideMenuItemProps[] = [
   },
   {
     title: "Online JS Bundler",
-    icon: FaJs
+    icon: FaJs,
+    onClick: () => {
+      Router.push("/tools/bundler");
+    }
   },
   {
     title: "QR Code Generator",
