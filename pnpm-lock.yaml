@@ -13,6 +13,7 @@ specifiers:
   autoprefixer: ^10.4.2
   clsx: ^1.1.1
   deta: ^1.0.2
+  esbuild-wasm: ^0.14.23
   graphql: ^16.3.0
   graphql-helix: ^1.11.0
   lodash: ^4.17.21
@@ -25,6 +26,8 @@ specifiers:
   react: ^17.0.2
   react-dom: ^17.0.2
   react-icons: ^4.2.0
+  rollup: ^2.68.0
+  rollup-plugin-virtual-fs: ^4.0.1-alpha.0
   tailwindcss: 3.0.22
   ts-node: 10.4.0
   typescript: ^4.5.5
@@ -38,6 +41,7 @@ dependencies:
   ahooks: 3.1.9_react@17.0.2
   clsx: 1.1.1
   deta: 1.0.2
+  esbuild-wasm: 0.14.23
   graphql: 16.3.0
   graphql-helix: 1.11.0_graphql@16.3.0
   lodash: 4.17.21
@@ -50,6 +54,8 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
+  rollup: 2.68.0
+  rollup-plugin-virtual-fs: 4.0.1-alpha.0
   use-clipboard-copy: 0.2.0_react@17.0.2
   zod: 3.11.6
 
@@ -643,6 +649,12 @@ packages:
       is-arrayish: 0.2.1
     dev: true
 
+  /esbuild-wasm/0.14.23:
+    resolution: {integrity: sha512-w1qhGLvUaPXiigGWIEGcnMmN/FxQ6VDLnHQIOpf29Qh9z6x4qe4gmsQyUbFBW6UsWsw/E8OJDE0XRtiV/0siYQ==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dev: false
+
   /escalade/3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
     engines: {node: '>=6'}
@@ -686,7 +698,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /function-bind/1.1.1:
@@ -1224,6 +1235,18 @@ packages:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
+
+  /rollup-plugin-virtual-fs/4.0.1-alpha.0:
+    resolution: {integrity: sha512-tQ0SymyiUeA4Xn0nT5eP7gwGMiEewL6qyPvOc3xkaaLRILCr+wqWBQNh2a9SfpaMDJdoRt+68sk9TAhC24ZeVA==}
+    dev: false
+
+  /rollup/2.68.0:
+    resolution: {integrity: sha512-XrMKOYK7oQcTio4wyTz466mucnd8LzkiZLozZ4Rz0zQD+HeX4nUK4B8GrTX/2EvN2/vBF/i2WnaXboPxo0JylA==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: false
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}

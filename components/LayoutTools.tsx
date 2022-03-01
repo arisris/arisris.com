@@ -1,10 +1,6 @@
 import Layout, { LayoutProps } from "./Layout";
 import {
-  FaBook,
   FaCode,
-  FaCogs,
-  FaGitAlt,
-  FaHome,
   FaImage,
   FaJs,
   FaLink,
@@ -59,10 +55,10 @@ function LayoutTools({ children, ...props }: LayoutProps) {
   return (
     <Layout {...props}>
       <div className="flex flex-col sm:flex-row gap-6">
-        <div className="relative w-full sm:w-4/12">
+        <div className="relative w-full sm:w-3/12">
           <SideMenu menuItem={menuItem} />
         </div>
-        <div className="w-full sm:w-8/12 py-2 block">
+        <div className="w-full sm:w-9/12 py-2 block">
           {props.title && <h1 className="text-2xl font-bold">{props.title}</h1>}
           {props.description && (
             <div className="text-sm">{props.description}</div>

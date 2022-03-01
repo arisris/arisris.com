@@ -17,7 +17,7 @@ export function CodeEditor(props: Props) {
   useEffect(() => {
     if (!cm) return;
     if (resolvedTheme === "dark") {
-      cm.setOption("theme", "material-palenight");
+      cm.setOption("theme", "dracula");
     } else {
       cm.setOption("theme", "default");
     }
@@ -42,5 +42,10 @@ export function CodeEditor(props: Props) {
     loadMode(props.name);
   }, [props.name]);
 
-  return <div id="code-editor-wrapper" ref={el} />;
+  return (
+    <>
+      {!cm && <div>Initialize Editor</div>}
+      <div id="code-editor-wrapper" ref={el} />
+    </>
+  );
 }

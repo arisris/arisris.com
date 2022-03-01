@@ -12,6 +12,7 @@ declare global {
   }
 }
 
+// Load Core Module
 const dependencies: UseScriptLoaderDependencies[] = [
   {
     type: "js",
@@ -39,7 +40,7 @@ const dependencies: UseScriptLoaderDependencies[] = [
   },
   {
     type: "css",
-    url: "theme/material-palenight.min.css"
+    url: "theme/dracula.min.css"
   }
 ];
 const scriptCfg = {
@@ -93,34 +94,38 @@ export default function useCodeMirror(
       m: any[],
       mode: string,
       spec: string | CodeMirror.ModeSpec<CodeMirror.ModeSpecOptions>;
-    if ((m = /.+\.([^.]+)$/.exec(val))) {
-      // @ts-ignore
-      var info = CodeMirror.findModeByExtension(m[1]);
-      if (info) {
-        mode = info.mode;
-        spec = info.mime;
-      }
-    } else if (/\//.test(val)) {
-      // @ts-ignore
-      var info = CodeMirror.findModeByMIME(val);
-      if (info) {
-        mode = info.mode;
-        spec = val;
-      }
-    }
-    // else {
-    //   mode = spec = val;
-    // }
-    if (mode) {
-      if (mode !== editor.getMode()?.name) {
-        editor.setOption("mode", spec);
+    try {
+      if ((m = /.+\.([^.]+)$/.exec(val))) {
         // @ts-ignore
-        CodeMirror.autoLoadMode(editor, mode);
+        var info = CodeMirror.findModeByExtension(m[1]);
+        if (info) {
+          mode = info.mode;
+          spec = info.mime;
+        }
+      } else if (/\//.test(val)) {
+        // @ts-ignore
+        var info = CodeMirror.findModeByMIME(val);
+        if (info) {
+          mode = info.mode;
+          spec = val;
+        }
       }
-      //console.log(mode, spec);
-    } else {
-      if (!!filename) alert("Could not find a mode corresponding to " + val);
-      editor.setOption("mode", "null");
+      // else {
+      //   mode = spec = val;
+      // }
+      if (mode) {
+        if (mode !== editor.getMode()?.name) {
+          editor.setOption("mode", spec);
+          // @ts-ignore
+          CodeMirror.autoLoadMode(editor, mode);
+        }
+        //console.log(mode, spec);
+      } else {
+        if (!!filename) alert("Could not find a mode corresponding to " + val);
+        editor.setOption("mode", "null");
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
   return { editor, loadMode };
