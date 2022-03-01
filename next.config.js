@@ -4,6 +4,9 @@ module.exports = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
   },
+  experimental: {
+    urlImports: ["https://cdn.skypack.dev/"]
+  },
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx"],
   images: {

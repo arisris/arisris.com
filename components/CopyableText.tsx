@@ -60,7 +60,7 @@ export function CopyableText({
         <a href="#" onClick={handleCopy} title="Copy Text">
           <FaRegClone
             size={props.iconSize || 16}
-            className="text-green-500 transition-transform hover:scale-110 active:scale-100"
+            className="text-gray-500 transition-transform hover:scale-110 active:scale-100"
           />
         </a>
       )}
