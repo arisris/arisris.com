@@ -1,59 +1,127 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 // import type only codemirror
-import type CodeMirrorTypes from "codemirror";
-import { useScriptLoader } from "hooks/useScriptLoader";
+import type CodeMirror from "codemirror";
+import {
+  useScriptLoader,
+  UseScriptLoaderDependencies
+} from "hooks/useScriptLoader";
 import { canUseWindow } from "lib/utils";
-export type CodeMirror = typeof CodeMirrorTypes;
 declare global {
   interface Window {
-    CodeMirror: CodeMirror;
+    CodeMirror: typeof CodeMirror;
   }
 }
 
-export default function useCodeMirror({
-  place,
-  options
-}: {
-  place: ParentNode | HTMLElement;
-  options: CodeMirrorTypes.EditorConfiguration;
-}) {
-  const [editor, setEditor] = useState<CodeMirrorTypes.Editor>(null);
-  const loader = useScriptLoader({
-    id: "codemirror",
-    baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/",
-    dependencies: [
-      {
-        type: "js",
-        url: "codemirror.min.js"
-      },
-      {
-        type: "js",
-        url: "mode/javascript/javascript.min.js"
-      },
-      {
-        type: "js",
-        url: "mode/jsx/jsx.min.js"
-      },
-      {
-        type: "css",
-        url: "codemirror.min.css"
-      },
-      {
-        type: "css",
-        url: "theme/material-palenight.min.css"
-      }
-    ]
-  });
-  useEffect(() => {
-    if (loader.stylesLoaded && loader.stylesLoaded) {
+const dependencies: UseScriptLoaderDependencies[] = [
+  {
+    type: "js",
+    url: "codemirror.min.js"
+  },
+  {
+    type: "js",
+    url: "mode/meta.min.js"
+  },
+  {
+    type: "js",
+    url: "addon/mode/loadmode.min.js"
+  },
+  {
+    type: "js",
+    url: "addon/edit/closebrackets.min.js"
+  },
+  {
+    type: "js",
+    url: "addon/selection/active-line.min.js"
+  },
+  {
+    type: "css",
+    url: "codemirror.min.css"
+  },
+  {
+    type: "css",
+    url: "theme/material-palenight.min.css"
+  }
+];
+const scriptCfg = {
+  id: "codemirror",
+  baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/",
+  dependencies
+};
+export default function useCodeMirror(
+  el: HTMLElement,
+  defaultConfig: CodeMirror.EditorConfiguration = {}
+) {
+  const { scriptsLoaded, stylesLoaded, addScript, addStyle } =
+    useScriptLoader(scriptCfg);
+  const [editor, setEditor] = useState<CodeMirror.Editor>(null);
+  const inititalizer = () => {
+    if (stylesLoaded && stylesLoaded) {
       if (canUseWindow("CodeMirror")) {
-        setEditor(window.CodeMirror(place, options));
+        const CodeMirror = window.CodeMirror;
+        setEditor(
+          CodeMirror(el, {
+            // @ts-ignore
+            autoCloseBrackets: true,
+            styleActiveLine: true,
+            autocorrect: true,
+            tabSize: 2,
+            indentWithTabs: false,
+            smartIndent: true,
+            theme: "default",
+            lineNumbers: true,
+            ...defaultConfig
+          })
+        );
         return () => {
           setEditor(null);
-          if (place?.replaceChild) place.replaceChildren();
+          if (el?.replaceChild) el.replaceChildren();
         };
       }
     }
-  }, [loader.scriptsLoaded, loader.stylesLoaded, canUseWindow("CodeMirror")]);
-  return { editor, loader };
+  };
+  useEffect(inititalizer, [
+    scriptsLoaded,
+    stylesLoaded,
+    canUseWindow("CodeMirror")
+  ]);
+  const loadMode = (filename: string) => {
+    if (!editor) return;
+    const CodeMirror = window.CodeMirror;
+    // @ts-ignore
+    window.CodeMirror.modeURL = scriptCfg.baseUrl + "mode/%N/%N.min.js";
+    var val = filename,
+      m: any[],
+      mode: string,
+      spec: string | CodeMirror.ModeSpec<CodeMirror.ModeSpecOptions>;
+    if ((m = /.+\.([^.]+)$/.exec(val))) {
+      // @ts-ignore
+      var info = CodeMirror.findModeByExtension(m[1]);
+      if (info) {
+        mode = info.mode;
+        spec = info.mime;
+      }
+    } else if (/\//.test(val)) {
+      // @ts-ignore
+      var info = CodeMirror.findModeByMIME(val);
+      if (info) {
+        mode = info.mode;
+        spec = val;
+      }
+    }
+    // else {
+    //   mode = spec = val;
+    // }
+    if (mode) {
+      if (mode !== editor.getMode()?.name) {
+        editor.setOption("mode", spec);
+        // @ts-ignore
+        CodeMirror.autoLoadMode(editor, mode);
+      }
+      //console.log(mode, spec);
+    } else {
+      if (!!filename) alert("Could not find a mode corresponding to " + val);
+      editor.setOption("mode", "null");
+    }
+  };
+  return { editor, loadMode };
 }
