@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 interface Props {
   value: string;
   name: string;
+  readonly?: boolean;
   onChange?: (code: string) => void;
 }
 

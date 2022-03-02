@@ -28,11 +28,24 @@ const menuItem: SideMenuItemProps[] = [
   },
   {
     title: "URL Encode/Decode",
-    icon: FaLink
+    icon: FaLink,
+    onClick: () => {
+      Router.push("/tools/urlencode");
+    }
   },
   {
     title: "HTML To Markdown",
-    icon: FaMarkdown
+    icon: FaMarkdown,
+    onClick: () => {
+      Router.push("/tools/html-to-markdown");
+    }
+  },
+  {
+    title: "Markdown To HTML",
+    icon: FaMarkdown,
+    onClick: () => {
+      Router.push("/tools/markdown-to-html");
+    }
   },
   {
     title: "Online JS Bundler",
@@ -41,14 +54,14 @@ const menuItem: SideMenuItemProps[] = [
       Router.push("/tools/bundler");
     }
   },
-  {
-    title: "QR Code Generator",
-    icon: FaQrcode
-  },
-  {
-    title: "Image To Base64",
-    icon: FaImage
-  },
+  // {
+  //   title: "QR Code Generator",
+  //   icon: FaQrcode
+  // },
+  // {
+  //   title: "Image To Base64",
+  //   icon: FaImage
+  // },
 ];
 
 function LayoutTools({ children, ...props }: LayoutProps) {
