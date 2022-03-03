@@ -1,4 +1,5 @@
 import { useSetState } from "ahooks";
+import { CodeEditor } from "components/CodeEditor";
 import { CopyableText } from "components/CopyableText";
 import LayoutTools from "components/LayoutTools";
 import TurnDown from "turndown";
@@ -238,8 +239,7 @@ export default function Page() {
   });
   const clearErrors = () => setState({ encodingError: "", decodingError: "" });
 
-  const handleDecodedChange = (e: any) => {
-    const value = e.target.value;
+  const handleDecodedChange = (value: string) => {
     setState({ decoded: value });
     clearErrors();
     try {
@@ -258,19 +258,6 @@ export default function Page() {
     }
   };
 
-  const handleEncodedChange = (e: any) => {
-    // const value = e.target.value;
-    // setState({ endoded: value });
-    // clearErrors();
-    // try {
-    //   const result = decodeURIComponent(value);
-    //   setState({ decoded: result });
-    // } catch (err) {
-    //   console.error(err.message);
-    //   setState({ decodingError: "Decoding Failed!" });
-    // }
-  };
-
   return (
     <LayoutTools
       title="HTML To Markdown Converter"
@@ -285,22 +272,24 @@ export default function Page() {
           type="button"
           className="w-full py-1 col-span-3 col-start-10 bg-green-600 rounded hover:bg-opacity-80 active:bg-opacity-80"
           onClick={() => {
-            handleDecodedChange({ target: { value: SAMPLE } });
+            handleDecodedChange(SAMPLE);
           }}
         >
           Try Sample
         </button>
         <div className="col-span-12 relative">
-          <CopyableText
-            className="absolute bottom-4 right-4"
-            iconSize={20}
-            render={() => null}
-            value={state.decoded}
-          />
-          <textarea
-            rows={5}
-            className="col-span-12 form-textarea dark:bg-gray-800 rounded-md w-full"
-            value={state.decoded}
+          {state.endoded.length > 0 && (
+            <CopyableText
+              className="absolute bottom-10 right-6"
+              iconSize={20}
+              render={() => null}
+              value={state.decoded}
+            />
+          )}
+          <CodeEditor
+            className="col-span-12 form-textarea dark:bg-gray-800 rounded-md w-full h-36"
+            code={state.decoded}
+            filename="file.html"
             onChange={handleDecodedChange}
           />
         </div>
@@ -309,18 +298,19 @@ export default function Page() {
           <span className="text-red-500 col-span-4">{state.decodingError}</span>
         )}
         <div className="col-span-12 relative">
-          <CopyableText
-            className="absolute bottom-4 right-4"
-            iconSize={20}
-            render={() => null}
-            value={state.endoded}
-          />
-          <textarea
-            rows={5}
-            className="col-span-12 form-textarea dark:bg-gray-800 rounded-md w-full"
-            value={state.endoded}
-            readOnly={true}
-            onChange={handleEncodedChange}
+          {state.decoded.length > 0 && (
+            <CopyableText
+              className="absolute bottom-10 right-6"
+              iconSize={20}
+              render={() => null}
+              value={state.endoded}
+            />
+          )}
+          <CodeEditor
+            className="col-span-12 form-textarea dark:bg-gray-800 rounded-md w-full h-36"
+            code={state.endoded}
+            disabled={true}
+            filename="file.markdown"
           />
         </div>
       </div>
