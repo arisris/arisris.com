@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import * as esbuild from "esbuild-wasm";
 import { canUseWindow } from "lib/utils";
-import dynamic from "next/dynamic";
 
 export default function useEsBuild() {
   const [initialized, setInitialized] = useState(
@@ -27,9 +26,6 @@ export default function useEsBuild() {
       .finally(() => {
         setInitialized(true);
       });
-  }, []);
-
-
-  
+  }, []);  
   return { initialized, error, esbuild };
 }

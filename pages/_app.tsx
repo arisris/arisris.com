@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { RequireAuth } from "components/Utility";
 import { UseModalConextProvider } from "hooks/useModal";
+import { Provider as ReactRedux } from "react-redux";
+import { store } from "lib/redux/store";
 
 // import { configResponsive } from "ahooks";
 // configResponsive({
@@ -15,19 +17,21 @@ import { UseModalConextProvider } from "hooks/useModal";
 // });
 function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <ThemeProvider defaultTheme="system" attribute="class">
-        <UseModalConextProvider>
-          {Component.protected ? (
-            <RequireAuth>
+    <ReactRedux store={store}>
+      <SessionProvider session={pageProps.session}>
+        <ThemeProvider defaultTheme="system" attribute="class">
+          <UseModalConextProvider>
+            {Component.protected ? (
+              <RequireAuth>
+                <Component {...pageProps} />
+              </RequireAuth>
+            ) : (
               <Component {...pageProps} />
-            </RequireAuth>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </UseModalConextProvider>
-      </ThemeProvider>
-    </SessionProvider>
+            )}
+          </UseModalConextProvider>
+        </ThemeProvider>
+      </SessionProvider>
+    </ReactRedux>
   );
 }
 

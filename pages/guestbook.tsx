@@ -4,59 +4,27 @@ import Layout from "components/Layout";
 import { FaRedo, FaSignOutAlt, FaTrash } from "react-icons/fa";
 import clsx from "clsx";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useRequest } from "ahooks";
-import { createGraphQLRequest, gql, timeAgo } from "lib/utils";
+import { timeAgo } from "lib/utils";
 import { SpinLoading } from "components/Utility";
-
-const requester = createGraphQLRequest("/api/graphql");
-
-const getGuestbook = () =>
-  requester(gql`
-    query {
-      listGuestbook {
-        key
-        name
-        image
-        email
-        body
-        private
-        created_at
-      }
-    }
-  `).then((data) => data?.listGuestbook);
-const postGuestbook = (data: Record<any, any>) =>
-  requester(
-    gql`
-      mutation storeGuestbook($input: StoreGuestbookInput!) {
-        storeGuestbook(input: $input) {
-          key
-        }
-      }
-    `,
-    { input: data }
-  ).then((data) => data?.storeGuestbook);
-const deleteGuestbook = (key: string) =>
-  requester(
-    gql`
-      mutation destroyGuestbook($key: String!) {
-        destroyGuestbook(key: $key)
-      }
-    `,
-    { key }
-  ).then((data) => data?.destroyGuestbook);
+import {
+  useDestroyGuestbookMutation,
+  useGetAllGuestbookQuery,
+  useStoreGuestbookMutation
+} from "lib/redux/guestbookApi";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const GbPost = ({ data, refresh }) => {
   if (!data?.created_at) data.created_at = new Date(); // fallback
   const timeagoDate = timeAgo(new Date(Number(data?.created_at)));
   const { data: session, status: sessionStatus } = useSession();
-  const { runAsync: deleteGb, loading: isDeleting } = useRequest(
-    deleteGuestbook,
-    {
-      manual: true,
-      onSuccess: () => refresh()
-    }
-  );
+  const [destroyGuestbook, { isLoading: isDeleting }] =
+    useDestroyGuestbookMutation();
   const isAdmin = sessionStatus === "authenticated" && session?.user?.isAdmin;
+  const handleDelete = () => {
+    destroyGuestbook(data.key).then(() => {
+      refresh();
+    });
+  };
   return (
     <div className="px-3 py-1 mb-2 bg-gray-50 dark:bg-gray-900 dark:border-gray-800 rounded-md border">
       <div className="grid grid-cols-2 gap-2 py-2 mb-2 border-b border-gray-200 dark:border-gray-800">
@@ -76,7 +44,7 @@ const GbPost = ({ data, refresh }) => {
           {data?.private && <div className="text-red-500">(private)</div>}
           {/* Fix Me: Allow Author or admin to delete their comments */}
           {session && (session?.user?.email === data?.email || isAdmin) && (
-            <button title="Delete Comment?" onClick={() => deleteGb(data.key)}>
+            <button title="Delete Comment?" onClick={handleDelete}>
               <FaTrash className="w-3 h-3" />
             </button>
           )}
@@ -100,19 +68,17 @@ function GbForms({ refresh }) {
   const [messageBody, setMessageBody] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const { data: session, status: sessionStatus } = useSession();
-  const { loading, error, runAsync } = useRequest(postGuestbook, {
-    manual: true,
-    onSuccess: () => refresh()
-  });
+  const [storeGuestbook, { isLoading }] = useStoreGuestbookMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    runAsync({
+    storeGuestbook({
       body: messageBody,
       private: isPrivate
     }).then(() => {
       setIsPrivate(false);
       setMessageBody("");
+      refresh();
     });
   };
   if (sessionStatus === "loading")
@@ -176,12 +142,12 @@ function GbForms({ refresh }) {
             className={clsx(
               "w-full px-2 py-1 rounded text-gray-100 bg-gray-800 focus:ring",
               {
-                "cursor-wait": loading
+                "cursor-wait": isLoading
               }
             )}
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading ? "Submiting..." : "Submit"}
+            {isLoading ? "Submiting..." : "Submit"}
           </button>
         </div>
       </form>
@@ -190,7 +156,7 @@ function GbForms({ refresh }) {
 }
 
 export default function GuestbookPage() {
-  const { data, loading, error, refresh } = useRequest(getGuestbook);
+  const { data, isFetching, error, refetch } = useGetAllGuestbookQuery(null);
   return (
     <Layout title="Guestbook">
       <div className="flex flex-col-reverse lg:flex-row px-3 py-2 gap-6">
@@ -199,29 +165,29 @@ export default function GuestbookPage() {
             <h2 className="font-bold">Latest Guestbook</h2>
             <button
               className="p-2 bg-gray-800 text-white rounded-full"
-              onClick={() => refresh()}
+              onClick={() => refetch()}
             >
               <FaRedo
                 className={clsx("w-4 h-4", {
-                  "animate-spin": loading
+                  "animate-spin": isFetching
                 })}
               />
             </button>
           </div>
-          {loading ? (
+          {isFetching ? (
             <SpinLoading text="Loading..." />
           ) : error ? (
             <div>{"Error While Loading Data"}</div>
           ) : data?.length > 0 ? (
             data?.map((i: any) => {
-              return <GbPost key={i.key} data={i} refresh={refresh} />;
+              return <GbPost key={i.key} data={i} refresh={refetch} />;
             })
           ) : (
             <div>No comments yet.</div>
           )}
         </div>
         <div className="w-12/12 lg:w-5/12">
-          <GbForms refresh={refresh} />
+          <GbForms refresh={refetch} />
         </div>
       </div>
     </Layout>
