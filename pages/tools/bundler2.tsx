@@ -2,56 +2,21 @@ import { useClickAway, useDebounceEffect } from "ahooks";
 import clsx from "clsx";
 import { CodeEditor } from "components/CodeEditor";
 import LayoutTools from "components/LayoutTools";
-import { useEsBuild } from "hooks/bundler";
-import { esBuildTools } from "lib/redux/esBuildTools";
+import { bundlerTools, bundleWithRollup } from "lib/redux/bundlerTools";
 import { useAppDispatch, useAppSelector } from "lib/redux/store";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 export default function Page() {
-  const {
-    add,
-    remove,
-    update,
-    setCurrentFile,
-    setOutputFormat,
-    setOutput,
-    resetOutput,
-    setStatus,
-    resetStatus
-  } = esBuildTools.actions;
+  const { add, remove, update, setCurrentFile, setOutputFormat } =
+    bundlerTools.actions;
   const { currentFile, sources, output, status, outputFormat } =
-    useAppSelector().esbuildTools;
-  const esbuild = useEsBuild();
+    useAppSelector().bundlerTools;
   const dispatch = useAppDispatch();
   useDebounceEffect(
     () => {
-      if (!esbuild.ready) return;
-      dispatch(resetStatus());
-      dispatch(resetOutput());
-      dispatch(setStatus({ type: "progress" }));
-      esbuild
-        .createBundle({ files: sources, options: {
-          format: outputFormat
-        } })
-        .then((res) => {
-          dispatch(setOutput(res.code));
-          dispatch(
-            setStatus({
-              type: "success",
-              message: "Build Success."
-            })
-          );
-        })
-        .catch((e) => {
-          dispatch(
-            setStatus({
-              type: "failed",
-              message: e.message
-            })
-          );
-        })
+      dispatch(bundleWithRollup({ format: outputFormat, name: "main" }));
     },
-    [sources, outputFormat, esbuild.ready],
+    [sources, outputFormat],
     { wait: 1000 }
   );
 
@@ -124,7 +89,14 @@ export default function Page() {
             {status.type === "success" && "Result Success"}
           </strong>
           <SelectOutputType
-            lists={["cjs", "esm", "iife"]}
+            lists={[
+              "amd",
+              "commonjs",
+              "esm",
+              "iife",
+              "systemjs",
+              "umd"
+            ]}
             defaultValue={outputFormat}
             onSelected={(v) =>
               dispatch(setOutputFormat(v as typeof outputFormat))

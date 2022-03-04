@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { useDispatch, useSelector } from "react-redux";
 import { bundlerTools } from "./bundlerTools";
+import { esBuildTools } from "./esBuildTools";
 import guestbookApi from "./guestbookApi";
 // import {
 //   createApi,
@@ -12,6 +13,7 @@ import guestbookApi from "./guestbookApi";
 export const store = configureStore({
   reducer: {
     [bundlerTools.name]: bundlerTools.reducer,
+    [esBuildTools.name]: esBuildTools.reducer,
     [guestbookApi.reducerPath]: guestbookApi.reducer
   },
   middleware: (gdm) => gdm().concat(guestbookApi.middleware)

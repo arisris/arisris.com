@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/arisris/arisris.com#readme",
   "scripts": {
-    "start": "next start",
-    "dev": "next dev",
-    "build": "next build",
+    "start": "npm run copy-esbuild && next start",
+    "dev": "npm run copy-esbuild && next dev",
+    "build": "npm run copy-esbuild && next build",
     "export": "next export",
     "copy-esbuild": "cp node_modules/esbuild-wasm/esbuild.wasm public/esbuild.wasm",
     "upload": "git add . && git commit -m 'Update' && git push"
@@ -38,8 +38,10 @@
     "filename2prism": "^3.0.0",
     "graphql": "^16.3.0",
     "graphql-helix": "^1.11.0",
+    "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.3",
+    "memfs": "^3.4.1",
     "next": "^12.1.0",
     "next-auth": "^4.2.1",
     "next-themes": "^0.0.16-beta.11",
