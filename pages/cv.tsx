@@ -22,10 +22,13 @@ const IconWithLink = ({
 
 export default function PageCV() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    document.body.classList.remove("overflow-hidden");
+    setMounted(true);
+  }, []);
   if (!mounted) return <div>Loading...</div>;
   return (
-    <section className="flex flex-col max-w-screen-md mx-auto p-8 gap-8">
+    <section className="flex flex-col max-w-screen-md mx-auto p-8 gap-8 overflow-y-auto">
       <Head>
         <title>Arisris.com CV</title>
       </Head>
@@ -62,6 +65,14 @@ export default function PageCV() {
         </div>
       </header>
       <div className="prose dark:prose-invert max-w-full">
+        <h2 className="border-b px-2">About Me</h2>
+        <p>
+          I am a father of one kids, I am self learned in web programing since
+          2009. Actually I don't have an IT education background but I was very
+          enthusiastic about learning programming languages from that time until
+          now. I was born 30 years ago in Majalengka, And now I live with my
+          family in Ciamis.
+        </p>
         <h2 className="border-b px-2">Objective</h2>
         <p>
           As a web developer I always try to focus on the projects I'm working
@@ -127,6 +138,20 @@ export default function PageCV() {
         <ul>
           <li>
             <div className="flex justify-between gap-2">
+              <strong>Dosoon.id Frontend</strong>
+              <time>2021</time>
+            </div>
+            <p>
+              Slice frontend based on React &amp; Next.js
+              <br />
+              Link:&nbsp;&nbsp;
+              <a target="_blank" href="https://dosoon.id/">
+                https://dosoon.id/
+              </a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
               <strong>Develop a motorcycle lnstallment app system</strong>
               <time>2021</time>
             </div>
@@ -135,18 +160,25 @@ export default function PageCV() {
               current database system, Design form etc.
               <br />
               Clients: Panprisa Motor, yamahadepok.com
+              <br />
+              <a target="_blank" href="https://yamahadepok.com">
+                https://yamahadepok.com
+              </a>
             </p>
           </li>
           <li>
             <div className="flex justify-between gap-2">
-              <strong>Maintain system @ surala.co.id</strong>
+              <strong>Develop and design some feature @ surala.co.id</strong>
               <time>2021</time>
             </div>
             <p>
-              Done: Create modify codeigniter based web app. depelop some
+              Done: Create modify codeigniter based web app. develop some
               feature for this site.
               <br />
-              Client: Surala
+              Link:{" "}
+              <a target="_blank" href="https://surala.co.id">
+                https://surala.co.id
+              </a>
             </p>
           </li>
           <li>
@@ -170,26 +202,7 @@ export default function PageCV() {
               <time>2021</time>
             </div>
             <p>
-              A web-based app video downloader website.
-              <br />
-              Users can search, browse many video from youtube source. listing a
-              artist and their songs from many source of site like a joox, the
-              website is SEO friendly using SSR based on Next.JS, its very fast
-              using PWA and edge caching mechanism.
-              <br />
-              <b>Some stack i used.</b>
-              <br />
-              <br />
-              Next.js
-              <br />
-              Tailwindcss
-              <br />
-              Node.js
-              <br />
-              Vercel
-              <br />
-              Production build.
-              <br />
+              A Simple Video Downloader App.
               <br />
               Link:&nbsp;&nbsp;
               <a target="_blank" href="https://vidl.vercel.app/">
@@ -205,33 +218,52 @@ export default function PageCV() {
             <p>
               A web-based app contain million song lyrics.
               <br />
-              Users can search, browse lyrics or artists, read lyrics. the
-              website is SEO friendly, very very fast using PWA and edge caching
-              mechanism.
-              <br />
-              I made it just less than one week from scratch using some
-              libraries and tools.
-              <br />
-              <br />
-              <b>Some stack i used.</b>
-              <br />
-              <br />
-              Next.js
-              <br />
-              Tailwindcss
-              <br />
-              Node.js
-              <br />
-              Vercel
-              <br />
-              Wordpress.com as api
-              <br />
-              Production build.
-              <br />
-              <br />
               Link:&nbsp;&nbsp;
               <a target="_blank" href="https://applirik.vercel.app/">
                 https://applirik.vercel.app/
+              </a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
+              <strong>Tokopedia Slicing</strong>
+              <time>2021</time>
+            </div>
+            <p>
+              A Tokopedia Slicing Based On Next.js
+              <br />
+              Link:{" "}
+              <a target="_blank" href="https://slicing-tokopedia.vercel.app/">
+                https://slicing-tokopedia.vercel.app/
+              </a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
+              <strong>Code Editor</strong>
+              <time>2022</time>
+            </div>
+            <p>
+              A Simple Code Editor Based On Next.js ( Work In Progress )
+              <br />
+              Link:{" "}
+              <a target="_blank" href="https://code-editor-arisris.vercel.app/">
+                https://code-editor-arisris.vercel.app/
+              </a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
+              <strong>Developer Tools</strong>
+              <time>2022</time>
+            </div>
+            <p>
+              Develop developer tools in my site, such as: hashing, btoa/atob,
+              javscript bundler, etc ( Work In Progress )
+              <br />
+              Link:{" "}
+              <a target="_blank" href="https://arisris.com/tools">
+                https://arisris.com/tools
               </a>
             </p>
           </li>
