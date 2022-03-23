@@ -11,7 +11,6 @@ import {
   useGetAllGuestbookQuery,
   useStoreGuestbookMutation
 } from "lib/redux/guestbookApi";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const GbPost = ({ data, refresh }) => {
   if (!data?.created_at) data.created_at = new Date(); // fallback

@@ -1,10 +1,7 @@
-import Layout from "components/Layout";
 import LayoutTools from "components/LayoutTools";
-import { useModal } from "hooks/useModal";
 import Link from "next/link";
 
 export default function Page() {
-  const dialog = useModal();
   return (
     <LayoutTools
       title="Useful Tools For Developers"

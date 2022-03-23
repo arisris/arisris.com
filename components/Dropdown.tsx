@@ -5,7 +5,7 @@ import { ReactElement, ReactNode, useEffect, useRef, useState } from "react";
 import { IconType } from "react-icons";
 import { FaSort } from "react-icons/fa";
 
-export type SideMenuItemProps = {
+export type DropdownItemProps = {
   title: string;
   active?: boolean;
   icon?: IconType;
@@ -13,10 +13,10 @@ export type SideMenuItemProps = {
   onClick?: (e: any) => void;
 };
 
-export const SideMenuItem = (props: SideMenuItemProps) => (
+export const DropdownItem = (props: DropdownItemProps) => (
   <div
     className={clsx(
-      "flex items-center justify-between gap-2 p-2 w-full cursor-pointer text-xs lg:text-sm",
+      "flex items-center justify-between gap-2 p-2 w-full cursor-pointer text-xs lg:text-sm hover:bg-gray-100 dark:hover:bg-gray-800",
       {
         "bg-gray-100 dark:bg-gray-800": props.active
       }
@@ -31,7 +31,13 @@ export const SideMenuItem = (props: SideMenuItemProps) => (
   </div>
 );
 
-export const SideMenu = ({ menuItem }: { menuItem: SideMenuItemProps[] }) => {
+export const Dropdown = ({
+  menuItem,
+  className
+}: {
+  className?: string;
+  menuItem: DropdownItemProps[];
+}) => {
   const ref = useRef(null);
   const [show, setShow] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
@@ -50,10 +56,10 @@ export const SideMenu = ({ menuItem }: { menuItem: SideMenuItemProps[] }) => {
     if (show) setShow(false);
   }, ref);
   return (
-    <div ref={ref} className="relative flex flex-col gap-4">
+    <div ref={ref} className={clsx("relative flex flex-col gap-4", className)}>
       <button
         type="button"
-        className="sm:hidden w-full flex justify-between items-center px-4 py-2 ring-1 focus:ring rounded-md"
+        className="w-full flex justify-between items-center px-4 py-2 ring-1 focus:ring rounded-md"
         onClick={(e) => {
           e.preventDefault();
           setShow(!show);
@@ -66,7 +72,7 @@ export const SideMenu = ({ menuItem }: { menuItem: SideMenuItemProps[] }) => {
       </button>
       <div
         className={clsx(
-          "absolute top-12 inset-x-0 z-10 bg-gray-900 shadow-md sm:relative sm:inset-auto sm:z-auto sm:shadow-none sm:bg-transparent sm:flex flex-col divide-y dark:divide-gray-800 space-y-[.01rem]",
+          "absolute top-12 inset-x-0 z-10 bg-gray-900 shadow-md flex-col divide-y dark:divide-gray-800 space-y-[.01rem] rounded-md py-2",
           {
             flex: show,
             hidden: !show
@@ -74,7 +80,7 @@ export const SideMenu = ({ menuItem }: { menuItem: SideMenuItemProps[] }) => {
         )}
       >
         {menuItem.map(({ onClick, ...item }, index) => (
-          <SideMenuItem
+          <DropdownItem
             onClick={(e) => {
               setShow(false);
               setCurrentIndex(index);

@@ -14,5 +14,9 @@ module.exports = {
       "avatars.githubusercontent.com", // github avatar
       "icongr.am"
     ]
-  }
+  },
+  // i18n: {
+  //   defaultLocale: "en",
+  //   locales: ["en", "id"]
+  // }
 };

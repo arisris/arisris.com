@@ -9,10 +9,10 @@ import {
   FaQrcode
 } from "react-icons/fa";
 import Router from "next/router";
-import { SideMenu, SideMenuItemProps } from "./SideMenu";
 import clsx from "clsx";
+import { Dropdown, DropdownItemProps } from "./Dropdown";
 
-const menuItem: SideMenuItemProps[] = [
+const menuItem: DropdownItemProps[] = [
   {
     title: "Hash",
     icon: FaLock,
@@ -71,25 +71,14 @@ function LayoutTools({
 }: LayoutProps & { hiddenPanel?: boolean }) {
   return (
     <Layout {...props}>
-      <div className="flex flex-col sm:flex-row gap-6">
-        {!props.hiddenPanel && (
-          <div className="relative w-full sm:w-3/12">
-            <SideMenu menuItem={menuItem} />
-          </div>
+      <div className={clsx("py-2 block w-full")}>
+        {props.title && <h1 className="text-2xl font-bold">{props.title}</h1>}
+        {props.description && (
+          <div className="text-sm">{props.description}</div>
         )}
-        <div
-          className={clsx("w-full py-2 block", {
-            "sm:w-9/12": !props.hiddenPanel,
-            "sm:min-w-full": props.hiddenPanel
-          })}
-        >
-          {props.title && <h1 className="text-2xl font-bold">{props.title}</h1>}
-          {props.description && (
-            <div className="text-sm">{props.description}</div>
-          )}
-          <div className="prose dark:prose-invert min-w-full mt-2 pt-4 border-t dark:border-gray-800">
-            {children}
-          </div>
+        {!props.hiddenPanel && <Dropdown className="mt-3 py-4 border-t dark:border-gray-800" menuItem={menuItem} />}
+        <div className="prose dark:prose-invert min-w-full mt-2 pt-4">
+          {children}
         </div>
       </div>
     </Layout>

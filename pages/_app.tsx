@@ -7,14 +7,6 @@ import { UseModalConextProvider } from "hooks/useModal";
 import { Provider as ReactRedux } from "react-redux";
 import { store } from "lib/redux/store";
 
-// import { configResponsive } from "ahooks";
-// configResponsive({
-//   sm: 640,
-//   md: 768,
-//   lg: 1024,
-//   xl: 1280,
-//   "2xl": 1536
-// });
 function App({ Component, pageProps }: AppProps) {
   return (
     <ReactRedux store={store}>

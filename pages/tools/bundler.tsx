@@ -59,7 +59,6 @@ export default function Page() {
     <LayoutTools
       title="Online Javascript Bundler"
       description="Bundle NPM Modules on the fly (WIP)"
-      hiddenPanel
     >
       <div className="grid grid-cols-12 gap-2">
         {/* <strong className="col-span-4">Source Codes</strong> */}
