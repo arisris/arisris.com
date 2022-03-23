@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Format } from "esbuild-wasm";
+import type { Format } from "esbuild-wasm";
 
 type Item = {
   name: string;
@@ -23,7 +23,7 @@ const initialState: EsBuildToolsState = {
   outputFormat: "esm",
   currentFile: "./main.js",
   sources: {
-    "./main.js": `// this is virtual module vfs\nimport test from "./test.js";\n// this is biltin module\nimport http from "http";\n// this is remote module taken from cdn\nimport mitt from "mitt";\nconsole.log(mitt);\nconsole.log(test)`,
+    "./main.js": `// this is remote module taken from cdn\nimport mitt from "mitt";\n// this is virtual module vfs\nimport test from "./test.js";\nconsole.log(mitt);\nconsole.log(test)`,
     "./test.js": `export default "Hello World";`
   },
   output: ""

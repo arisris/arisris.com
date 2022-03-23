@@ -1,4 +1,4 @@
-import * as esbuild from "esbuild-wasm";
+import type { OnLoadResult, PluginBuild } from "esbuild-wasm";
 import localForage from "localforage";
 import path from "path";
 
@@ -54,7 +54,7 @@ const makeResolveDir = (url: string) =>
 export const fetchPlugin = () => {
   return {
     name: "fetch-plugin",
-    setup(build: esbuild.PluginBuild) {
+    setup(build: PluginBuild) {
       build.onResolve({ filter: /.*/ }, (args) => {
         if (builtinModules.findIndex((i) => i === args.path) === -1) {
           return {
@@ -69,7 +69,7 @@ export const fetchPlugin = () => {
         };
       });
       build.onLoad({ filter: /.*/, namespace: "cdn-url" }, async (args) => {
-        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+        const cachedResult = await fileCache.getItem<OnLoadResult>(
           args.path
         );
         if (cachedResult) return cachedResult;
@@ -99,7 +99,7 @@ export const fetchPlugin = () => {
       build.onLoad({ filter: /.*/, namespace: "cdn-url" }, async (args) => {
         const fetcher = await fetch(args.path);
         let contents = await fetcher.text();
-        const result: esbuild.OnLoadResult = {
+        const result: OnLoadResult = {
           loader: "jsx",
           contents,
           resolveDir: makeResolveDir(fetcher.url)

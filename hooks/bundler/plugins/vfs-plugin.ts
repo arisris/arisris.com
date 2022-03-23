@@ -1,4 +1,4 @@
-import { Plugin } from "esbuild-wasm";
+import type { Plugin } from "esbuild-wasm";
 import { createFsFromVolume, Volume } from "memfs";
 import path from "path";
 

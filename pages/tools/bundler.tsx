@@ -5,7 +5,7 @@ import LayoutTools from "components/LayoutTools";
 import { useEsBuild } from "hooks/bundler";
 import { esBuildTools } from "lib/redux/esBuildTools";
 import { useAppDispatch, useAppSelector } from "lib/redux/store";
-import { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useRef, useState } from "react";
 
 export default function Page() {
   const {
