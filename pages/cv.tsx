@@ -254,6 +254,24 @@ export default function PageCV() {
           </li>
           <li>
             <div className="flex justify-between gap-2">
+              <strong>Al Quran App</strong>
+              <time>2022</time>
+            </div>
+            <p>
+              A Progresive Web App to read al-Quran
+              <br />
+              Features:
+              <br />
+              Offline support, dark/light mode, responsive, translate/read mode
+              <br />
+              Link:{" "}
+              <a target="_blank" href="https://quran-app-five.vercel.app">
+                https://quran-app-five.vercel.app
+              </a>
+            </p>
+          </li>
+          <li>
+            <div className="flex justify-between gap-2">
               <strong>Developer Tools</strong>
               <time>2022</time>
             </div>
