@@ -42,7 +42,7 @@ export default function Page() {
       title="Online Base64 Encode/Decode"
       description="Convert Text to Base64 OR above"
     >
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-4 w-full">
         <strong className="col-span-4">Decoded Text</strong>
         {!!state.encodingError && (
           <span className="text-red-500 col-span-4">{state.encodingError}</span>

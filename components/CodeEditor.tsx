@@ -75,7 +75,7 @@ export function CodeEditor({
         <pre
           className={clsx(
             clazz,
-            "ring-1 focus:ring-2 focus:outline-none transition-all duration-300",
+            "ring-1 focus:ring-2 outline-none !bg-transparent",
             className
           )}
           style={style}

@@ -11,7 +11,7 @@ export default function Page() {
         <ul className="s list-decimal">
           <li>
             <Link href="/free-html5-templates">
-              <a>Free HTML5 Templates</a>
+              <a>Free HTML5 sss</a>
             </Link>
           </li>
         </ul>

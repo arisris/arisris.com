@@ -2,21 +2,56 @@ import { useClickAway, useDebounceEffect } from "ahooks";
 import clsx from "clsx";
 import { CodeEditor } from "components/CodeEditor";
 import LayoutTools from "components/LayoutTools";
-import { bundlerTools, bundleWithRollup } from "lib/redux/bundlerTools";
+import { useEsBuild } from "hooks/bundler";
+import { esBuildTools } from "lib/redux/esBuildTools";
 import { useAppDispatch, useAppSelector } from "lib/redux/store";
-import { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useRef, useState } from "react";
 
 export default function Page() {
-  const { add, remove, update, setCurrentFile, setOutputFormat } =
-    bundlerTools.actions;
+  const {
+    add,
+    remove,
+    update,
+    setCurrentFile,
+    setOutputFormat,
+    setOutput,
+    resetOutput,
+    setStatus,
+    resetStatus
+  } = esBuildTools.actions;
   const { currentFile, sources, output, status, outputFormat } =
-    useAppSelector().bundlerTools;
+    useAppSelector().esbuildTools;
+  const esbuild = useEsBuild();
   const dispatch = useAppDispatch();
   useDebounceEffect(
     () => {
-      dispatch(bundleWithRollup({ format: outputFormat, name: "main" }));
+      if (!esbuild.ready) return;
+      dispatch(resetStatus());
+      dispatch(resetOutput());
+      dispatch(setStatus({ type: "progress" }));
+      esbuild
+        .createBundle({ files: sources, options: {
+          format: outputFormat
+        } })
+        .then((res) => {
+          dispatch(setOutput(res.code));
+          dispatch(
+            setStatus({
+              type: "success",
+              message: "Build Success."
+            })
+          );
+        })
+        .catch((e) => {
+          dispatch(
+            setStatus({
+              type: "failed",
+              message: e.message
+            })
+          );
+        })
     },
-    [sources, outputFormat],
+    [sources, outputFormat, esbuild.ready],
     { wait: 1000 }
   );
 
@@ -30,7 +65,7 @@ export default function Page() {
         <div className="col-span-12 relative">
           <div className="flex justify-between items-center gap-4 mb-2">
             <div className="inline-flex items-center gap-1 overflow-x-auto pb-2">
-              {Object.entries(sources).map(([file, content], key) => (
+              {Object.keys(sources).map((file, key) => (
                 <div key={key} className="inline-flex items-center gap-1">
                   <button
                     className={clsx(
@@ -45,8 +80,8 @@ export default function Page() {
                   </button>
                   <button
                     type="button"
-                    className="inline-flexitems-center px-2 hover:bg-gray-200 dark:hover:bg-gray-800 font-bold"
-                    onClick={(e) => {
+                    className="inline-flex items-center px-2 hover:bg-gray-200 dark:hover:bg-gray-800 font-bold"
+                    onClick={() => {
                       if (file === "main.js" || file === "config.js") {
                         alert("Is Primary file not allowed to closed.");
                         return;
@@ -88,18 +123,7 @@ export default function Page() {
             {status.type === "success" && "Result Success"}
           </strong>
           <SelectOutputType
-            lists={[
-              "amd",
-              "cjs",
-              "es",
-              "iife",
-              "system",
-              "umd",
-              "commonjs",
-              "esm",
-              "module",
-              "systemjs"
-            ]}
+            lists={["cjs", "esm", "iife"]}
             defaultValue={outputFormat}
             onSelected={(v) =>
               dispatch(setOutputFormat(v as typeof outputFormat))

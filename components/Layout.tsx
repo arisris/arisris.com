@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiSun, HiMoon, HiX, HiMenu } from "react-icons/hi";
 import { useTheme } from "next-themes";
 import { defaultMeta } from "data/headers";
+import Image from "next/image";
 
 function StickyWaLink() {
   return (
@@ -197,62 +198,88 @@ function Layout({
           <div className="sm:max-w-screen-md p-4 m-auto">{children}</div>
         </main>
         <footer className="w-full grid grid-cols-12 sm:max-w-screen-md ml-auto mr-auto px-2 gap-2 text-sm">
-          {showFooterLinks && (
-            <>
-              <div className="col-span-6 sm:col-span-4 whitespace-nowrap flex flex-col">
-                <FooterLink href="/code">Code Snipet</FooterLink>
-                <FooterLink href="/free-html5-templates">
-                  Free HTML5 Template
-                </FooterLink>
-                <FooterLink href="/guestbook">Guestbook</FooterLink>
-              </div>
-              <div className="col-span-6 sm:col-span-4 flex flex-col">
-                <FooterLink
-                  target="__blank"
-                  href="https://github.com/arisris"
-                  className="flex items-center gap-2"
-                >
-                  <span>Github</span>
-                </FooterLink>
-                <FooterLink
-                  target="__blank"
-                  href="https://linkedin.com/in/arisris"
-                  className="flex items-center gap-2"
-                >
-                  <span>LinkedIn</span>
-                </FooterLink>
-                <FooterLink
-                  target="__blank"
-                  href="https://fb.me/arisfungratis"
-                  className="flex items-center gap-2"
-                >
-                  <span>Facebook</span>
-                </FooterLink>
-              </div>
-              <div className="col-span-6 sm:col-span-4 flex flex-col">
-                <FooterLink target="__blank" href="https://vercel.com">
-                  Vercel
-                </FooterLink>
-                <FooterLink target="__blank" href="https://nextjs.org">
-                  NextJs
-                </FooterLink>
-                <FooterLink target="__blank" href="https://tailwindcss.com">
-                  Tailwindcss
-                </FooterLink>
-              </div>
-            </>
-          )}
-          <div className="col-span-12 block font-light text-sm px-2 py-6">
-            <span>&copy; {new Date().getFullYear()}</span>
-            <FooterLink href="https://github.com/arisris/arisris.vercel.app">
-              Aris Riswanto,
-            </FooterLink>
-            <span>Hosted at:</span>
-            <FooterLink href="https://vercel.com">Vercel</FooterLink>
+          {showFooterLinks && <FooterLinks />}
+          <div className="col-span-12 flex flex-col-reverse sm:flex-row justify-between items-center font-light text-sm px-2 py-6">
+            <CopyrightFooter />
+            {/* <LanguageChanger /> */}
           </div>
         </footer>
       </section>
       <StickyWaLink />
+    </>
+  );
+}
+
+function LanguageChanger() {
+  return (
+    <div className="inline-flex gap-2 items-center">
+      <button type="button" disabled>
+        <Image src="/icons/flag/id.png" width="24" height="24" />
+      </button>
+      <button type="button">
+        <Image src="/icons/flag/us.png" width="24" height="24" />
+      </button>
+    </div>
+  );
+}
+
+function CopyrightFooter() {
+  return (
+    <div>
+      <span>&copy; {new Date().getFullYear()}</span>
+      <FooterLink href="https://github.com/arisris/arisris.vercel.app">
+        Aris Riswanto,
+      </FooterLink>
+      <span>Hosted at:</span>
+      <FooterLink href="https://vercel.com">Vercel</FooterLink>
+    </div>
+  );
+}
+
+function FooterLinks() {
+  return (
+    <>
+      <div className="col-span-6 sm:col-span-4 whitespace-nowrap flex flex-col">
+        <FooterLink href="/code">Code Snipet</FooterLink>
+        <FooterLink href="/free-html5-templates">
+          Free HTML5 Template
+        </FooterLink>
+        <FooterLink href="/guestbook">Guestbook</FooterLink>
+      </div>
+      <div className="col-span-6 sm:col-span-4 flex flex-col">
+        <FooterLink
+          target="__blank"
+          href="https://github.com/arisris"
+          className="flex items-center gap-2"
+        >
+          <span>Github</span>
+        </FooterLink>
+        <FooterLink
+          target="__blank"
+          href="https://linkedin.com/in/arisris"
+          className="flex items-center gap-2"
+        >
+          <span>LinkedIn</span>
+        </FooterLink>
+        <FooterLink
+          target="__blank"
+          href="https://fb.me/arisfungratis"
+          className="flex items-center gap-2"
+        >
+          <span>Facebook</span>
+        </FooterLink>
+      </div>
+      <div className="col-span-6 sm:col-span-4 flex flex-col">
+        <FooterLink target="__blank" href="https://vercel.com">
+          Vercel
+        </FooterLink>
+        <FooterLink target="__blank" href="https://nextjs.org">
+          NextJs
+        </FooterLink>
+        <FooterLink target="__blank" href="https://tailwindcss.com">
+          Tailwindcss
+        </FooterLink>
+      </div>
     </>
   );
 }
