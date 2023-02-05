@@ -1,19 +1,8 @@
 .vercel
-.next
 node_modules/
-out/
 .bak/
-pages/api/test/
-public/esbuild.wasm
 
 #files
 .env
 .env.local
 package-lock.json
-public/sw.js
-public/workbox-*.js
-public/worker-*.js
-test.js
-test.mjs
-yarn-error.log
-total.util.js
