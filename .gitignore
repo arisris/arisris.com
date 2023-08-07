@@ -1,6 +1,7 @@
 .vercel
 node_modules/
-.bak/
+.astro/
+.vscode/old
 
 #files
 .env

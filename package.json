@@ -28,6 +28,10 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "astro": "^2.0.6"
+    "astro": "^2.7.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6",
+    "unocss": "^0.47.5"
   }
 }
