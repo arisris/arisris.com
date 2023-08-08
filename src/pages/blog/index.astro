@@ -1,0 +1,23 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+const posts = await getCollection("blogPosts");
+---
+
+<MainLayout>
+  <div class="py-4">
+    <h3 class="text-3xl font-bold">Latest blog posts</h3>
+    <ul>
+      {
+        posts.map((i) => {
+          console.log(i.data.author.id);
+          return (
+            <li>
+              <a href={`/posts/${i.slug}`}>{i.data.title}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</MainLayout>

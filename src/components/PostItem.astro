@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+type Props = {
+  post: CollectionEntry<"blogPosts">;
+};
+const { post } = Astro.props;
+---
+
+<a
+  href={`/posts/${post.slug}`}
+  class="hover:bg-light-6 dark:hover:bg-dark-6 p-2"
+>
+  <h3 class="font-bold leading-snug">{post.data.title}</h3>
+  <div class="text-xs">
+    <time datetime={post.data.pubDate.toISOString()}
+      >{post.data.pubDate.toDateString()}</time
+    >
+    <span>By {post.data.author.id}</span>
+  </div>
+</a>

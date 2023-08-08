@@ -19,7 +19,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "clean:dist": "rm -rf dist functions/[[path]].js",
+    "pages:dev": "wrangler pages dev ./dist --proxy=3000 --compatibility-date=2023-07-17 -- pnpm dev",
+    "clean:dist": "rm -rf dist",
     "upload": "git add . && git commit -m 'Update' && git push"
   },
   "prettier": {
@@ -32,6 +33,7 @@
     "astro": "^2.7.4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230717.0",
     "@iconify-json/heroicons": "^1.1.11",
     "@iconify-json/logos": "^1.1.34",
     "typescript": "^5.1.6",

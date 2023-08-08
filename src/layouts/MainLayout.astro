@@ -1,4 +1,5 @@
 ---
+import { getEntry } from "astro:content";
 type Props = {
   title?: string;
   description?: string;
@@ -38,11 +39,12 @@ navLinks = [
     title: "Projects"
   },
   {
-    href: "/dev-tools",
-    title: "Dev Tools"
+    href: "/tools",
+    title: "Tools"
   },
   ...(navLinks ?? [])
 ];
+const profile = await getEntry("profiles", "arisris");
 ---
 
 <!DOCTYPE html>
@@ -146,7 +148,7 @@ navLinks = [
             </label>
           </div>
           <ul
-            class="hidden flex-col self-start mt-4 md:flex md:flex-row md:self-center md:items-center md:rounded-full md:mt-auto md:ring-1 md:dark:ring-dark-1 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-5 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-5"
+            class="hidden flex-col self-start mt-4 md:flex md:flex-row md:self-center md:items-center md:rounded-full md:mt-auto md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold"
           >
             {
               navLinks.map((i) => (
@@ -166,14 +168,26 @@ navLinks = [
         </div>
       </main>
       <footer>
-        <div class="p-2 max-w-screen-md mx-auto">
+        <div class="flex justify-between p-2 max-w-screen-md mx-auto py-4">
+          <!-- i-logos-github-icon i-logos-linkedin-icon i-logos-facebook -->
+          <div class="flex gap-x-4">
+            {
+              profile.data.socialProfiles?.map((i) => (
+                <a href={i.url} title={i.name}>
+                  {i.icon ? (
+                    <div class={`${i.icon} text-xl`} />
+                  ) : (
+                    i.name
+                  )}
+                </a>
+              ))
+            }
+          </div>
           <div>
             <span>&copy; {new Date().getFullYear()}</span>
             <a class="" href="https://github.com/arisris/arisris.com">
               Aris Riswanto,
             </a>
-            <!-- <span>Hosted at:</span>
-            <a class="" href="https://vercel.com">Vercel</a> -->
           </div>
         </div>
       </footer>
