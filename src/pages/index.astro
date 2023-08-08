@@ -1,3 +1,69 @@
-<div>
-  <h3 class="text-amber">Hello Astro</h3>
-</div>
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <div class="grid grid-cols-12 gap-4 my-8 p-3 md:p-0">
+    <div class="col-span-12 sm:col-span-4 md:mr-auto">
+      <img
+        class="w-48 h-48 rounded-full"
+        src="https://avatars.githubusercontent.com/u/62107426?v=4"
+        alt="Arisris"
+      />
+    </div>
+    <div class="col-span-12 sm:col-span-8 children:leading-relaxed">
+      <h3 class="text-4xl font-bold">Aris Riswanto</h3>
+      <strong>Senior Jamstack Web developer</strong>
+      <p>
+        Hi. I am a web programmer. I love learning new things. My daily routine
+        is in front of the PC, writing lines of code accompanied by a cup of
+        black coffee.
+      </p>
+    </div>
+    <div class="col-span-12 children:leading-relaxed">
+      <h3 class="text-3xl font-bold">Favorites tech</h3>
+      <p></p>
+      I am very excited about exploring new programming languages, libraries, and
+      frameworks. I familiar with many tools & library That i use in my side
+      projects, open source or freelance work. Here is a list of web frameworks that I often use. But not limited to that
+    </div>
+    <div
+      class="col-span-12 grid grid-cols-12 children:col-span-6 children:flex children:gap-2 gap-4"
+    >
+      {
+        [
+          {
+            icon: "i-logos-nextjs-icon",
+            text: "Next",
+            alt: "The react web framework by vercel"
+          },
+          {
+            icon: "i-logos-astro-icon",
+            text: "Astro",
+            alt: "Awesome static site generator. I use for my site"
+          },
+          {
+            icon: "i-logos-fresh",
+            text: "Fresh",
+            alt: "A popular web framework for deno runtime"
+          },
+          {
+            icon: "i-logos-unocss?mask",
+            text: "Uno",
+            alt: "An atomic css framework similar with tailwind but more powerfull"
+          }
+        ].map((i) => (
+          <div class="flex items-center">
+            <div class="rounded-full p-1.5 ring-1 ring-gray-3 dark:ring-dark-1">
+              <div class={`${i.icon} dark:text-white text-5xl`} title={i.alt} />
+            </div>
+            <span>{i.text}</span>
+          </div>
+        ))
+      }
+    </div>
+    <div class="col-span-12 children:leading-relaxed">
+      <h3 class="text-2xl font-bold">Recent Publications</h3>
+    </div>
+  </div>
+</MainLayout>

@@ -1,0 +1,182 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+  robots?: string;
+  og?: {
+    url?: string;
+    type?: string;
+    site_name?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+  twitter?: {
+    card?: string;
+    site?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+  navLinks?: { href: string; title: string }[];
+};
+let { title, description, og, twitter, robots, navLinks } = Astro.props;
+robots ??= "index, follow";
+title ??= "Home";
+description ??= "Jamstack Web Developer";
+navLinks = [
+  {
+    href: "/",
+    title: "Home"
+  },
+  {
+    href: "/blog",
+    title: "Blog"
+  },
+  {
+    href: "/projects",
+    title: "Projects"
+  },
+  {
+    href: "/dev-tools",
+    title: "Dev Tools"
+  },
+  ...(navLinks ?? [])
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={robots} />
+    <meta
+      name="google-site-verification"
+      content="HqRlPHb6rKQHLdM0ifiL0wHexR1qaUVFr_5f0dr0bKI"
+    />
+    {
+      og &&
+        Object.entries(og).map(
+          ([name, content]) =>
+            name && content && <meta name={`og:${name}`} content={content} />
+        )
+    }
+    {
+      twitter &&
+        Object.entries(twitter).map(
+          ([name, content]) =>
+            name &&
+            content && <meta name={`twitter:${name}`} content={content} />
+        )
+    }
+    <title>{`${title} | Jamstack Web Developer"`}</title>
+    <link rel="canonical" href={Astro.url} />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <slot name="head" />
+    <!-- Dark mode toggle inlined to avoid flick -->
+    <script is:inline>
+      ((themeKey, toggleId, dark, light) => {
+        const getTheme = () => {
+          if (
+            typeof localStorage !== "undefined" &&
+            localStorage.getItem(themeKey)
+          ) {
+            return localStorage.getItem(themeKey);
+          }
+          if (window.matchMedia(`(prefers-color-scheme: ${dark})`).matches) {
+            return dark;
+          }
+          return light;
+        };
+        const setTheme = (theme) => {
+          if (theme === light) {
+            document.documentElement.classList.remove(dark);
+          } else {
+            document.documentElement.classList.add(dark);
+          }
+          window.localStorage.setItem(themeKey, theme);
+        };
+        window.addEventListener("DOMContentLoaded", () => {
+          document.getElementById(toggleId).addEventListener("click", (ev) => {
+            ev.preventDefault();
+            setTheme(getTheme() === dark ? light : dark);
+          });
+        });
+        setTheme(getTheme());
+      })("arisris-theme-appearance", "toggle-dark", "dark", "light");
+    </script>
+  </head>
+  <body
+    class="bg-light dark:bg-dark all:text-dark dark:all:text-gray-100 dark:all-[a]:text-light-5 all-[a]:text-dark-7"
+  >
+    <section class="relative flex flex-col min-h-screen">
+      <header class="shadow md:shadow-none">
+        <nav
+          class="flex flex-col justify-start items-start md:flex-row md:justify-between p-2 max-w-screen-md mx-auto children:w-full children:md:w-auto"
+        >
+          <input
+            id="toggle-menu"
+            type="checkbox"
+            class="hidden siblings-[ul]:checked:flex"
+          />
+          <div class="flex justify-between self-center">
+            <button id="toggle-dark" type="button" class="p-2">
+              <div class="i-heroicons-moon dark:i-heroicons-sun text-3xl"></div>
+            </button>
+            <label for="toggle-menu" role="button" class="p-2 md:hidden">
+              <div class="i-heroicons-bars3 text-3xl"></div>
+            </label>
+          </div>
+          <ul
+            class="hidden flex-col self-start mt-4 md:flex md:flex-row md:self-center md:items-center md:rounded-full md:mt-auto md:ring-1 md:dark:ring-dark-1 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-5 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-5"
+          >
+            {
+              navLinks.map((i) => (
+                <li class={i.href === Astro.url.pathname ? "active" : ""}>
+                  <a href={i.href} title={i.title}>
+                    {i.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </header>
+      <main class="flex-grow-1">
+        <div class="p-2 max-w-screen-md mx-auto">
+          <slot />
+        </div>
+      </main>
+      <footer>
+        <div class="p-2 max-w-screen-md mx-auto">
+          <div>
+            <span>&copy; {new Date().getFullYear()}</span>
+            <a class="" href="https://github.com/arisris/arisris.com">
+              Aris Riswanto,
+            </a>
+            <!-- <span>Hosted at:</span>
+            <a class="" href="https://vercel.com">Vercel</a> -->
+          </div>
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>

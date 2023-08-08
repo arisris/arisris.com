@@ -1,6 +1,7 @@
 .vercel
 node_modules/
-.astro/
+dist
+.astro
 .vscode/old
 
 #files
