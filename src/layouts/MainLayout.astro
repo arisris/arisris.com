@@ -1,5 +1,4 @@
 ---
-import { getEntry } from "astro:content";
 type Props = {
   title?: string;
   description?: string;
@@ -27,16 +26,16 @@ title ??= "Home";
 description ??= "Jamstack Web Developer";
 navLinks = [
   {
-    href: "/",
-    title: "Home"
-  },
-  {
-    href: "/blog",
-    title: "Blog"
+    href: "/services",
+    title: "Services"
   },
   {
     href: "/projects",
     title: "Projects"
+  },
+  {
+    href: "/blog",
+    title: "Blogs"
   },
   {
     href: "/tools",
@@ -44,7 +43,8 @@ navLinks = [
   },
   ...(navLinks ?? [])
 ];
-const profile = await getEntry("profiles", "arisris");
+const darkThemeScript =
+  '!((e,t,o,n)=>{const d=()=>"undefined"!=typeof localStorage&&localStorage.getItem(e)?localStorage.getItem(e):window.matchMedia(`(prefers-color-scheme: ${o})`).matches?o:n,c=t=>{t===n?document.documentElement.classList.remove(o):document.documentElement.classList.add(o),window.localStorage.setItem(e,t)};window.addEventListener("DOMContentLoaded",(()=>{document.getElementById(t)?.addEventListener("click",(e=>{e.preventDefault(),c(d()===o?n:o)}))})),c(d())})("arisris-theme-appearance", "toggle-dark", "dark", "light");';
 ---
 
 <!DOCTYPE html>
@@ -93,62 +93,45 @@ const profile = await getEntry("profiles", "arisris");
     />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <slot name="head" />
-    <!-- Dark mode toggle inlined to avoid flick -->
-    <script is:inline>
-      ((themeKey, toggleId, dark, light) => {
-        const getTheme = () => {
-          if (
-            typeof localStorage !== "undefined" &&
-            localStorage.getItem(themeKey)
-          ) {
-            return localStorage.getItem(themeKey);
-          }
-          if (window.matchMedia(`(prefers-color-scheme: ${dark})`).matches) {
-            return dark;
-          }
-          return light;
-        };
-        const setTheme = (theme) => {
-          if (theme === light) {
-            document.documentElement.classList.remove(dark);
-          } else {
-            document.documentElement.classList.add(dark);
-          }
-          window.localStorage.setItem(themeKey, theme);
-        };
-        window.addEventListener("DOMContentLoaded", () => {
-          document.getElementById(toggleId).addEventListener("click", (ev) => {
-            ev.preventDefault();
-            setTheme(getTheme() === dark ? light : dark);
-          });
-        });
-        setTheme(getTheme());
-      })("arisris-theme-appearance", "toggle-dark", "dark", "light");
-    </script>
+    <script is:inline set:html={darkThemeScript} />
   </head>
   <body
     class="bg-light dark:bg-dark all:text-dark dark:all:text-gray-100 dark:all-[a]:text-light-5 all-[a]:text-dark-7"
   >
-    <section class="relative flex flex-col min-h-screen">
-      <header class="shadow md:shadow-none">
+    <section class="flex flex-col min-h-screen">
+      <header class="relative">
         <nav
-          class="flex flex-col justify-start items-start md:flex-row md:justify-between p-2 max-w-screen-md mx-auto children:w-full children:md:w-auto"
+          class="flex flex-col justify-start items-start md:items-center md:flex-row md:justify-between p-2 max-w-screen-md mx-auto children:w-full children:md:w-auto"
         >
           <input
             id="toggle-menu"
             type="checkbox"
-            class="hidden siblings-[ul]:checked:flex"
+            class="hidden lt-md:siblings-[ul#nav]:checked:flex lt-md:siblings-[ul#nav]:checked:absolute lt-md:siblings-[ul#nav]:checked:top-21 lt-md:siblings-[ul#nav]:checked:inset-x-0 lt-md:siblings-[ul#nav]:checked:bg-light lt-md:dark:siblings-[ul#nav]:checked:bg-dark"
           />
-          <div class="flex justify-between self-center">
-            <button id="toggle-dark" type="button" class="p-2">
-              <div class="i-heroicons-moon dark:i-heroicons-sun text-3xl"></div>
+          <div class="flex justify-between items-center">
+            <a href="/" class="flex flex-col p-2">
+              <strong class="text-2xl underline underline-dashed"
+                >{"<arisris />"}</strong
+              >
+              <span class="text-[.6rem] italic ml-auto -mt-1"
+                >Personal Sites</span
+              >
+            </a>
+            <button
+              id="toggle-dark"
+              type="button"
+              title="Toggle Theme"
+              class="mr-auto ml-4"
+            >
+              <div class="i-ri:moon-line dark:i-ri:sun-line text-xl"></div>
             </button>
             <label for="toggle-menu" role="button" class="p-2 md:hidden">
-              <div class="i-heroicons-bars3 text-3xl"></div>
+              <div class="i-ri:menu-fill text-3xl"></div>
             </label>
           </div>
           <ul
-            class="hidden flex-col self-start mt-4 md:flex md:flex-row md:self-center md:items-center md:rounded-full md:mt-auto md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold"
+            id="nav"
+            class="hidden flex-col md:flex md:flex-row md:items-center md:rounded-full md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold"
           >
             {
               navLinks.map((i) => (
@@ -168,25 +151,27 @@ const profile = await getEntry("profiles", "arisris");
         </div>
       </main>
       <footer>
-        <div class="flex justify-between p-2 max-w-screen-md mx-auto py-4">
-          <!-- i-logos-github-icon i-logos-linkedin-icon i-logos-facebook -->
-          <div class="flex gap-x-4">
-            {
-              profile.data.socialProfiles?.map((i) => (
-                <a href={i.url} title={i.name}>
-                  {i.icon ? (
-                    <div class={`${i.icon} text-xl`} />
-                  ) : (
-                    i.name
-                  )}
-                </a>
-              ))
-            }
-          </div>
+        <div
+          class="flex justify-between p-2 max-w-screen-md mx-auto py-4 text-sm"
+        >
           <div>
             <span>&copy; {new Date().getFullYear()}</span>
             <a class="" href="https://github.com/arisris/arisris.com">
-              Aris Riswanto,
+              Aris Riswanto
+            </a>
+          </div>
+          <div class="flex gap-x-2">
+            <a href="https://github.com/arisris" title="Reach Me on Github">
+              <div class="i-ri:github-fill text-xl"></div>
+            </a>
+            <a
+              href="https://linkedin.com/in/arisris"
+              title="Reach Me on Linkedin"
+            >
+              <div class="i-ri:linkedin-fill text-xl"></div>
+            </a>
+            <a href="https://fb.me/arisfungratis" title="Reach Me on Facebook">
+              <div class="i-ri:facebook-fill text-xl"></div>
             </a>
           </div>
         </div>

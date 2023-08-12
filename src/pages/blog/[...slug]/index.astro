@@ -1,0 +1,40 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
+import { CollectionEntry, getCollection, getEntry } from "astro:content";
+
+export type Props = {
+  postItem: CollectionEntry<"blogPosts">;
+};
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getCollection(
+    "blogPosts",
+    (p) => p.data.status === "publish"
+  );
+  return entries.map((item) => ({
+    params: {
+      slug: item.slug
+    },
+    props: {
+      postItem: item
+    }
+  }));
+};
+const { postItem } = Astro.props;
+const { title, author, pubDate } = postItem.data;
+const postAuthor = await getEntry("profiles", author.id);
+const { Content } = await postItem.render();
+---
+
+<MainLayout>
+  <div class="px-4 md:px-8">
+    <h1 class="text-4xl font-bold">{title}</h1>
+    <div class="my-4">
+      <time datetime={pubDate.toISOString()}>{pubDate.toDateString()}</time>
+      <span>By {postAuthor.data.name}</span>
+    </div>
+  </div>
+  <article class="text-base prose prose-dark dark:prose-light px-4 md:px-8">
+    <Content />
+  </article>
+</MainLayout>

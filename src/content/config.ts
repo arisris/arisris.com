@@ -43,7 +43,6 @@ const profiles = defineCollection({
       .array(
         z.object({
           name: z.string(),
-          icon: z.string().optional(),
           url: z.string().url()
         })
       )

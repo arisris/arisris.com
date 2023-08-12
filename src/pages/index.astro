@@ -1,19 +1,16 @@
 ---
 import { getCollection, getEntry } from "astro:content";
-import MainLayout from "../layouts/MainLayout.astro";
-import PostItem from "../components/PostItem.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import PostItem from "@/components/PostItem.astro";
 const profile = await getEntry("profiles", "arisris");
 const posts = await getCollection(
   "blogPosts",
   (e) => e.data.author.id === profile.id && e.data.status === "publish"
 );
-const newPosts = posts.sort((a, b) => {
-  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-});
 ---
 
 <MainLayout>
-  <div class="grid grid-cols-12 gap-y-8 md:gap-y-16 my-8 p-3 md:p-0">
+  <div class="grid grid-cols-12 gap-y-8 gap-x-4 md:gap-y-16 my-8 p-3 md:p-0">
     <div class="col-span-12 sm:col-span-4 md:mr-auto">
       <img
         class="w-48 h-48 rounded-full"
@@ -22,12 +19,16 @@ const newPosts = posts.sort((a, b) => {
       />
     </div>
     <div class="col-span-12 sm:col-span-8 children:leading-relaxed">
-      <h3 class="text-4xl font-bold">{profile.data.name}</h3>
-      <strong>{profile.data.title}</strong>
-      <p>{profile.data.about}</p>
+      <h3 class="text-3xl font-bold">Jamstack Web Developer</h3>
+      <strong>Edge stack is the future of the web</strong>
+      <p>
+        Welcome to my homepage. I like web, I love learning new things. My daily
+        routine is in front of the PC, writing lines of code accompanied by a
+        cup of black coffee.
+      </p>
     </div>
     <div class="col-span-12 children:leading-relaxed">
-      <h3 class="text-3xl font-bold">Favorites tech</h3>
+      <h3 class="text-2xl font-bold">Favorites tech</h3>
       <p>
         I am very excited about exploring new programming languages, libraries,
         and frameworks. I familiar with many tools & library That i use in my
@@ -38,22 +39,22 @@ const newPosts = posts.sort((a, b) => {
         {
           [
             {
-              icon: "i-logos-nextjs-icon",
+              icon: "i-logos:nextjs-icon",
               text: "Next",
               alt: "The react web framework by vercel"
             },
             {
-              icon: "i-logos-astro-icon",
+              icon: "i-logos:astro-icon",
               text: "Astro",
               alt: "Awesome static site generator. I use for my site"
             },
             {
-              icon: "i-logos-fresh",
+              icon: "i-logos:fresh",
               text: "Fresh",
               alt: "A popular web framework for deno runtime"
             },
             {
-              icon: "i-logos-unocss?mask",
+              icon: "i-logos:unocss?mask",
               text: "Uno",
               alt: "An atomic css framework similar with tailwind but more powerfull"
             }
@@ -72,9 +73,16 @@ const newPosts = posts.sort((a, b) => {
       </div>
     </div>
     <div class="col-span-12">
-      <h3 class="text-3xl font-bold">Recent Publications</h3>
+      <h3 class="text-2xl font-bold">Recent Publications</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        {newPosts.slice(0, 6).map((postItem) => <PostItem post={postItem} />)}
+        {
+          posts
+            .sort((a, b) => {
+              return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+            })
+            .slice(0, 4)
+            .map((postItem) => <PostItem post={postItem} />)
+        }
       </div>
     </div>
   </div>

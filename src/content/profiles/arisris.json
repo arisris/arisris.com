@@ -1,23 +1,20 @@
 {
   "name": "Aris Riswanto",
-  "title": "Senior Jamstack Web Developer",
+  "title": "Jamstack Web Developer",
   "brithDate": "13 Dec 1990",
-  "about": "Hi. I am a web programmer. I love learning new things. My daily routine is in front of the PC, writing lines of code accompanied by a cup of black coffee.",
+  "about": "Hi. Welcome to my homepage. I love learning new things. My daily routine is in front of the PC, writing lines of code accompanied by a cup of black coffee.",
   "avatar": "https://avatars.githubusercontent.com/u/62107426?v=4",
   "socialProfiles": [
     {
       "name": "Github",
-      "icon": "i-logos-github-icon?mask",
       "url": "https://github.com/arisris"
     },
     {
       "name": "Facebook",
-      "icon": "i-logos-facebook",
       "url": "https://fb.me/arisfungratis"
     },
     {
       "name": "LinkedIn",
-      "icon": "i-logos-linkedin-icon?mask",
       "url": "https://github.com/arisris"
     }
   ]

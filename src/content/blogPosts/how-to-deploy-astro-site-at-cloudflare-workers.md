@@ -4,8 +4,6 @@ author: "arisris"
 pubDate: "8 Aug 2023 20:58 GMT+7"
 ---
 
-# How to deploy astro site at cloudflare workers
-
 Astro is a modern web framework that makes it easy to build static and server-side rendered (SSR) websites. Cloudflare Workers is a serverless platform that allows you to run code close to your users, which can improve performance and reliability.
 
 In this blog post, we will show you how to deploy an Astro site to Cloudflare Workers.

@@ -1,5 +1,6 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
+import PostItem from "@/components/PostItem.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 const posts = await getCollection("blogPosts");
 ---
@@ -7,17 +8,14 @@ const posts = await getCollection("blogPosts");
 <MainLayout>
   <div class="py-4">
     <h3 class="text-3xl font-bold">Latest blog posts</h3>
-    <ul>
+    <div class="flex flex-col gap-4 mt-4">
       {
-        posts.map((i) => {
-          console.log(i.data.author.id);
-          return (
-            <li>
-              <a href={`/posts/${i.slug}`}>{i.data.title}</a>
-            </li>
-          );
-        })
+        posts
+          .sort((a, b) => {
+            return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+          })
+          .map((postItem) => <PostItem post={postItem} />)
       }
-    </ul>
+    </div>
   </div>
 </MainLayout>
