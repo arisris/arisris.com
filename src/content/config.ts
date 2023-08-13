@@ -1,7 +1,6 @@
 import { z, defineCollection, reference } from "astro:content";
 
 const blogPosts = defineCollection({
-  type: "content",
   schema: z.object({
     title: z.string().min(4),
     status: z.enum(["publish", "draft", "private"]).default("publish"),
@@ -29,7 +28,6 @@ const blogPosts = defineCollection({
 });
 
 const profiles = defineCollection({
-  type: "content",
   schema: z.object({
     name: z.string(),
     title: z.string().optional(),

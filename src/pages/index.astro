@@ -24,7 +24,10 @@ const posts = await getCollection(
       <p>
         Welcome to my homepage. I like web, I love learning new things. My daily
         routine is in front of the PC, writing lines of code accompanied by a
-        cup of black coffee.
+        cup of black coffee. And i am also freelance. what i can do? <a
+          href="/services"
+          class="text-pink hover:underline">See my services</a
+        >
       </p>
     </div>
     <div class="col-span-12 children:leading-relaxed">
@@ -60,7 +63,7 @@ const posts = await getCollection(
             }
           ].map((i) => (
             <div class="flex items-center gap-x-4">
-              <div class="rounded-full p-2 shadow dark:shadow-dark-9 transform transform-scale-90 hover:transform-scale-110 duration-300">
+              <div class="rounded-full p-2 shadow dark:shadow-dark-9 transform hover:transform-scale-120 duration-300">
                 <div
                   class={`${i.icon} dark:text-white text-5xl`}
                   title={i.alt}
@@ -77,16 +80,9 @@ const posts = await getCollection(
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         {
           posts
-            .sort((a, b) => {
-              return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-            })
-            .slice(0, 4)
-            .map((postItem) => (
-              <PostItem
-                class="hover:bg-light-6 dark:hover:bg-dark-500 p-2 rounded"
-                post={postItem}
-              />
-            ))
+            .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+            .slice(0, 2)
+            .map((postItem) => <PostItem post={postItem} />)
         }
       </div>
     </div>

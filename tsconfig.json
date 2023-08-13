@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "importsNotUsedAsValues": "remove"
   },
   "include": ["**/*"],
   "exclude": ["node_modules", ".vscode/old", "functions/**/*"]

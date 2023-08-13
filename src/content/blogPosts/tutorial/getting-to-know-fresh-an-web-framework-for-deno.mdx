@@ -4,6 +4,7 @@ author: "arisris"
 pubDate: "10 Jan 2023 14:30 GMT+7"
 upDate: "1 Feb 2023 14:36 GMT+7"
 isAiGenerated: true
+tags: ["tutorial", "how-to", "typescript", "nodejs"]
 ---
 
 In the world of web development, staying up-to-date with the latest technologies and frameworks is essential to create efficient and maintainable applications. If you're interested in exploring new avenues for building web applications using the Deno runtime, **Fresh** might just be the framework you're looking for. In this post, we'll delve into the basics of Fresh and why it's gaining attention in the Deno community.
@@ -48,7 +49,11 @@ app.use(async (ctx, next) => {
 Rendering dynamic views is a common requirement in web applications. Fresh supports template rendering using popular template engines like [Deno Eta](https://github.com/eta-dev/eta).
 
 ```typescript
-import { viewEngine, engineFactory, adapterFactory } from "fresh/view_engine.ts";
+import {
+  viewEngine,
+  engineFactory,
+  adapterFactory
+} from "fresh/view_engine.ts";
 
 const ejsEngine = await engineFactory.getEjsEngine();
 const oakAdapter = await adapterFactory.getOakAdapter();

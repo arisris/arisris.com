@@ -7,12 +7,32 @@ type Props = {
 const { post, ...props } = Astro.props;
 ---
 
-<a href={`/blog/${post.slug}`} class={props.class}>
-  <h3 class="font-bold leading-snug">{post.data.title}</h3>
-  <div class="text-xs">
-    <time datetime={post.data.pubDate.toISOString()}
-      >{post.data.pubDate.toDateString()},</time
+<div class="grid grid-cols-12 gap-2">
+  <div class="col-span-3">
+    <time class="text-xs" datetime={post.data.pubDate.toISOString()}
+      >{post.data.pubDate.toDateString()}</time
     >
-    <span>By {post.data.author.slug}</span>
   </div>
-</a>
+  <div class="col-span-8">
+    <a href={`/blog/${post.slug}`} class="hover:underline">
+      <h3 class="font-bold text-lg">{post.data.title}</h3>
+    </a>
+    {
+      post.data.tags.length && (
+        <div class="inline-flex gap-2 flex-wrap">
+          {post.data.tags.map((tag) => (
+            <a href={`/blog/tags/${tag}`} class="hover:underline text-pink">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+  <div class="col-span-12">
+    {post.body.substring(0, 120)}<a
+      href={`/blog/${post.slug}`}
+      class="hover:underline text-pink">[...]</a
+    >
+  </div>
+</div>

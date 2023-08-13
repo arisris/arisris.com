@@ -106,7 +106,7 @@ const darkThemeScript =
     <slot name="head" />
     <script is:inline set:html={darkThemeScript} />
   </head>
-  <body class="bg-light dark:bg-dark all:text-dark dark:all:text-gray-100">
+  <body class="bg-light dark:bg-dark text-dark dark:text-gray-100">
     <section class="flex flex-col min-h-screen">
       <header class="relative">
         <nav
@@ -140,7 +140,7 @@ const darkThemeScript =
           </div>
           <ul
             id="nav"
-            class="hidden flex-col md:flex md:flex-row md:items-center md:rounded-full md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold"
+            class="hidden flex-col md:flex md:flex-row md:items-center md:rounded-full md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-pink children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold children-[li.active>a]:text-pink"
           >
             {
               navLinks.map((i) => (
@@ -165,13 +165,16 @@ const darkThemeScript =
         >
           <div>
             <span>&copy; {new Date().getFullYear()}</span>
-            <a class="" href="https://github.com/arisris/arisris.com">
+            <a href="https://github.com/arisris/arisris.com" class="!hover:underline">
               Aris Riswanto
             </a>
           </div>
           <div
             class="flex items-center gap-x-2 children:p-2 children:rounded-full hover:children:shadow"
           >
+            <a href="/feed" title="Feed" class="">
+              <div class="i-ri:rss-fill text-xl"></div>
+            </a>
             <a href="https://github.com/arisris" title="Reach Me on Github">
               <div class="i-ri:github-fill text-xl"></div>
             </a>

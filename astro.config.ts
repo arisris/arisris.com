@@ -3,6 +3,8 @@ import unoCss from "unocss/astro";
 import presetUno from "unocss/preset-uno";
 import presetIcons from "unocss/preset-icons";
 import presetTypography from "unocss/preset-typography";
+import solid from "@astrojs/solid-js";
+import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   output: "static",
@@ -26,9 +28,14 @@ export default defineConfig({
           }
         })
       ]
+    }),
+    solid(),
+    mdx({
+      gfm: true
     })
   ],
   experimental: {
     assets: true
-  }
+  },
+  cacheDir: "./astro/cache"
 });
