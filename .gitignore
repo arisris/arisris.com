@@ -1,9 +1,11 @@
 .vercel
 .next
-node_modules/
-out/
-.bak/
-pages/api/test/
+.astro
+node_modules
+out
+.bak
+dist
+pages/api/test
 public/esbuild.wasm
 
 #files
