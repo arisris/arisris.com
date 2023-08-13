@@ -19,7 +19,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "pages:dev": "wrangler pages dev --compatibility-date=2023-07-17 -- astro dev",
+    "pages:dev": "wrangler pages dev --proxy=3000 --compatibility-date=2023-07-17 -- pnpm dev",
     "clean:dist": "rm -rf dist"
   },
   "prettier": {

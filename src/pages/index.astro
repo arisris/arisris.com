@@ -1,6 +1,6 @@
 ---
 import { getCollection, getEntry } from "astro:content";
-import MainLayout from "@/layouts/MainLayout.astro";
+import MainLayout from "@/components/MainLayout.astro";
 import PostItem from "@/components/PostItem.astro";
 const profile = await getEntry("profiles", "arisris");
 const posts = await getCollection(
@@ -13,7 +13,7 @@ const posts = await getCollection(
   <div class="grid grid-cols-12 gap-y-8 gap-x-4 md:gap-y-16 my-8 p-3 md:p-0">
     <div class="col-span-12 sm:col-span-4 md:mr-auto">
       <img
-        class="w-48 h-48 rounded-full"
+        class="w-48 h-48 rounded-xl"
         src={profile.data.avatar}
         alt="Avatar"
       />
@@ -60,7 +60,7 @@ const posts = await getCollection(
             }
           ].map((i) => (
             <div class="flex items-center gap-x-4">
-              <div class="rounded-full p-1.5 ring-1 ring-gray-3 dark:ring-dark-1">
+              <div class="rounded-full p-2 shadow dark:shadow-dark-9 transform transform-scale-90 hover:transform-scale-110 duration-300">
                 <div
                   class={`${i.icon} dark:text-white text-5xl`}
                   title={i.alt}
@@ -81,7 +81,12 @@ const posts = await getCollection(
               return b.data.pubDate.getTime() - a.data.pubDate.getTime();
             })
             .slice(0, 4)
-            .map((postItem) => <PostItem post={postItem} />)
+            .map((postItem) => (
+              <PostItem
+                class="hover:bg-light-6 dark:hover:bg-dark-500 p-2 rounded"
+                post={postItem}
+              />
+            ))
         }
       </div>
     </div>

@@ -18,9 +18,20 @@ type Props = {
     description?: string;
     image?: string;
   };
+  mainClass?: string;
+  parentClass?: string;
   navLinks?: { href: string; title: string }[];
 };
-let { title, description, og, twitter, robots, navLinks } = Astro.props;
+let {
+  title,
+  description,
+  og,
+  twitter,
+  robots,
+  mainClass,
+  parentClass,
+  navLinks
+} = Astro.props;
 robots ??= "index, follow";
 title ??= "Home";
 description ??= "Jamstack Web Developer";
@@ -77,27 +88,25 @@ const darkThemeScript =
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/favicon/apple-touch-icon.png"
+      href="/static/icon/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/favicon/favicon-32x32.png"
+      href="/static/icon/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/favicon/favicon-16x16.png"
+      href="/static/icon/favicon-16x16.png"
     />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="manifest" href="/static/icon/site.webmanifest" />
     <slot name="head" />
     <script is:inline set:html={darkThemeScript} />
   </head>
-  <body
-    class="bg-light dark:bg-dark all:text-dark dark:all:text-gray-100 dark:all-[a]:text-light-5 all-[a]:text-dark-7"
-  >
+  <body class="bg-light dark:bg-dark all:text-dark dark:all:text-gray-100">
     <section class="flex flex-col min-h-screen">
       <header class="relative">
         <nav
@@ -145,14 +154,14 @@ const darkThemeScript =
           </ul>
         </nav>
       </header>
-      <main class="flex-grow-1">
-        <div class="p-2 max-w-screen-md mx-auto">
+      <main class:list={["flex-auto", mainClass]}>
+        <div class:list={["p-2 max-w-screen-md mx-auto", parentClass]}>
           <slot />
         </div>
       </main>
       <footer>
         <div
-          class="flex justify-between p-2 max-w-screen-md mx-auto py-4 text-sm"
+          class="flex items-center justify-between max-w-screen-md mx-auto p-2 text-sm"
         >
           <div>
             <span>&copy; {new Date().getFullYear()}</span>
@@ -160,7 +169,9 @@ const darkThemeScript =
               Aris Riswanto
             </a>
           </div>
-          <div class="flex gap-x-2">
+          <div
+            class="flex items-center gap-x-2 children:p-2 children:rounded-full hover:children:shadow"
+          >
             <a href="https://github.com/arisris" title="Reach Me on Github">
               <div class="i-ri:github-fill text-xl"></div>
             </a>

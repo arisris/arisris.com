@@ -1,21 +1,21 @@
 ---
-import PostItem from "@/components/PostItem.astro";
-import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
+import PostItem from "@/components/PostItem.astro";
+import MainLayout from "@/components/MainLayout.astro";
+
 const posts = await getCollection("blogPosts");
 ---
 
-<MainLayout>
-  <div class="py-4">
-    <h3 class="text-3xl font-bold">Latest blog posts</h3>
-    <div class="flex flex-col gap-4 mt-4">
-      {
-        posts
-          .sort((a, b) => {
-            return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-          })
-          .map((postItem) => <PostItem post={postItem} />)
-      }
-    </div>
+<MainLayout parentClass="p-8">
+  <Fragment slot="head">
+    <meta name="google-image" content="index, follow" />
+  </Fragment>
+  <h3 class="text-3xl font-bold">Latest blog posts</h3>
+  <div class="flex flex-col gap-4 mt-4">
+    {
+      posts
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+        .map((postItem) => <PostItem post={postItem} />)
+    }
   </div>
 </MainLayout>

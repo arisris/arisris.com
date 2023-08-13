@@ -28,12 +28,6 @@ export default defineConfig({
       ]
     })
   ],
-  markdown: {
-    gfm: true,
-    shikiConfig: {
-      //theme: "dark-plus"
-    }
-  },
   experimental: {
     assets: true
   }
