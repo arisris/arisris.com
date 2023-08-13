@@ -3,6 +3,7 @@ title: "Getting to Know Fresh: A Web Framework for Deno"
 author: "arisris"
 pubDate: "10 Jan 2023 14:30 GMT+7"
 upDate: "1 Feb 2023 14:36 GMT+7"
+isAiGenerated: true
 ---
 
 In the world of web development, staying up-to-date with the latest technologies and frameworks is essential to create efficient and maintainable applications. If you're interested in exploring new avenues for building web applications using the Deno runtime, **Fresh** might just be the framework you're looking for. In this post, we'll delve into the basics of Fresh and why it's gaining attention in the Deno community.

@@ -20,8 +20,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "pages:dev": "wrangler pages dev --compatibility-date=2023-07-17 -- astro dev",
-    "clean:dist": "rm -rf dist",
-    "upload": "git add . && git commit -m 'Update' && git push"
+    "clean:dist": "rm -rf dist"
   },
   "prettier": {
     "arrowParens": "always",

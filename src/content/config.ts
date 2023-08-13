@@ -8,6 +8,7 @@ const blogPosts = defineCollection({
     author: reference("profiles"),
     tags: z.array(z.string()).default([]),
     relatedPosts: z.array(reference("blogPosts")).optional(),
+    isAiGenerated: z.boolean().default(false),
     image: z
       .object({
         src: z.string(),
@@ -28,25 +29,18 @@ const blogPosts = defineCollection({
 });
 
 const profiles = defineCollection({
-  type: "data",
+  type: "content",
   schema: z.object({
     name: z.string(),
     title: z.string().optional(),
-    about: z.string().optional(),
     avatar: z.string(),
+    website: z.string().optional(),
     brithDate: z
       .string()
       .or(z.date())
       .transform((date) => new Date(date))
       .optional(),
-    socialProfiles: z
-      .array(
-        z.object({
-          name: z.string(),
-          url: z.string().url()
-        })
-      )
-      .optional()
+    socialLinks: z.array(z.string()).optional()
   })
 });
 

@@ -22,7 +22,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 const { postItem } = Astro.props;
 const { title, author, pubDate } = postItem.data;
-const postAuthor = await getEntry("profiles", author.id);
+const postAuthor = await getEntry("profiles", author.slug);
+console.log(postAuthor.data)
 const { Content } = await postItem.render();
 ---
 

@@ -5,7 +5,7 @@ import PostItem from "@/components/PostItem.astro";
 const profile = await getEntry("profiles", "arisris");
 const posts = await getCollection(
   "blogPosts",
-  (e) => e.data.author.id === profile.id && e.data.status === "publish"
+  (e) => e.data.author.slug === profile.slug && e.data.status === "publish"
 );
 ---
 
