@@ -37,5 +37,5 @@ export default defineConfig({
   experimental: {
     assets: true
   },
-  cacheDir: "./astro/cache"
+  compressHTML: true
 });
