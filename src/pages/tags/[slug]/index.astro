@@ -1,0 +1,50 @@
+---
+import MainLayout from "@/components/MainLayout.astro";
+import PostItem from "@/components/PostItem.astro";
+import type { GetStaticPaths } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+export type Props = { slug: string };
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const tags: string[] = [];
+  const entries = await getCollection(
+    "blogPosts",
+    ({ data: { status } }) => status === "publish"
+  );
+  for (let entry of entries) {
+    for (let tag of entry.data.tags) {
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      }
+    }
+  }
+  return tags.map((slug) => {
+    return {
+      params: {
+        slug
+      },
+      props: {
+        slug
+      }
+    };
+  });
+};
+const postItems = await getCollection("blogPosts", (i) =>
+  i.data.tags.includes(Astro.props.slug)
+);
+---
+
+<MainLayout parentClass="p-8">
+  <Fragment slot="head">
+    <meta name="google-image" content="index, follow" />
+  </Fragment>
+  <h3 class="text-3xl font-bold">Post Tag: {Astro.props.slug}</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+    {
+      postItems
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+        .map((postItem) => <PostItem post={postItem} />)
+    }
+  </div>
+</MainLayout>

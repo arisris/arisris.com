@@ -18,10 +18,10 @@ const posts = await getCollection(
         alt="Avatar"
       />
     </div>
-    <div class="col-span-12 sm:col-span-8 children:leading-relaxed">
+    <div class="col-span-12 sm:col-span-8 flex flex-col gap-y-2">
       <h3 class="text-3xl font-bold">Jamstack Web Developer</h3>
       <strong>Edge stack is the future of the web</strong>
-      <p>
+      <p class="leading-relaxed">
         Welcome to my homepage. I like web, I love learning new things. My daily
         routine is in front of the PC, writing lines of code accompanied by a
         cup of black coffee. And i am also freelance. what i can do? <a
@@ -29,51 +29,6 @@ const posts = await getCollection(
           class="text-pink hover:underline">See my services</a
         >
       </p>
-    </div>
-    <div class="col-span-12 children:leading-relaxed">
-      <h3 class="text-2xl font-bold">Favorites tech</h3>
-      <p>
-        I am very excited about exploring new programming languages, libraries,
-        and frameworks. I familiar with many tools & library That i use in my
-        side projects, open source or freelance work. Here is a list of web
-        frameworks that I often use. But not limited to that
-      </p>
-      <div class="pt-8 grid grid-cols-2 gap-4">
-        {
-          [
-            {
-              icon: "i-logos:nextjs-icon",
-              text: "Next",
-              alt: "The react web framework by vercel"
-            },
-            {
-              icon: "i-logos:astro-icon",
-              text: "Astro",
-              alt: "Awesome static site generator. I use for my site"
-            },
-            {
-              icon: "i-logos:fresh",
-              text: "Fresh",
-              alt: "A popular web framework for deno runtime"
-            },
-            {
-              icon: "i-logos:unocss?mask",
-              text: "Uno",
-              alt: "An atomic css framework similar with tailwind but more powerfull"
-            }
-          ].map((i) => (
-            <div class="flex items-center gap-x-4">
-              <div class="rounded-full p-2 shadow dark:shadow-dark-9 hover:transform-scale-120 hover:duration-300">
-                <div
-                  class={`${i.icon} dark:text-white text-5xl`}
-                  title={i.alt}
-                />
-              </div>
-              <span>{i.text}</span>
-            </div>
-          ))
-        }
-      </div>
     </div>
     <div class="col-span-12">
       <h3 class="text-2xl font-bold">Recent Publications</h3>

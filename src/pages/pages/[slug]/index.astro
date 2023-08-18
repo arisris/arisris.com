@@ -1,0 +1,16 @@
+---
+import MainLayout from "@/components/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return [
+    {
+      params: { slug: "hello" }
+    }
+  ];
+};
+---
+
+<MainLayout>
+  <h3>Projects</h3>
+</MainLayout>

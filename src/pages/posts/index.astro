@@ -3,7 +3,10 @@ import { getCollection } from "astro:content";
 import PostItem from "@/components/PostItem.astro";
 import MainLayout from "@/components/MainLayout.astro";
 
-const posts = await getCollection("blogPosts");
+const posts = await getCollection(
+  "blogPosts",
+  (i) => i.data.status === "publish"
+);
 ---
 
 <MainLayout parentClass="p-8">

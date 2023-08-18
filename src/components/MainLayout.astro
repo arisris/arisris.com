@@ -1,4 +1,5 @@
 ---
+import RemixIcon, { RemixIconName } from "./RemixIcon.astro";
 type Props = {
   title?: string;
   description?: string;
@@ -20,42 +21,16 @@ type Props = {
   };
   mainClass?: string;
   parentClass?: string;
-  navLinks?: { href: string; title: string }[];
 };
-let {
-  title,
-  description,
-  og,
-  twitter,
-  robots,
-  mainClass,
-  parentClass,
-  navLinks
-} = Astro.props;
+let { title, description, og, twitter, robots, mainClass, parentClass } =
+  Astro.props;
 robots ??= "index, follow";
 title ??= "Home";
 description ??= "Jamstack Web Developer";
-navLinks = [
-  {
-    href: "/services",
-    title: "Services"
-  },
-  {
-    href: "/projects",
-    title: "Projects"
-  },
-  {
-    href: "/blog",
-    title: "Blogs"
-  },
-  {
-    href: "/tools",
-    title: "Tools"
-  },
-  ...(navLinks ?? [])
-];
+
 const darkThemeScript =
   '!((e,t,o,n)=>{const d=()=>"undefined"!=typeof localStorage&&localStorage.getItem(e)?localStorage.getItem(e):window.matchMedia(`(prefers-color-scheme: ${o})`).matches?o:n,c=t=>{t===n?document.documentElement.classList.remove(o):document.documentElement.classList.add(o),window.localStorage.setItem(e,t)};window.addEventListener("DOMContentLoaded",(()=>{document.getElementById(t)?.addEventListener("click",(e=>{e.preventDefault(),c(d()===o?n:o)}))})),c(d())})("arisris-theme-appearance", "toggle-dark", "dark", "light");';
+type SocialLinks = [RemixIconName, string, string][];
 ---
 
 <!DOCTYPE html>
@@ -83,7 +58,7 @@ const darkThemeScript =
             content && <meta name={`twitter:${name}`} content={content} />
         )
     }
-    <title>{`${title} | Jamstack Web Developer"`}</title>
+    <title>{`${title} | Jamstack Web Developer`}</title>
     <link rel="canonical" href={Astro.url} />
     <link
       rel="apple-touch-icon"
@@ -106,17 +81,14 @@ const darkThemeScript =
     <slot name="head" />
     <script is:inline set:html={darkThemeScript} />
   </head>
-  <body class="bg-light dark:bg-dark text-dark dark:text-gray-100">
+  <body
+    class="bg-white dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100"
+  >
     <section class="flex flex-col min-h-screen">
-      <header class="relative">
+      <header class="relative shadow">
         <nav
-          class="flex flex-col justify-start items-start md:items-center md:flex-row md:justify-between p-2 max-w-screen-md mx-auto children:w-full children:md:w-auto"
+          class="flex flex-col md:items-center md:flex-row md:justify-between gap-2 max-w-screen-md mx-auto p-2"
         >
-          <input
-            id="toggle-menu"
-            type="checkbox"
-            class="hidden lt-md:siblings-[ul#nav]:checked:flex lt-md:siblings-[ul#nav]:checked:absolute lt-md:siblings-[ul#nav]:checked:top-21 lt-md:siblings-[ul#nav]:checked:inset-x-0 lt-md:siblings-[ul#nav]:checked:bg-light lt-md:dark:siblings-[ul#nav]:checked:bg-dark"
-          />
           <div class="flex justify-between items-center">
             <a href="/" class="flex flex-col p-2">
               <strong class="text-2xl underline underline-dashed"
@@ -132,26 +104,37 @@ const darkThemeScript =
               title="Toggle Theme"
               class="mr-auto ml-4"
             >
-              <div class="i-ri:moon-line dark:i-ri:sun-line text-xl"></div>
+              <RemixIcon name="sun-line" />
             </button>
-            <label for="toggle-menu" role="button" class="p-2 md:hidden">
-              <div class="i-ri:menu-fill text-3xl"></div>
+            <label
+              for="toggle-menu"
+              role="button"
+              class="md:hidden select-none p-2"
+            >
+              <RemixIcon name="menu-fill" />
             </label>
           </div>
-          <ul
-            id="nav"
-            class="hidden flex-col md:flex md:flex-row md:items-center md:rounded-full md:ring-1 md:dark:ring-dark-2 md:ring-light-9 md:bg-light-7 md:dark:bg-dark-3 md:px-6 children-[li>a]:block children-[li>a]:px-4 children-[li>a]:block children-[li>a]:py-2 children-[li>a:hover]:text-pink children-[li>a:hover]:text-opacity-80 md:children-[li>a:hover]:bg-light-9 md:dark:children-[li>a:hover]:bg-dark-2 children-[li.active]:bg-light-9 dark:children-[li.active]:bg-dark-2 children-[li.active>a]:font-bold children-[li.active>a]:text-pink"
+          <input id="toggle-menu" type="checkbox" class="hidden peer/menu" />
+          <div
+            class="hidden flex-col md:flex md:flex-row md:items-center gap-x-2 md:rounded-full md:ring-1 md:dark:ring-neutral-600 md:ring-neutral-200 md:px-6 peer-checked/menu:flex"
           >
             {
-              navLinks.map((i) => (
-                <li class={i.href === Astro.url.pathname ? "active" : ""}>
-                  <a href={i.href} title={i.title}>
-                    {i.title}
-                  </a>
-                </li>
+              [
+                ["/pages/services", "Services"],
+                ["/pages/projects", "Projects"],
+                ["/posts", "Blog"],
+                ["/tools", "Tools"]
+              ].map(([href, title]) => (
+                <a
+                  href={href}
+                  title={title}
+                  class="block p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
+                >
+                  {title}
+                </a>
               ))
             }
-          </ul>
+          </div>
         </nav>
       </header>
       <main class:list={["flex-auto", mainClass]}>
@@ -165,28 +148,33 @@ const darkThemeScript =
         >
           <div>
             <span>&copy; {new Date().getFullYear()}</span>
-            <a href="https://github.com/arisris/arisris.com" class="!hover:underline">
-              Aris Riswanto
-            </a>
-          </div>
-          <div
-            class="flex items-center gap-x-2 children:p-2 children:rounded-full hover:children:shadow"
-          >
-            <a href="/feed" title="Feed" class="">
-              <div class="i-ri:rss-fill text-xl"></div>
-            </a>
-            <a href="https://github.com/arisris" title="Reach Me on Github">
-              <div class="i-ri:github-fill text-xl"></div>
-            </a>
             <a
-              href="https://linkedin.com/in/arisris"
-              title="Reach Me on Linkedin"
+              href="https://github.com/arisris/arisris.com"
+              class="hover:underline">Aris Riswanto</a
             >
-              <div class="i-ri:linkedin-fill text-xl"></div>
-            </a>
-            <a href="https://fb.me/arisfungratis" title="Reach Me on Facebook">
-              <div class="i-ri:facebook-fill text-xl"></div>
-            </a>
+          </div>
+          <div class="flex items-center gap-x-4">
+            {
+              (
+                [
+                  ["github-fill", "https://github.com/arisris", "Github"],
+                  [
+                    "linkedin-fill",
+                    "https://linkedin.com/in/arisris",
+                    "LinkedIn"
+                  ],
+                  [
+                    "facebook-fill",
+                    "https://facebook.com/arisfungratis",
+                    "Facebook"
+                  ]
+                ] as SocialLinks
+              ).map(([icon, href, title]) => (
+                <a href={href} title={title} class="hover:underline">
+                  <RemixIcon name={icon} />
+                </a>
+              ))
+            }
           </div>
         </div>
       </footer>
