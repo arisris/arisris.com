@@ -1,16 +1,23 @@
 import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 import solid from "@astrojs/solid-js";
 import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
+import Icons from "unplugin-icons/vite";
+import iconifyTypegen from "./plugins/iconify-typegen";
 
 const isProd = process.env.NODE_ENV === "production";
 
 export default defineConfig({
-  output: "static",
-  integrations: [tailwind(), solid(), sitemap()],
-  experimental: {
-    optimizeHoistedScript: true,
-    assets: true
+  output: "server",
+  adapter: cloudflare(),
+  integrations: [tailwind(), solid(), iconifyTypegen()],
+  vite: {
+    plugins: [
+      Icons({
+        autoInstall: false,
+        compiler: "astro"
+      })
+    ]
   },
   site: isProd ? "https://arisris.com" : "http://localhost:3000",
   compressHTML: isProd

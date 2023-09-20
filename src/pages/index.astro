@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from "astro:content";
 import MainLayout from "@/components/MainLayout.astro";
 import PostItem from "@/components/PostItem.astro";
+
 const profile = await getEntry("profiles", "arisris");
 const posts = await getCollection(
   "blogPosts",

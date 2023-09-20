@@ -14,7 +14,7 @@ const { post, ...props } = Astro.props;
     >
   </div>
   <div class="col-span-8">
-    <a href={`/blog/${post.slug}`} class="hover:underline">
+    <a href={`/posts/${post.slug}`} class="hover:underline">
       <h3 class="font-bold text-lg">{post.data.title}</h3>
     </a>
     {

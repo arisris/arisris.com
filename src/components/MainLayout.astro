@@ -1,5 +1,11 @@
 ---
-import RemixIcon, { RemixIconName } from "./RemixIcon.astro";
+import type { AstroIconifyComponent } from "virtual:icons";
+import RiFacebookFill from "virtual:icons/ri/facebook-fill";
+import RiGithubFill from "virtual:icons/ri/github-fill";
+import RiLinkedinFill from "virtual:icons/ri/linkedin-fill";
+import RiMenuFill from "virtual:icons/ri/menu-fill";
+import RiSunLine from "virtual:icons/ri/sun-line";
+
 type Props = {
   title?: string;
   description?: string;
@@ -30,7 +36,7 @@ description ??= "Jamstack Web Developer";
 
 const darkThemeScript =
   '!((e,t,o,n)=>{const d=()=>"undefined"!=typeof localStorage&&localStorage.getItem(e)?localStorage.getItem(e):window.matchMedia(`(prefers-color-scheme: ${o})`).matches?o:n,c=t=>{t===n?document.documentElement.classList.remove(o):document.documentElement.classList.add(o),window.localStorage.setItem(e,t)};window.addEventListener("DOMContentLoaded",(()=>{document.getElementById(t)?.addEventListener("click",(e=>{e.preventDefault(),c(d()===o?n:o)}))})),c(d())})("arisris-theme-appearance", "toggle-dark", "dark", "light");';
-type SocialLinks = [RemixIconName, string, string][];
+type SocialLinks = [AstroIconifyComponent, string, string][];
 ---
 
 <!DOCTYPE html>
@@ -104,14 +110,14 @@ type SocialLinks = [RemixIconName, string, string][];
               title="Toggle Theme"
               class="mr-auto ml-4"
             >
-              <RemixIcon name="sun-line" />
+              <RiSunLine />
             </button>
             <label
               for="toggle-menu"
               role="button"
               class="md:hidden select-none p-2"
             >
-              <RemixIcon name="menu-fill" />
+              <RiMenuFill />
             </label>
           </div>
           <input id="toggle-menu" type="checkbox" class="hidden peer/menu" />
@@ -157,21 +163,21 @@ type SocialLinks = [RemixIconName, string, string][];
             {
               (
                 [
-                  ["github-fill", "https://github.com/arisris", "Github"],
+                  [RiGithubFill, "https://github.com/arisris", "Github"],
                   [
-                    "linkedin-fill",
+                    RiLinkedinFill,
                     "https://linkedin.com/in/arisris",
                     "LinkedIn"
                   ],
                   [
-                    "facebook-fill",
+                    RiFacebookFill,
                     "https://facebook.com/arisfungratis",
                     "Facebook"
                   ]
                 ] as SocialLinks
-              ).map(([icon, href, title]) => (
+              ).map(([Ri, href, title]) => (
                 <a href={href} title={title} class="hover:underline">
-                  <RemixIcon name={icon} />
+                  <Ri />
                 </a>
               ))
             }

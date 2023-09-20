@@ -1,5 +1,6 @@
 /// <reference path="../.astro/types.d.ts" />
-/// <reference types="astro/client-image" />
+/// <reference path="../.astro/iconify.d.ts" />
+/// <reference types="astro/client" />
 
 interface ImportMetaEnv {
   readonly APP_KEY: string;
